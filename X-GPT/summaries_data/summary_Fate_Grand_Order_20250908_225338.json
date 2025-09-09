@@ -1,0 +1,42 @@
+{
+  "summary_metadata": {
+    "query": "Fate Grand Order",
+    "tweets_analyzed": 10,
+    "generated_at": "2025-09-08T22:53:38.341100",
+    "model_used": "gpt-4",
+    "timestamp": "2025-09-08 22:53:38"
+  },
+  "summary": {
+    "content": "Resumen:\n\nLos tuits analizados sobre \"Fate/Grand Order\" destacan principalmente la promoción de productos relacionados con la franquicia. Se anuncian figuras coleccionables, como la del Rey Mago Salomón, con fechas de lanzamiento previstas para 2026. Además, se informa sobre la disponibilidad de tarjetas de regalo oficiales en tiendas como Seven-Eleven y FamilyMart, recordando a los usuarios la validez limitada de las mismas. También se promocionan ilustraciones de personajes populares del juego, como Ishtar y Ushiwakamaru, e incluyen enlaces para acceder a las colecciones completas. En general, los temas principales giran en torno a mercancía oficial, lanzamientos de figuras y tarjetas de regalo, así como contenido artístico de la comunidad.",
+    "language": "spanish",
+    "type": "5-10 line summary"
+  },
+  "source_data": {
+    "x_api_metadata": {
+      "total_tweets": 10,
+      "languages": [
+        "en",
+        "ja"
+      ],
+      "date_range": {
+        "oldest": "2025-09-09T03:50:23.000Z",
+        "newest": "2025-09-09T03:53:03.000Z"
+      },
+      "engagement_summary": {
+        "total_likes": 0,
+        "total_retweets": 2366,
+        "total_replies": 0,
+        "avg_likes": 0.0
+      },
+      "verified_authors": 0
+    },
+    "tweets_count": 10,
+    "original_query": "Fate Grand Order",
+    "tweets_file": "tweets_Fate_Grand_Order_20250908_225331.json"
+  },
+  "sample_tweets": [
+    "RT @KitsuneArtworks: Ishtar | Fate/Grand Order  \n\nFull set available!⬇️ https://t.co/v4A4tE1aT7",
+    "RT @figureandhobby: アニメイトオンラインで予約開始！\n\nFate/Grand Order -終局特異点 冠位時間神殿ソロモン- 魔術王ソロモン 1/7 完成品フィギュア\n\n2026...",
+    "RT @fgoproject: 【カルデア広報局より】\n「Fate/Grand Order」ギフトカード2種が全国の取り扱い店舗で好評発売中！\nギフトカードには購入後180日の有効期限がございますので..."
+  ]
+}
