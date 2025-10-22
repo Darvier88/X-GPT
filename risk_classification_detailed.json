@@ -1,0 +1,2859 @@
+{
+  "con_politica": [
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, discriminatorio o violento. Se trata de una cita sobre ciclos de reencarnación y no presenta ambigüedad que sugiera un riesgo. No hay lenguaje tóxico ni referencias a grupos protegidos.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 1,
+      "text": "RT @qingcichuan: Thirty million cycles of reincarnation…\n#Phainon #HonkaiStarRail https://t.co/AFYQyB3bUN"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene un retweet de un contenido que no es explícito ni ofensivo. La frase en japonés no presenta lenguaje tóxico, de odio, ni ninguna otra categoría de riesgo identificable. El enlace no proporciona contexto adicional que sugiera un riesgo. Por lo tanto, se clasifica como de bajo riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 2,
+      "text": "RT @licheng199: 深水雛子の夢 https://t.co/nANkoEpSax"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa agradecimiento y reconocimiento hacia personas en el contexto de la lucha libre, sin contenido ofensivo, discriminatorio o violento. No hay lenguaje tóxico ni ataques hacia grupos protegidos. La mención de 'masterclass' y 'hermoso tributo' sugiere un mensaje positivo y celebratorio.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 3,
+      "text": "RT @undertaker: Thank you @JohnCena and thank you @AJStylesOrg. A masterclass and beautiful tribute to wrestling. \n\nThe #WWEUniverse said i…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, discriminatorio o violento. Es un retweet que incluye un hashtag y un enlace, sin elementos que sugieran riesgo según la política de moderación. La falta de lenguaje tóxico o de odio hace que se considere de bajo riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 4,
+      "text": "RT @ayunoko: ❁⃘*.ﾟ #sirenthillf https://t.co/8XynE1UVGn"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión positiva sobre un combate de wrestling, elogiando a los luchadores y mencionando una dedicatoria emocional. No contiene lenguaje ofensivo, discriminatorio ni violento, y no se observa ninguna ambigüedad que sugiera un riesgo. Se trata de una apreciación personal y un homenaje a la lucha libre.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 5,
+      "text": "Ha sido, sin exagerar, uno de los mejores combates que he visto en mi vida. Clase magistral de wrestling por parte de Cena y Styles; un homenaje a toda la historia reciente de la lucha libre.\n\nYa se me pusieron llorosos los ojos con la dedicatoria especial de Cena a Styles, https://t.co/YORZ2f9DMs https://t.co/xXsLJ44vcB"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión personal sobre un contenido que se considera positivo ('buenísimo') y no contiene lenguaje ofensivo, discriminatorio o violento. La expresión de decepción es emocional y no implica ningún riesgo según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 6,
+      "text": "Nooooo\n\nCon lo buenísimo que está Frieren actualmente 😞 https://t.co/VtMB63hyi1"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una sensación personal de ansiedad o miedo al mencionar pesadillas, pero no contiene lenguaje ofensivo, discriminatorio o violento. No hay ataques a personas o grupos, ni contenido que cause controversia. Se trata de una expresión subjetiva sin implicaciones de riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 7,
+      "text": "@_skiller115 Iba a dormir y ahora tendré pesadillas."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, discriminatorio o violento. Se presenta como una cita que menciona a personas sin incitar a la controversia o al odio. No hay términos que sugieran riesgo según la taxonomía de riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 8,
+      "text": "RT @KagaOnda: I haven’t seen anyone talk about this… But did you know? Iuno once mentioned that, besides Augusta, she had many other friend…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, discriminatorio o violento. Se presenta como un mensaje neutral sobre una celebración de matrimonio, sin implicaciones negativas o controversiales. La ausencia de contenido problemático sugiere que no hay riesgo asociado.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 9,
+      "text": "RT @bitter_r18tya: 寿雛の幸せなご結婚をですね…… https://t.co/UKPIWSDL7y"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es una cita de otro usuario que expresa una opinión sobre un personaje de ficción de manera humorística. No contiene lenguaje ofensivo, insultos ni ataques hacia personas o grupos. La referencia a 'lol' sugiere un tono ligero y no hay indicios de contenido sensible o controvertido.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 10,
+      "text": "RT @Sitback101: #ONEPIECE1162\nKaido is just happy to be here lol https://t.co/RNg4Wgry3Z"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, insultos, ni ataques a grupos protegidos. Se presenta como un comentario sobre un tema de cultura pop sin implicaciones negativas. No hay elementos que sugieran violencia, odio o acoso.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 11,
+      "text": "RT @Johan_radiant: Y esto !? Rudo es el primer pokemon del shonen semanal en evolucionar! \n\nEh estado experimentado y vaya que costo meter…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet presenta contenido sobre un dibujo relacionado con 'Uma musume' y 'Need for speed underground', sin lenguaje ofensivo, discriminatorio o violento. No hay elementos que sugieran toxicidad, odio, violencia o acoso. Se trata de un contenido creativo y de entretenimiento, lo que lo clasifica como de bajo riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 12,
+      "text": "RT @TFGridPr1me_86: #umamusumeprettyderby \n#umamusume \n#CinderellaGray\nUma musume x Need for speed underground \nDibujando Uma musume hasta…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet compartido no contiene contenido ofensivo, discriminatorio, violento o que infrinja las políticas de moderación. Es un mensaje que parece referirse a una experiencia personal relacionada con obtener un producto gratuito, sin implicaciones negativas o de riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 13,
+      "text": "RT @Majima_Kensetsu: Luego he vuelto a por un quesito gratis también \n\nhttps://t.co/aRQ0uCcFCT https://t.co/oWfJ3Zw9v1"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet describe personajes de un juego sin contenido ofensivo, discriminatorio o violento. No hay lenguaje tóxico ni deshumanización, y el contexto es neutral. No se identifican riesgos asociados a la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 14,
+      "text": "@MrGoldenDD Azumarill el de la derecha y Pikachu el de la izquierda.\n\nBásicamente los dos del centro"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, discriminatorio o que incite a la violencia. La expresión 'me gusta muchísimo jaja' sugiere una reacción positiva y no hay indicios de hostigamiento o acoso. No se identifican palabras o frases que representen un riesgo según la taxonomía.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 15,
+      "text": "@Cinnabar_Phos La hiciste tú? Me gusta muchísimo jaja"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet parece ser una expresión personal sobre opiniones en torno a varios animes y menciona 'hate' de manera irónica. No hay insultos directos ni lenguaje tóxico hacia un grupo protegido. La referencia al 'infierno' se usa en un contexto figurado y no implica una amenaza real. La ambigüedad y el tono irónico sugieren que no hay un riesgo significativo.",
+      "spans": [],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 16,
+      "text": "Igual yo supuestamente inventé el hate a Jujutsu, BnHa, Black Clover, Chainsaw Man, Frieren(?), Takopi, HxH y muchos más dependiendo del esquizofrénico al que le preguntes.\n\nAsí que mis pecados también son muy graves. Nos veremos en el infierno, Beelce. https://t.co/lepYAngj3F"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión sobre la reputación de una persona, sin utilizar lenguaje ofensivo o despectivo. Aunque menciona acciones y comentarios que dañaron la reputación, no hay insultos ni deshumanización. La referencia a 'hay que quererlos igual' sugiere una postura más comprensiva que crítica.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 17,
+      "text": "Entre Beelce y Perico, efectivamente. Eso es una realidad absoluta.\n\nSus acciones y comentarios dañaron la reputación del mejor de todos los tiempos durante años, pero bueno hay que quererlos igual. https://t.co/cINEekzAfe https://t.co/IPvjc8itt0"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es un saludo de cumpleaños que no contiene lenguaje ofensivo, insultos ni ataques hacia personas o grupos. No hay indicios de odio, violencia o acoso. La mención de 'Capitán Arroz' parece ser un apodo amistoso y no despectivo. Por lo tanto, se considera de bajo riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 18,
+      "text": "@Bryanji98791739 @Apun_01 @Beelce_ @grok @BrujaNumi Feliz cumpleaños, Capitán Arroz! 🎂"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, discriminatorio, ni incita a la violencia. Es un mensaje que parece ser neutral y no presenta ambigüedad que sugiera un riesgo. La referencia a 'Silent Hill' y el uso de un hashtag no indican contenido problemático.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 19,
+      "text": "RT @toffynarufy: また会いましょ\nDon’t worry I’ll take care everything from here.\n\n#SILENTHILLf #サイレントヒルf #サイレントヒル https://t.co/v1x0dMSJZg"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, discriminatorio o violento. Se trata de una expresión personal sobre sentimientos, sin implicaciones de odio o acoso. La inclusión de hashtags relacionados con un tema de entretenimiento no añade riesgo. No hay contenido que se considere problemático según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 20,
+      "text": "RT @jii_0208: I hope to reevaluate my feelings for you.\n#サイレントヒルf #silenthillf #寂静岭f https://t.co/xFsMosVu14"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene una expresión de sorpresa o risa ('JAJAJA') y una pregunta retórica. No hay contenido ofensivo, discriminatorio o violento. La inclusión de un enlace no proporciona contexto adicional que sugiera riesgo. La ambigüedad del contenido y la falta de insultos o ataques a grupos protegidos permiten clasificarlo como de bajo riesgo.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 21,
+      "text": "PERO POR QUÉ? JAJAJA https://t.co/GbvToNXiuz"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, insultos ni descalificaciones. La frase 'Tengo una vida sana' parece ser una afirmación personal sin contexto que sugiera toxicidad o discriminación. No hay elementos que indiquen riesgo según la taxonomía establecida.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 22,
+      "text": "@Oscar_BrockWah @padriag0 Seguido de un \"Tengo una vida sana\""
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet presenta un comentario humorístico sobre personajes de un juego, utilizando términos como 'wuwitas' y 'husbandos' de manera lúdica. No se identifican insultos, descalificaciones ni lenguaje ofensivo hacia personas o grupos. La referencia a la falta de representación masculina es una observación sobre el contenido del juego y no incita al odio o la violencia.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 23,
+      "text": "Rinascita tuvo 11 wuwitas y 1 wuwito jajaja \n\nPero es cierto que Natlan tuvo 8 genshincitas y 3 genshincitos. Y Amphoreus tuvo 10 honkaicitas y 3 honkaicitos.\n\nDefinitivamente falta representación masculina. Hay que meter más husbandos (para así skipearlos y poder ahorrar tiradas https://t.co/RJezCrk75L"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet describe una situación ficticia en un contexto de juego sin lenguaje ofensivo, discriminatorio o violento. No hay insultos ni deshumanización, y se presenta como una narrativa de un juego. La mención de personajes que mueren es parte de la trama y no incita a la violencia ni al odio.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 24,
+      "text": "@Kalyor_ En Natlan jugamos una guerra en la que dependiendo de nuestras decisiones podían morir miles de personas, entre ellas numerosos NPC's. Por no hablar de los muertos durante la propia historia como Capitano, la amiga de Mualani, o la hermana de Chasca.\n\nTodo fue mucho más"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, discriminatorio o violento. Es una afirmación neutral sobre la falta de más capítulos, sin implicaciones negativas hacia personas o grupos. No se identifican palabras o frases que representen un riesgo según la taxonomía establecida.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 25,
+      "text": "@Kurapika_EX Pero ya no hubo más capítulos papu"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet parece ser una referencia a una conversación previa con un tono humorístico, sin contenido ofensivo, de odio o violencia. La expresión 'WTF jajaja' sugiere una reacción divertida y no hay insultos ni descalificaciones. No se identifican palabras o frases que indiquen un riesgo claro según la política de moderación.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 26,
+      "text": "@yoko777117 @Bardopacotilla Atea era Pyro WTF jajaja https://t.co/iAmdyCIROI"
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "La frase 'Quién es la muerta?' puede interpretarse como despectiva o insultante hacia una persona, sugiriendo desprecio. Aunque no se menciona un grupo protegido, el uso de 'muerta' en un contexto despectivo puede ser considerado tóxico. Se aplica caridad interpretativa al no tener un contexto claro de agresión directa.",
+      "spans": [
+        {
+          "text": "la muerta",
+          "start": 18,
+          "end": 28,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 27,
+      "text": "@yoko777117 @Bardopacotilla Quién es la muerta?"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es un mensaje amistoso que menciona un vídeo y un saludo de cumpleaños. No contiene lenguaje ofensivo, discriminatorio ni ningún contenido que pueda ser considerado de riesgo según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 28,
+      "text": "@Iskanda58920177 Le hice un vídeo de una hora al Genshin, papu\n\nFeliz cumpleaños, por cierto."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, discriminatorio ni violento. Se refiere a personajes de un videojuego de manera neutral y no incita a ninguna forma de hostigamiento o violencia. La referencia a 'NPC's' y 'GOAT' es parte del lenguaje coloquial de los videojuegos y no presenta riesgo de acuerdo a la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 29,
+      "text": "@JonaEmiya A ver, puedo darte varios ejemplos de NPC's de gachas como Avidius (Cariberto en Genshin, sin ir más lejos), pero sí, un GOAT."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet compara personajes de dos obras sin lenguaje ofensivo ni despectivo. No hay insultos, ataques o contenido sensible. Se presenta como una opinión sobre la calidad de los personajes, lo que no entra en ninguna categoría de riesgo según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 30,
+      "text": "@2294Ken @LeonPlay26 Y si, pero les salió mejor. Porque los personajes de WuWa en este arco están mejor trabajados que los del Zzz en la 1.0."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, discriminatorio o que incite a la violencia. La expresión 'Ni de broma' sugiere una negación o desacuerdo, pero no implica insultos ni descalificaciones. La risa 'jajaja' puede interpretarse como una reacción humorística, lo que disminuye el riesgo de toxicidad.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 31,
+      "text": "@MarcosFelipeRa7 Ni de broma jajaja"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión sobre un videojuego y no contiene lenguaje ofensivo, discriminatorio o violento. La referencia a la 'cocción' del juego y las interacciones de personajes es una crítica constructiva y no implica ningún riesgo de contenido tóxico o sensible.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 32,
+      "text": "Pues ya terminé la 2.7 de Wuthering Waves y WOW, VAYA MISIÓN TAN BUENA\n\nEra verdad que había que dejar cocinar al juego. Una de las mayores quejas que había sobre WuWa era la falta de interacciones o \"desaparición\" de los personajes antiguos con cada versión. Al final se ve que https://t.co/Uhx3yucFJS"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una crítica hacia la política de monetización de Twitch, pero no contiene lenguaje ofensivo, discriminatorio o violento. La mención de 'creaciones abandonadas' y la crítica a la distribución de ingresos no se considera tóxica ni de odio. No hay elementos que sugieran acoso o violencia.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 33,
+      "text": "\"Escucha bien, CEO de Twitch. Este grito viene de todas tus creaciones abandonadas...\n\nEn 2022, vi como por cada suscripción vuestra empresa se llevaba más de la mitad del dinero de los donantes. Presencié como la gente compraba bits para apoyarme aún sabiendo que un gran https://t.co/6OdI6uUp2f"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, discriminatorio o que incite a la violencia. Se presenta como una reflexión sobre la acción de un CEO, sin elementos que sugieran toxicidad o sensibilidad política. La referencia a donar a una streamer no implica un ataque ni deshumanización, y no hay ambigüedad que sugiera un riesgo mayor.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 34,
+      "text": "RT @HITBOXKING: Imagínate ser CEO de TWITCH y donarle a una streamer en directo por el labor que desempeña en ella, pero hacerlo con dinero…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene un retweet de un contenido que parece ser una referencia a un videojuego ('Silent Hill') y un emoji, sin elementos ofensivos, de odio o violencia. No hay lenguaje tóxico ni referencias a identidades protegidas. El contenido es neutral y no presenta riesgo según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 35,
+      "text": "RT @turtle_0718: #サイレントヒルf #silenthillf\n⛩️ https://t.co/5Hc1IgSTzT"
+    },
+    {
+      "labels": [
+        "hate"
+      ],
+      "risk_level": "high",
+      "rationale": "El uso de 'hate' en el contexto de recibir críticas o rechazo puede interpretarse como un comentario sobre la percepción negativa hacia los personajes mencionados. Aunque no se dirige a un grupo protegido, el término puede implicar un sentimiento de desdén hacia ellos. La ambigüedad del contexto y el uso de 'jajaja' sugiere una intención de humor, pero el término 'hate' sigue siendo relevante.",
+      "spans": [
+        {
+          "text": "mucho hate",
+          "start": 48,
+          "end": 58,
+          "label": "hate"
+        }
+      ],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Escalado: hate/violence → high",
+      "original_risk_level": "mid",
+      "tweet_id": 36,
+      "text": "Dominik es como Boruto.\n\nHijo de Naruto (Rey Misterio), pero prefiere ser como Sasuke (Eddie Guerrero).\n\nY los dos reciben mucho hate jajaja https://t.co/XQt6U3IvNM"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene un título y un enlace que no presentan contenido ofensivo, tóxico o de odio. No hay elementos que sugieran violencia, acoso o sensibilidad política. La ausencia de contexto adicional hace que no se pueda clasificar como riesgoso.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 37,
+      "text": "SILENT Hill F: https://t.co/U5iPRJSkUd"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene un texto en japonés que se traduce como 'sueño corrupto', pero no hay un contexto claro que indique ofensa, odio o violencia. La inclusión de un enlace no proporciona suficiente información para clasificar el contenido como riesgoso. Sin embargo, la ambigüedad del mensaje sugiere que no hay un riesgo significativo.",
+      "spans": [],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 38,
+      "text": "RT @Rellakinoko: 腐敗する夢 https://t.co/PiEvKr9jI6"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es un mensaje positivo sobre el logro de 5,000 reseñas de un producto, sin contenido ofensivo, discriminatorio o violento. No presenta ambigüedad ni riesgo en términos de la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 39,
+      "text": "RT @hanadakeika: Fata Morgana has reached 5,000 reviews!! I’m honestly so surprised and so happy.\n\nWhen I first released Fatamoru, I never…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet parece ser una cita que expresa un sentimiento positivo hacia alguien, sin contenido ofensivo o dañino. La frase 'eres hermosa' no contiene insultos ni descalificaciones, y el contexto sugiere admiración. No hay elementos que indiquen riesgo de toxicidad, odio o violencia.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 40,
+      "text": "RT @TheDarkraimola: \"La verdadera razón por la que acabé siendo de esta manera fue...\n\nPorque pienso que eres hermosa. Eso es todo...\"\n\n✍️🔥…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, discriminatorio o violento. La expresión 'GRACIAS PADRE WUWA' parece ser una muestra de agradecimiento, y la frase 'SOLO CON DOS MULTIS' no proporciona contexto suficiente para identificar un riesgo claro. Sin elementos que indiquen toxicidad, odio o violencia, se clasifica como de bajo riesgo.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 41,
+      "text": "GRACIAS PADRE WUWA\n\nSOLO CON DOS MULTIS https://t.co/XVzq7bk7Ud"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet consiste en una combinación de emojis y un enlace, sin contenido textual que sugiera ofensa, odio o violencia. No hay elementos que indiquen riesgo según la política de moderación. La ausencia de lenguaje tóxico o discriminatorio hace que se considere de bajo riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 42,
+      "text": "RT @hei11999: 🌟+⭐️+✨=✴️ https://t.co/yZ7j83A7LI"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, discriminatorio, violento o de acoso. Se trata de un retweet que incluye caracteres en japonés y hashtags relacionados con un videojuego, sin implicaciones negativas. No hay elementos que sugieran riesgo según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 43,
+      "text": "RT @piyokoy_: 私の雛子\n\n寿雛\n\n#サイレントヒルf\n#silenthillf https://t.co/Ws3Iu4McaU"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet proporciona información sobre una extensión para Twitch sin contenido ofensivo, discriminatorio o que incite a la violencia. No hay elementos que indiquen riesgo según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 44,
+      "text": "RT @Alternativevt: Si usan Twitch desde PC, sean Streamers o Viewers pueden usar esta extensión llamada \"Enhancer\" \nTiene una gran cantidad…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es una respuesta que menciona una extensión de Google Chrome y no contiene contenido ofensivo, discriminatorio o violento. No hay elementos que sugieran riesgo según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 45,
+      "text": "RT @KotaKotonya: @MegumiShigaisen it’s a Google chrome extension called twitch enhancer!\n\nit is worth noting however that this extension al…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, discriminatorio o violento. Se trata de un retweet que incluye caracteres japoneses y hashtags relacionados con un videojuego, lo que sugiere que es un contenido de entretenimiento. No hay elementos que indiquen riesgo según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 46,
+      "text": "RT @Tsuma____: 寿雛\n#サイレントヒルf\n#silenthillf https://t.co/nwAGZ5dKcC"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene un retweet de un texto en japonés que no presenta contenido ofensivo, tóxico o de odio. La inclusión de hashtags relacionados con un videojuego no sugiere ningún riesgo de violencia, acoso o discriminación. No hay elementos que indiquen controversia o sensibilidad política en el contexto proporcionado.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 47,
+      "text": "RT @SumiSamuuu: 寿雛\n#サイレントヒルf #silenthillf https://t.co/rOxNKcpWu9"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, tóxico o de odio. Se trata de un retweet que menciona un tema relacionado con un videojuego, sin implicaciones negativas o controversiales. No hay lenguaje que sugiera violencia, acoso o discriminación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 48,
+      "text": "RT @yuno_11_02: #サイレントヒルf\n#silenthillf https://t.co/eH8HXuFPRs"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene un retweet de un contenido que parece ser una referencia a un videojuego, sin lenguaje ofensivo, discriminatorio o violento. No hay elementos que sugieran riesgo de toxicidad, odio, violencia o acoso. La mención de un título de videojuego y un enlace no implica contenido problemático según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 49,
+      "text": "RT @99PEKOPECO99: #silenthillf #サイレントヒルf \n寿雛 https://t.co/IoAT03u2p6"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene un retweet de un contenido que parece ser una referencia cultural o artística sin un contexto adicional que sugiera toxicidad, odio o violencia. No hay lenguaje ofensivo ni ataques a grupos protegidos. La naturaleza del contenido no es explícita ni problemática.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 50,
+      "text": "RT @Lemonhighball6: 寿雛／狐の窓 https://t.co/c491V2T4RB"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet parece ser una simple referencia a un videojuego ('Silent Hill') y no contiene contenido ofensivo, discriminatorio o violento. La inclusión de hashtags y un enlace no sugiere ninguna intención de incitar al odio o la violencia. No hay elementos que indiquen riesgo según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 51,
+      "text": "RT @i_do_Anime: #サイレントヒルf\n#silenthillƒ https://t.co/KwjjkQhYDo"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es una respuesta que menciona una discrepancia en el conteo de espectadores en una transmisión de Twitch. No contiene lenguaje ofensivo, discriminatorio ni violento. La referencia a 'viewers' y 'vips' es neutral y no implica ningún tipo de ataque o descalificación hacia personas o grupos. Por lo tanto, no se identifica riesgo alguno según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 52,
+      "text": "RT @arraveri: 4 viewers you say? Because I counted at least 32 including vips and mods @Twitch @TwitchSupport https://t.co/f8CVSsXqLy"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es un mensaje personal que celebra un regalo de cumpleaños hecho a mano. No contiene lenguaje ofensivo, discriminatorio o que incite a la violencia. Además, el contexto es claramente positivo y no presenta ambigüedad que sugiera un riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 53,
+      "text": "RT @Mrenghy: Mi hermanita me hizo una Bocchi a mano por mi cumple https://t.co/I45nfvMdWt"
+    },
+    {
+      "labels": [
+        "political_sensitivity"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet menciona la retransmisión de eventos extremos (muerte y nacimiento) en plataformas de streaming, sugiriendo una crítica hacia la desensibilización del público. Aunque no hay lenguaje ofensivo directo, el contexto puede generar controversia sobre la ética de la cobertura mediática de estos eventos. La frase 'Ya no importa nada' puede interpretarse como un comentario sobre la falta de sensibilidad social, lo que añade un matiz de sensibilidad política.",
+      "spans": [
+        {
+          "text": "Ya no importa nada",
+          "start": 29,
+          "end": 47,
+          "label": "political_sensitivity"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 54,
+      "text": "En Kick retransmitieron la muerte de una persona y en Twitch el nacimiento de otra.\n\nYa no importa nada. https://t.co/1n2L6U7ZpS"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión positiva sobre un evento deportivo, sin lenguaje ofensivo, discriminatorio o que incite a la violencia. No contiene elementos que puedan ser considerados tóxicos o de odio, y se enfoca en una experiencia personal relacionada con un juego. Por lo tanto, no presenta riesgos según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 55,
+      "text": "@S0yMike @Oscar_BrockWah @CapitanPokemon De los mejores goles que he visto en Inazuma Eleven , que locura"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, discriminatorio o violento. Se presenta como una expresión de sorpresa o admiración, aunque el contexto específico de 'histórico' y 'archer halc' no es claro. No hay elementos que sugieran un riesgo significativo según la política de moderación.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 56,
+      "text": "RT @S0yMike: Bro, esto que ha sido?? histórico si me preguntan  @Oscar_BrockWah  @CapitanPokemon  #MercenariosFC \n\nES EL JODIDO ARCHER HALC…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, discriminatorio ni violento. Se limita a comentar sobre la interacción en la plataforma Twitch, sin implicaciones negativas o controversiales. No hay elementos que sugieran riesgo de toxicidad, odio o violencia.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 57,
+      "text": "RT @TndenciaStream: \"Twitch\"\n\nPorque si no interactúas en el chat, Twitch ya no te considera como viewer. https://t.co/MorlbWlFtw"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión sobre un videojuego sin utilizar lenguaje ofensivo o despectivo. Aunque incluye una expresión coloquial ('putísimo peak'), esta no se dirige a un grupo o individuo específico y no tiene un contexto que sugiera toxicidad o discriminación. La crítica a los aspectos jugables es constructiva y no implica acoso o violencia.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 58,
+      "text": "Vaya putísimo peak la historia del Silent Hill F. \n\nCada final es mejor que el anterior, qué barbaridad. Y todos en su conjunto hacen de esta una de las historias de terror más originales y mejor narradas que he visto. Tengo quejas con los aspectos jugables, pero todos los https://t.co/FNzttnjxv3"
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "El término 'minita' puede ser considerado despectivo hacia las mujeres, lo que implica un lenguaje denigrante. Aunque no se dirige a un grupo específico, el uso de un término que puede ser interpretado como una reducción de la dignidad de las mujeres sugiere un contenido tóxico. Sin embargo, la ambigüedad del contexto puede degradar la severidad.",
+      "spans": [
+        {
+          "text": "minita",
+          "start": 36,
+          "end": 42,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 59,
+      "text": "@soymatt_ Tienes tiempo para vigilarme entre minita y minita?"
+    },
+    {
+      "labels": [
+        "hate",
+        "toxic"
+      ],
+      "risk_level": "high",
+      "rationale": "El tweet menciona 'tirándome hate', lo que implica que el autor ha recibido comentarios negativos, pero no se dirige a un grupo específico ni utiliza lenguaje despectivo. Sin embargo, el término 'hate' puede ser considerado como un ataque emocional hacia quienes critican al autor, lo que justifica la clasificación de riesgo. La ambigüedad y el contexto de la crítica personal llevan a una degradación moderada en la severidad.",
+      "spans": [
+        {
+          "text": "tirándome hate",
+          "start": 43,
+          "end": 57,
+          "label": "hate"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Escalado: hate/violence → high",
+      "original_risk_level": "mid",
+      "tweet_id": 60,
+      "text": "@OneEyedGuille @Jamke0820 @CarlitoBurner77 Pero que piensen de mí lo que quieran, nunca fue mi intención caerle bien a todo el mundo ni mucho menos a los fans de las obras que critico.\n\nEl problema es que me pareció  surrealista que tras TODOS esos comentarios tirándome hate, aún así quisieran dejarme mal diciendo que no"
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet incluye un comentario sobre insultos y resentimiento, lo que puede interpretarse como una queja sobre el acoso verbal. Aunque no hay insultos directos, la mención de 'insultarme' y 'resentido' sugiere un ambiente tóxico. La expresión 'jajaja' puede minimizar la gravedad, pero el contexto de quejas sobre insultos persiste.",
+      "spans": [
+        {
+          "text": "insultarme",
+          "start": 30,
+          "end": 40,
+          "label": "toxic"
+        },
+        {
+          "text": "resentido",
+          "start": 88,
+          "end": 97,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 61,
+      "text": "@Jamke0820 @OneEyedGuille @CarlitoBurner77 Hombre, está bien insultarme una vez, dos, tres...pero decenas?\n\nLo que me llamó la atención aquí fue la cantidad jajaja \n\nEso y que me acusaban de estar resentido por un comentario. Y no, yo estoy resentido por 20 xd"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet describe una experiencia personal positiva con una marmota y una fotografía de la catedral. No contiene lenguaje ofensivo, discriminatorio o violento. La expresión de alegría y humor es clara y no presenta riesgos según la política de moderación.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 62,
+      "text": "Me encontré una marmota salvaje y tocó hacer de guia turístico 😌\n\nTremendo fotón el de la catedral jajaja https://t.co/DHXeCb6ppH"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet describe una experiencia personal sin contenido ofensivo, discriminatorio o violento. La mención de una invitación a comer y la interacción social no presenta riesgos según la política de moderación. No hay lenguaje tóxico ni referencias a grupos protegidos.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 63,
+      "text": "RT @MarmotaSenpai: chavales me encontré con @TheDarkraimola 🙀 me invitó una pizza en un local de kebabs y me mostró su universidad 🥸gracias…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, discriminatorio o violento. Se trata de un retweet que menciona a un personaje ficticio y una fecha, lo que no presenta riesgo según la política de moderación. No hay lenguaje tóxico ni elementos que puedan ser considerados sensibles o controvertidos.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 64,
+      "text": "RT @_Swado_: El hermano de Darkrai un 29 de Marzo del 2017: https://t.co/2FPx4OZ2Ra"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet presenta una expresión de resentimiento personal, pero no contiene lenguaje ofensivo, discriminatorio o que incite a la violencia. La frase 'igual soy un poco resentido' es una autoevaluación que no ataca a otros ni promueve un discurso de odio. No hay contenido que se ajuste a las categorías de riesgo definidas.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 65,
+      "text": "RT @TheDarkraimola: @OneEyedGuille @LorenaRokuhira @CarlitoBurner77 A ver, igual soy un poco resentido, no lo voy a negar. Pero está claro…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet menciona una situación en Twitch relacionada con la disminución de espectadores, pero no contiene lenguaje ofensivo, discriminatorio o violento. No se identifica un riesgo claro en el contenido presentado, ya que se trata de una observación sobre la plataforma sin ataques ni descalificaciones.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 66,
+      "text": "RT @MovistareSports: 🟣 Twitch sigue recortando los viewers de los streamers y la tensión crece:\n\nLa plataforma estaría descontando a los ll…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es una referencia a un anime y no contiene lenguaje ofensivo, discriminatorio o violento. La mención de un anime de los 80s es una expresión creativa sin implicaciones negativas. No hay contenido que se ajuste a las categorías de riesgo definidas.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 67,
+      "text": "RT @DqKeita: #HonkaiStarRail si fuese un anime de los 80s https://t.co/hrre6tu6qa"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es un retweet que simplemente incluye la palabra 'Basado' y un enlace. No hay contenido ofensivo, discriminatorio o que incite a la violencia. La palabra 'Basado' puede interpretarse de diversas maneras, pero en este contexto no se presenta como un insulto o ataque. Sin embargo, el enlace podría contener contenido que no se puede evaluar sin acceso directo.",
+      "spans": [],
+      "confidence": 0.5,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 68,
+      "text": "RT @Bardopacotilla: Basado https://t.co/8MHJ6lQKjh"
+    },
+    {
+      "labels": [
+        "toxic",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet incluye insultos y una referencia a la acusación de tener un 'ego frágil', lo que puede interpretarse como un intento de menospreciar a la otra persona. Aunque hay un tono de defensa, el uso de 'insultar' y la mención del ego sugiere un comportamiento hostigador. Se considera tóxico y de acoso, aunque no se dirige a un grupo protegido.",
+      "spans": [
+        {
+          "text": "empezaste a insultar",
+          "start": 36,
+          "end": 57,
+          "label": "toxic"
+        },
+        {
+          "text": "ego frágil",
+          "start": 98,
+          "end": 109,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 69,
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Pues si we, porque te lo tomaste a mal y me empezaste a insultar xd\n\nPero bueno, culpa mía por hablar con alguien que desde el minuto 1 ya había dejado claro que yo le caía mal.\n\nMe vas a acusar de tener el ego fragil otra vez o podemos dejarlo aquí? https://t.co/l2IkYqrejR"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet describe una reacción personal a una crítica sin lenguaje ofensivo o despectivo. No se identifican insultos ni ataques hacia grupos protegidos. La referencia a 'hater' es coloquial y no implica un ataque directo. No hay contenido que incite a la violencia, odio o acoso.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 70,
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 1. Veo a un tipo diciendo que no le gusta mi contenido.\n\n2. Entro a su perfil a ver si descubro el porqué (Suelo hacerlo cuando veo críticas contra mi o mi canal, ya que  si el \"hater\" en cuestión es fan de BnHa/Jujutsu/BC, etc. pues ya entiendo cuál es el problema conmigo."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet parece ser una respuesta humorística a una interacción previa, sin lenguaje ofensivo ni ataques a grupos o personas. La mención de que algo es 'tan obvio' puede interpretarse como una broma, pero no contiene insultos ni descalificaciones. No hay elementos que sugieran odio, violencia o acoso.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 71,
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Y porque a mí me hizo gracia que el motivo de que te cayese mal FUESE TAN OBVIO xD: https://t.co/YQ3nMaj5SJ"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, insultos, ni ataques hacia personas o grupos. La expresión 'jsjsjsjsjsjs' sugiere risa o burla, pero no se puede considerar como un contenido tóxico o de odio sin un contexto adicional. La inclusión de menciones y un enlace no añade riesgo significativo.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 72,
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Y dale jsjsjsjsjsjs https://t.co/72aIy1pkbK"
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una aceptación del odio hacia sí mismo por opiniones sobre mangas, lo que puede interpretarse como una forma de autocrítica o resignación. No hay insultos directos ni descalificaciones hacia otros, aunque se menciona el odio. La ambigüedad del contexto y la naturaleza del contenido sugieren que no se trata de un discurso tóxico severo.",
+      "spans": [
+        {
+          "text": "odien por opiniones de mangas",
+          "start": 30,
+          "end": 56,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 73,
+      "text": "@Simp_de_hw @Paolo1276789500 @ezflarenze @si6568723994531 Pues es lo que hay jajaja\n\nMientras sólo me odien por opiniones de mangas, pues está bien."
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet incluye un insulto dirigido a la persona mencionada, aunque se presenta en un contexto de defensa personal. La frase 'ME INSULTASTE A MÍ' implica un ataque verbal, lo que lo clasifica como contenido tóxico. Sin embargo, el uso de 'xD' sugiere un tono menos serio, lo que puede degradar la severidad del insulto.",
+      "spans": [
+        {
+          "text": "ME INSULTASTE A MÍ",
+          "start": 48,
+          "end": 66,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 74,
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Me lo tomé en serio cuando después de señalar lo curiosa que me parecía tu foto...ME INSULTASTE A MÍ Y A ZROLY xD\n\nFuiste tú el que se lo tomó en serio. Pero ya está, déjalo."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa experiencias personales sobre opiniones y relaciones con otros, sin lenguaje ofensivo ni deshumanizante. Aunque menciona que algunas personas no le caen bien por sus opiniones, no hay insultos ni ataques directos. El contenido es más bien una reflexión sobre la diversidad de opiniones en la comunidad de fans, lo que no se considera un riesgo significativo.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 75,
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Que no fue porque me doliese xdd \n\nYa te dije que fue porque me hizo gracia. He conocido gente a la que no le caigo bien porque son fans de BnHa, gente a la que no le caigo bien por mis opiniones de Jujutsu, gente que me odia por lo que dije de Black Clover...\n\nY TÚ LOS TENIAS A"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una defensa personal ante un posible insulto, pero no contiene lenguaje ofensivo ni descalificaciones. Se enfoca en la interacción y el derecho a responder, sin incitar al odio o la violencia. No hay elementos que sugieran riesgo de toxicidad o discriminación.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 76,
+      "text": "@Paolo1276789500 @si6568723994531 Ni tú eres un grano de arena ni yo soy más de uno. Somos seres humanos, los dos. \n\nY por eso si veo un comentario tuyo que me llama la atención, puedo responderte. Y si me insultas, es lógico que me defienda. \n\nNo hay nada de raro en eso."
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet contiene un tono despectivo hacia un grupo ('vaya panda') que puede interpretarse como un insulto. Aunque no se menciona una identidad protegida, el lenguaje utilizado puede ser considerado ofensivo y denigrante en un contexto de confrontación. La frase 'se notaban las ganas de pelear' también sugiere un ataque hacia la actitud de otros usuarios, lo que refuerza la toxicidad del mensaje.",
+      "spans": [
+        {
+          "text": "vaya panda",
+          "start": 54,
+          "end": 65,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 77,
+      "text": "@si6568723994531 @Paolo1276789500 \"se notaban las ganas de pelear\"\n\nUy, ahora el que asume cosas parece que no soy yo.\n\nEn fin, vaya panda jajaja"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión sobre la crítica de un canal sin utilizar lenguaje ofensivo o despectivo. No hay insultos, deshumanización ni contenido que incite al odio o violencia. La referencia a 'surrealista' y 'lógico' es una crítica personal y no se dirige a un grupo protegido.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 78,
+      "text": "@ezflarenze @si6568723994531 Esto es surrealista xD\n\nLas vueltas que están dando para no darme la razón en el hecho de que dije que es lógico que a un fan de X cosas no le guste mi canal en el que critico...X cosas!\n\nNi siquiera es una discusión sobre algo. Es ver el campo mojado, llegar a la conclusión de"
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet incluye un insulto implícito ('papeador') dirigido a una persona, lo que lo clasifica como tóxico. Aunque hay un contexto de defensa personal, el lenguaje utilizado es descalificativo. La referencia a 'dañar el ego' sugiere una minimización del derecho a la defensa, pero no se considera un discurso de odio o violencia.",
+      "spans": [
+        {
+          "text": "eres todo un papeador",
+          "start": 91,
+          "end": 112,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 79,
+      "text": "@Paolo1276789500 @si6568723994531 Claro porque si me insultas, como hace el otro tipo, me tengo que quedar callado. Es lo que tenemos que hacer los youtubers, es verdad.\n\nNo tenemos derecho a defendernos porque si lo hacemos estamos mostrando que \"nos dañaron el ego\".\n\nTú ganas Paolo, eres todo un papeador."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene humor y sarcasmo, pero no presenta contenido ofensivo, discriminatorio ni violento. La referencia a la crítica y la opinión política no implica un ataque directo ni deshumanización. La ambigüedad del tono humorístico sugiere que no hay un riesgo significativo.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 80,
+      "text": "@si6568723994531 Todo tiene su público. Y bueno, sí, dale, SEGURO que no está enfadado conmigo por alguna vez de las que critiqué a los que tiene en la portada xD\n\nSeguro que es por mi opinión política o por mi gusto musical jajaja"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión personal sobre una portada y menciona que le pareció graciosa. No contiene insultos, ataques ni lenguaje ofensivo hacia individuos o grupos. La referencia a 'shonens' no implica un ataque, sino una observación sobre el contenido. La interpretación de que alguien lo tomó como un ataque es subjetiva y no se presenta como un ataque directo.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 81,
+      "text": "@Paolo1276789500 @si6568723994531 Porque me pareció graciosa la portada. Nunca había visto una señal TAN clara de por qué a alguien no le gustaría mi contenido. Fue tan obvio cuando vi a todos los shonens ahí juntos, que me hizo mucha gracia.\n\nEl que lo tomó como un ataque fuiste tú."
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet incluye un insulto implícito al mencionar que la otra persona fue la primera en insultar. Aunque no hay un slur directo, la frase 'tampoco te hagas tú el ofendido' puede interpretarse como descalificación. Se considera tóxico por el tono confrontativo y el uso de sarcasmo.",
+      "spans": [
+        {
+          "text": "insultar",
+          "start": 49,
+          "end": 56,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 82,
+      "text": "@Paolo1276789500 @si6568723994531 Yo solo usé tu portada para apuntar a qué con razón no te gustaba mi contenido. Tú fuiste el primero insultar [a mí y a Zroly, por algún motivo jajaja]\n\nNo quiero disculpas ni nada, pero tampoco te hagas tú el ofendido, que la discusión la iniciaste tú jajaja"
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet incluye una crítica hacia un youtuber que se expresa de manera negativa sobre los spaghettis y hamburguesas, lo que puede interpretarse como un ataque personal. Aunque no hay insultos directos, la frase 'hatea' implica una connotación negativa que puede considerarse tóxica. Se degrada la severidad por la falta de insultos directos o descalificaciones explícitas.",
+      "spans": [
+        {
+          "text": "hatea",
+          "start": 62,
+          "end": 67,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 83,
+      "text": "@si6568723994531 Truvix si tú comida favorita son los spaghettis y las hamburguesas, es lógico que el youtuber que hatea los spaghettis y las hamburguesas no te guste.\n\nEs el caso de Paolo, que anda criticando mi contenido cuando mi contenido se basa en todo lo contrario de lo que (al parecer) le"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet parece ser una respuesta a una conversación previa y no contiene lenguaje ofensivo, despectivo o que incite al odio. No hay insultos ni ataques a grupos protegidos, y el tono es más de corrección que de confrontación. La referencia a 'revisa la conversación' sugiere un intento de aclarar malentendidos, lo que no implica riesgo.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 84,
+      "text": "@Paolo1276789500 @si6568723994531 No fue lo primero, Paolo, revisa la conversación 👉"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, insultos o descalificaciones. Aunque hay una referencia a un desacuerdo sobre gustos, no se deshumaniza ni se ataca a ninguna identidad protegida. El tono es más bien defensivo y no incita a la violencia ni al odio. No hay contenido que pueda ser considerado como bullying o acoso.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 85,
+      "text": "@Paolo1276789500 @si6568723994531 Pero por qué me iba a molestar que a un fan de esas cosas no le guste ni contenido xd\n\nNi yo soy un youtuber para ti, ni tú eres el tipo de público que busco.\n\nDicho esto, sé feliz con tus shonens."
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet contiene una referencia a un insulto implícito al mencionar que alguien se dio por atacado, lo que puede interpretarse como una descalificación hacia la persona mencionada. Aunque el autor aclara que no estaba insultando, la forma en que se presenta puede ser considerada tóxica. La expresión 'pues que así sea' puede interpretarse como una falta de respeto hacia la reacción del otro usuario.",
+      "spans": [
+        {
+          "text": "dado por atacado",
+          "start": 45,
+          "end": 61,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 86,
+      "text": "@si6568723994531 @Paolo1276789500 Si, tienes razón. La frase correcta ahí era \"yo no te ESTABA insultando\" y eso es cierto. Pero ya  que el se dio por atacado, pues que así sea 😵‍💫"
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "El término 'puta madre' es un insulto que puede considerarse lenguaje denigrante, aunque no se dirige a un grupo protegido. La referencia a los 'fandoms más resentidos' también puede interpretarse como un ataque a un grupo de personas, lo que añade un matiz tóxico al tweet.",
+      "spans": [
+        {
+          "text": "puta madre",
+          "start": 47,
+          "end": 58,
+          "label": "toxic"
+        },
+        {
+          "text": "resentidos",
+          "start": 38,
+          "end": 48,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 87,
+      "text": "@Jos42358656 @OneEyedGuille @LorenaRokuhira @CarlitoBurner77 Es muy posible. De los fandoms más \"resentidos\" con los que me he cruzado.\n\nMira que llevo meses sin decir nada del Deku y su puta madre y cada cierto tiempo salen a llorar. \n\nY, siendo honestos, con BnHa no me metí ni la mitad que con Jujutsu, One Piece, Chainsaw Man o Black"
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet incluye una crítica a los gustos de otra persona, utilizando la palabra 'terribles' que puede ser considerada un insulto. Aunque el autor intenta aclarar que no está insultando, el uso de 'putear' y la crítica a las obras pueden ser percibidos como lenguaje despectivo. Se considera tóxico por la forma en que se expresa la opinión negativa.",
+      "spans": [
+        {
+          "text": "me parecen terribles",
+          "start": 50,
+          "end": 70,
+          "label": "toxic"
+        },
+        {
+          "text": "putear a esas obras",
+          "start": 92,
+          "end": 111,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 88,
+      "text": "@Paolo1276789500 @si6568723994531 Yo no te estoy insultando ni criticando tus gustos (aunque sí, ya que lo dices, me parecen terribles). Sólo apuntaba que es normal que mi contenido que muchas veces se basa en putear a esas obras no sea de tu agrado. Lógico, no?"
+    },
+    {
+      "labels": [
+        "toxic",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet incluye un tono despectivo hacia otros usuarios, sugiriendo que tienen 'obsesiones' y refiriéndose a un insulto previo. Aunque no hay un ataque directo, el lenguaje puede ser considerado hostigador y tóxico, especialmente en un contexto de discusión pública.",
+      "spans": [
+        {
+          "text": "llamando resentido",
+          "start": 45,
+          "end": 64,
+          "label": "toxic"
+        },
+        {
+          "text": "obsesiones",
+          "start": 25,
+          "end": 36,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 89,
+      "text": "@rodbeingshy @goge59472 @SamAnima07 Dejando de lado sus obsesiones, esto empezó porque me estaban llamando resentido por no querer ver sus vídeos (que encima mi compa resulta que es YouTuber de anime también, vaya huevos jajaja) porque \"me había insultado una vez\". \n\nY solo quería mostrar que fueron muchas más que"
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet incluye una referencia a 'insultándome', lo que sugiere que el autor se siente atacado y puede estar utilizando un tono despectivo hacia la otra parte. Aunque no hay insultos directos, el uso de 'obsesivo' puede interpretarse como una descalificación. La mención de tener 20 tweets también puede ser vista como una exageración que busca deslegitimar la otra parte.",
+      "spans": [
+        {
+          "text": "insultándome",
+          "start": 24,
+          "end": 36,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 90,
+      "text": "@goge59472 @rodbeingshy @SamAnima07 Yo no vine a decirle nada, sólo que tener 20 tweets insultándome (pese a tenerme bloqueado) es un poco obsesivo jajaja"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene comentarios sobre preferencias personales en un contexto de conversación amistosa. No hay insultos, descalificaciones ni lenguaje denigrante. La referencia a obras de ficción y el uso de 'xd' y 'jajaja' indican un tono humorístico y no ofensivo. No se detecta riesgo en términos de odio, violencia o acoso.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 91,
+      "text": "@Paolo1276789500 @si6568723994531 Hombre Paolo, con esa portada que me traes, está claro que mi contenido no es para ti xd\n\nPueden ser fácilmente las obras que más detesto, te faltó un Luffy o un Rudeus en vez del Tanjiro para rematar jajaja https://t.co/iJ1Tpt0GI7"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una frustración personal y utiliza un tono humorístico ('jodería' y 'jajaja') que sugiere ironía. No hay insultos directos, descalificaciones ni contenido que incite al odio o la violencia. La ambigüedad en la intención y el uso de humor degradan la severidad del contenido.",
+      "spans": [],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 92,
+      "text": "@OneEyedGuille Es que ya me jodería jajaja\n\nSi el malo aún voy a ser yo por no querer reaccionar a los videos de este tipo jajaja"
+    },
+    {
+      "labels": [
+        "toxic",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet incluye un tono sarcástico y defensivo, sugiriendo que la persona está siendo víctima de acoso a través de múltiples tweets insultantes. Aunque no hay insultos directos en este fragmento, el contexto implica un ataque hacia la otra persona y una posible incitación a que otros se unan al hostigamiento. Esto se considera tóxico y puede ser interpretado como bullying.",
+      "spans": [
+        {
+          "text": "insultándome",
+          "start": 31,
+          "end": 43,
+          "label": "bullying"
+        },
+        {
+          "text": "victimizar",
+          "start": 66,
+          "end": 76,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 93,
+      "text": "@OneEyedGuille @LorenaRokuhira @CarlitoBurner77 En plan, ¿maté a su abuela o algo y no me di cuenta?\n\nTiene como 20 tweets insultándome y aún por encima me lo queréis victimizar jajaja https://t.co/rmhrRWyNlP"
+    },
+    {
+      "labels": [
+        "political_sensitivity"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet menciona la acusación de ser 'terrorista', lo que puede generar controversia y sensibilidad política. Aunque se presenta en un contexto de queja personal, la implicación de un término tan cargado puede ser interpretada como provocativa.",
+      "spans": [
+        {
+          "text": "me llamase terrorista",
+          "start": 36,
+          "end": 56,
+          "label": "political_sensitivity"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 94,
+      "text": "@OneEyedGuille @LorenaRokuhira @CarlitoBurner77 A ver, igual soy un poco resentido, no lo voy a negar. Pero está claro que vuestro amiguito tiene un pequeño problema conmigo.\n\nNo es que \"me llamase  terrorista\" una vez xd https://t.co/1RH7IbVzzZ"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, discriminatorio ni violento. Se refiere a un giro en la trama de un personaje, lo que no genera controversia ni riesgo. No hay palabras o frases que indiquen un contenido problemático.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 95,
+      "text": "Ah, y el plot twist del personaje de Fate y su verdadera identidad también fue muy bueno, todo sea dicho."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, discriminatorio o violento. La frase es ambigua y no proporciona contexto suficiente para determinar un riesgo. No hay palabras o frases que indiquen toxicidad, odio o violencia.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 96,
+      "text": "Nadie lo vio venir. https://t.co/nf2gkksUgB"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, insultos ni descalificaciones. Se presenta una opinión sobre la preferencia futbolística sin atacar a personas o grupos. No hay elementos que sugieran odio, violencia o acoso. La referencia a 'equipillo local' puede ser considerada despectiva, pero no se dirige a un grupo protegido ni implica un ataque directo.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 97,
+      "text": "@DarkNomura @OneEyedGuille Pues tú lo has dicho xd\n\nSi te gusta Cristiano Ronaldo no tienes porqué ser fan del delantero de un equipillo local solo porque ambos juegan al fútbol."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, insultos o contenido que incite al odio. La frase parece ser una respuesta amistosa y humorística, sin implicaciones negativas hacia otros. No hay ambigüedad que sugiera un riesgo significativo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 98,
+      "text": "@DarkNomura @OneEyedGuille Entonces no me conocías tanto jaja"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet consiste principalmente en una secuencia de caracteres sin significado claro y un enlace, lo que no presenta contenido ofensivo, discriminatorio o violento. No hay palabras o frases que indiquen un riesgo según la taxonomía proporcionada.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 99,
+      "text": "Jsjsjsjsjsydhdyeudfh https://t.co/mDj97d27PU"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una experiencia personal relacionada con un videojuego, utilizando un tono coloquial y humorístico. No contiene lenguaje ofensivo, ni ataques a grupos o individuos, ni incitación a la violencia. La referencia a 'espantapájaros' y 'Silent Hill F' es específica del contexto del juego y no se puede interpretar como un contenido de riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "Sin cambios por reglas de política",
+      "tweet_id": 100,
+      "text": "La parte de los espantapájaros del Silent Hill F...lo pasé mal eh jajaja"
+    }
+  ],
+  "sin_politica": [
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento, ni de riesgo legal. Es un mensaje neutral relacionado con un tema de entretenimiento.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 1,
+      "text": "RT @qingcichuan: Thirty million cycles of reincarnation…\n#Phainon #HonkaiStarRail https://t.co/AFYQyB3bUN"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene un enlace y un texto en japonés que no presenta contenido ofensivo, violento o de riesgo evidente.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 2,
+      "text": "RT @licheng199: 深水雛子の夢 https://t.co/nANkoEpSax"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es un agradecimiento y una expresión positiva hacia otros usuarios, sin contenido ofensivo o riesgoso.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 3,
+      "text": "RT @undertaker: Thank you @JohnCena and thank you @AJStylesOrg. A masterclass and beautiful tribute to wrestling. \n\nThe #WWEUniverse said i…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento, ni de riesgo evidente.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 4,
+      "text": "RT @ayunoko: ❁⃘*.ﾟ #sirenthillf https://t.co/8XynE1UVGn"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión positiva sobre un evento deportivo sin contenido ofensivo o riesgoso.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 5,
+      "text": "Ha sido, sin exagerar, uno de los mejores combates que he visto en mi vida. Clase magistral de wrestling por parte de Cena y Styles; un homenaje a toda la historia reciente de la lucha libre.\n\nYa se me pusieron llorosos los ojos con la dedicatoria especial de Cena a Styles, https://t.co/YORZ2f9DMs https://t.co/xXsLJ44vcB"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión personal sobre un tema sin contenido ofensivo, violento o de riesgo.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 6,
+      "text": "Nooooo\n\nCon lo buenísimo que está Frieren actualmente 😞 https://t.co/VtMB63hyi1"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una preocupación personal sobre el sueño, sin contenido ofensivo o amenazante.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 7,
+      "text": "@_skiller115 Iba a dormir y ahora tendré pesadillas."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas, ni contenido que represente un riesgo significativo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 8,
+      "text": "RT @KagaOnda: I haven’t seen anyone talk about this… But did you know? Iuno once mentioned that, besides Augusta, she had many other friend…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento o de riesgo evidente.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 9,
+      "text": "RT @bitter_r18tya: 寿雛の幸せなご結婚をですね…… https://t.co/UKPIWSDL7y"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es una expresión de felicidad y no contiene lenguaje ofensivo, violento o de riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 10,
+      "text": "RT @Sitback101: #ONEPIECE1162\nKaido is just happy to be here lol https://t.co/RNg4Wgry3Z"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas o contenido inapropiado.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 11,
+      "text": "RT @Johan_radiant: Y esto !? Rudo es el primer pokemon del shonen semanal en evolucionar! \n\nEh estado experimentado y vaya que costo meter…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento, ni de riesgo legal. Es una referencia a un tema de entretenimiento sin implicaciones negativas.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 12,
+      "text": "RT @TFGridPr1me_86: #umamusumeprettyderby \n#umamusume \n#CinderellaGray\nUma musume x Need for speed underground \nDibujando Uma musume hasta…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento, ni de riesgo legal, simplemente menciona un hecho cotidiano.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 13,
+      "text": "RT @Majima_Kensetsu: Luego he vuelto a por un quesito gratis también \n\nhttps://t.co/aRQ0uCcFCT https://t.co/oWfJ3Zw9v1"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet describe personajes de un juego sin contenido ofensivo o riesgoso.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 14,
+      "text": "@MrGoldenDD Azumarill el de la derecha y Pikachu el de la izquierda.\n\nBásicamente los dos del centro"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es un comentario positivo y no contiene lenguaje ofensivo ni riesgos asociados.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 15,
+      "text": "@Cinnabar_Phos La hiciste tú? Me gusta muchísimo jaja"
+    },
+    {
+      "labels": [
+        "offensive"
+      ],
+      "risk_level": "mid",
+      "rationale": "El uso de 'esquizofrénico' puede ser considerado un insulto y lenguaje despectivo hacia personas con trastornos mentales.",
+      "spans": [
+        {
+          "text": "esquizofrénico",
+          "start": 70,
+          "end": 84,
+          "label": "offensive"
+        }
+      ],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 16,
+      "text": "Igual yo supuestamente inventé el hate a Jujutsu, BnHa, Black Clover, Chainsaw Man, Frieren(?), Takopi, HxH y muchos más dependiendo del esquizofrénico al que le preguntes.\n\nAsí que mis pecados también son muy graves. Nos veremos en el infierno, Beelce. https://t.co/lepYAngj3F"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet menciona acciones y comentarios que dañaron la reputación de alguien, pero no contiene lenguaje ofensivo, amenazas o desinformación.",
+      "spans": [],
+      "confidence": 0.6,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 17,
+      "text": "Entre Beelce y Perico, efectivamente. Eso es una realidad absoluta.\n\nSus acciones y comentarios dañaron la reputación del mejor de todos los tiempos durante años, pero bueno hay que quererlos igual. https://t.co/cINEekzAfe https://t.co/IPvjc8itt0"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es un saludo de cumpleaños sin contenido ofensivo o riesgoso.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 18,
+      "text": "@Bryanji98791739 @Apun_01 @Beelce_ @grok @BrujaNumi Feliz cumpleaños, Capitán Arroz! 🎂"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas o contenido inapropiado. Es un mensaje neutral.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 19,
+      "text": "RT @toffynarufy: また会いましょ\nDon’t worry I’ll take care everything from here.\n\n#SILENTHILLf #サイレントヒルf #サイレントヒル https://t.co/v1x0dMSJZg"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa un sentimiento personal sin contenido ofensivo, violento o de riesgo.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 20,
+      "text": "RT @jii_0208: I hope to reevaluate my feelings for you.\n#サイレントヒルf #silenthillf #寂静岭f https://t.co/xFsMosVu14"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas ni contenido sensible.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 21,
+      "text": "PERO POR QUÉ? JAJAJA https://t.co/GbvToNXiuz"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas ni contenido problemático evidente.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 22,
+      "text": "@Oscar_BrockWah @padriag0 Seguido de un \"Tengo una vida sana\""
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet presenta un tono humorístico y no contiene lenguaje ofensivo, amenazas o desinformación.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 23,
+      "text": "Rinascita tuvo 11 wuwitas y 1 wuwito jajaja \n\nPero es cierto que Natlan tuvo 8 genshincitas y 3 genshincitos. Y Amphoreus tuvo 10 honkaicitas y 3 honkaicitos.\n\nDefinitivamente falta representación masculina. Hay que meter más husbandos (para así skipearlos y poder ahorrar tiradas https://t.co/RJezCrk75L"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet describe un contexto de un juego y menciona personajes ficticios sin contenido ofensivo o violento.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 24,
+      "text": "@Kalyor_ En Natlan jugamos una guerra en la que dependiendo de nuestras decisiones podían morir miles de personas, entre ellas numerosos NPC's. Por no hablar de los muertos durante la propia historia como Capitano, la amiga de Mualani, o la hermana de Chasca.\n\nTodo fue mucho más"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas ni contenido sensible.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 25,
+      "text": "@Kurapika_EX Pero ya no hubo más capítulos papu"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet parece ser una broma o comentario ligero sin contenido ofensivo o riesgoso.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 26,
+      "text": "@yoko777117 @Bardopacotilla Atea era Pyro WTF jajaja https://t.co/iAmdyCIROI"
+    },
+    {
+      "labels": [
+        "offensive"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene un término despectivo que puede ser considerado ofensivo hacia una persona.",
+      "spans": [
+        {
+          "text": "la muerta",
+          "start": 24,
+          "end": 34,
+          "label": "offensive"
+        }
+      ],
+      "confidence": 0.7,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 27,
+      "text": "@yoko777117 @Bardopacotilla Quién es la muerta?"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es un mensaje benigno que celebra un cumpleaños y menciona un contenido de entretenimiento sin lenguaje ofensivo o riesgos asociados.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 28,
+      "text": "@Iskanda58920177 Le hice un vídeo de una hora al Genshin, papu\n\nFeliz cumpleaños, por cierto."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas, ni contenido que pueda clasificarse en las categorías de riesgo definidas.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 29,
+      "text": "@JonaEmiya A ver, puedo darte varios ejemplos de NPC's de gachas como Avidius (Cariberto en Genshin, sin ir más lejos), pero sí, un GOAT."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas o contenido riesgoso. Es una opinión sobre personajes de una obra.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 30,
+      "text": "@2294Ken @LeonPlay26 Y si, pero les salió mejor. Porque los personajes de WuWa en este arco están mejor trabajados que los del Zzz en la 1.0."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas o contenido problemático.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 31,
+      "text": "@MarcosFelipeRa7 Ni de broma jajaja"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es una opinión sobre un videojuego y no contiene lenguaje ofensivo, amenazas o contenido sensible.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 32,
+      "text": "Pues ya terminé la 2.7 de Wuthering Waves y WOW, VAYA MISIÓN TAN BUENA\n\nEra verdad que había que dejar cocinar al juego. Una de las mayores quejas que había sobre WuWa era la falta de interacciones o \"desaparición\" de los personajes antiguos con cada versión. Al final se ve que https://t.co/Uhx3yucFJS"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una crítica hacia una empresa sin lenguaje ofensivo o amenazante.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 33,
+      "text": "\"Escucha bien, CEO de Twitch. Este grito viene de todas tus creaciones abandonadas...\n\nEn 2022, vi como por cada suscripción vuestra empresa se llevaba más de la mitad del dinero de los donantes. Presencié como la gente compraba bits para apoyarme aún sabiendo que un gran https://t.co/6OdI6uUp2f"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas ni contenido que incite a la violencia o al odio.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 34,
+      "text": "RT @HITBOXKING: Imagínate ser CEO de TWITCH y donarle a una streamer en directo por el labor que desempeña en ella, pero hacerlo con dinero…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento, ni de riesgo legal. Es un retweet con un hashtag y un enlace que no presenta riesgos evidentes.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 35,
+      "text": "RT @turtle_0718: #サイレントヒルf #silenthillf\n⛩️ https://t.co/5Hc1IgSTzT"
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet menciona que los personajes reciben 'mucho hate', lo que implica acoso y lenguaje negativo hacia ellos.",
+      "spans": [
+        {
+          "text": "mucho hate",
+          "start": 58,
+          "end": 69,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 36,
+      "text": "Dominik es como Boruto.\n\nHijo de Naruto (Rey Misterio), pero prefiere ser como Sasuke (Eddie Guerrero).\n\nY los dos reciben mucho hate jajaja https://t.co/XQt6U3IvNM"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene un enlace a un contenido que no se puede evaluar sin contexto adicional, pero no presenta lenguaje ofensivo ni amenazas.",
+      "spans": [],
+      "confidence": 0.2,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 37,
+      "text": "SILENT Hill F: https://t.co/U5iPRJSkUd"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas ni contenido que se clasifique en las categorías de riesgo definidas.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 38,
+      "text": "RT @Rellakinoko: 腐敗する夢 https://t.co/PiEvKr9jI6"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa sorpresa y felicidad por un logro sin contenido ofensivo o riesgoso.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 39,
+      "text": "RT @hanadakeika: Fata Morgana has reached 5,000 reviews!! I’m honestly so surprised and so happy.\n\nWhen I first released Fatamoru, I never…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El contenido del tweet no contiene lenguaje ofensivo, amenazas o acoso. Es una expresión de admiración.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 40,
+      "text": "RT @TheDarkraimola: \"La verdadera razón por la que acabé siendo de esta manera fue...\n\nPorque pienso que eres hermosa. Eso es todo...\"\n\n✍️🔥…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas, ni contenido que pueda clasificarse en las categorías de riesgo definidas.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 41,
+      "text": "GRACIAS PADRE WUWA\n\nSOLO CON DOS MULTIS https://t.co/XVzq7bk7Ud"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene solo emojis y un enlace, sin contenido ofensivo o riesgoso.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 42,
+      "text": "RT @hei11999: 🌟+⭐️+✨=✴️ https://t.co/yZ7j83A7LI"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento, ni de riesgo legal. Es un retweet con referencias culturales y un enlace.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 43,
+      "text": "RT @piyokoy_: 私の雛子\n\n寿雛\n\n#サイレントヒルf\n#silenthillf https://t.co/Ws3Iu4McaU"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es informativo y no contiene contenido ofensivo, violento o de riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 44,
+      "text": "RT @Alternativevt: Si usan Twitch desde PC, sean Streamers o Viewers pueden usar esta extensión llamada \"Enhancer\" \nTiene una gran cantidad…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento o de riesgo, se limita a mencionar una extensión de Google Chrome.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 45,
+      "text": "RT @KotaKotonya: @MegumiShigaisen it’s a Google chrome extension called twitch enhancer!\n\nit is worth noting however that this extension al…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento, ni de riesgo legal. Es un retweet de contenido relacionado con un videojuego.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 46,
+      "text": "RT @Tsuma____: 寿雛\n#サイレントヒルf\n#silenthillf https://t.co/nwAGZ5dKcC"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene un texto en japonés y un hashtag relacionado con un videojuego, sin contenido ofensivo ni de riesgo.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 47,
+      "text": "RT @SumiSamuuu: 寿雛\n#サイレントヒルf #silenthillf https://t.co/rOxNKcpWu9"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas ni contenido inapropiado, solo menciona un título de videojuego.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 48,
+      "text": "RT @yuno_11_02: #サイレントヒルf\n#silenthillf https://t.co/eH8HXuFPRs"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas o contenido inapropiado, parece ser un retweet de contenido relacionado con un videojuego.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 49,
+      "text": "RT @99PEKOPECO99: #silenthillf #サイレントヒルf \n寿雛 https://t.co/IoAT03u2p6"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento o de riesgo, es simplemente un retweet con un enlace.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 50,
+      "text": "RT @Lemonhighball6: 寿雛／狐の窓 https://t.co/c491V2T4RB"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento o de riesgo. Es un retweet de un contenido relacionado con un videojuego.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 51,
+      "text": "RT @i_do_Anime: #サイレントヒルf\n#silenthillƒ https://t.co/KwjjkQhYDo"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas o contenido que pueda considerarse riesgoso.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 52,
+      "text": "RT @arraveri: 4 viewers you say? Because I counted at least 32 including vips and mods @Twitch @TwitchSupport https://t.co/f8CVSsXqLy"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es un mensaje personal y positivo sobre un regalo, sin contenido ofensivo o riesgoso.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 53,
+      "text": "RT @Mrenghy: Mi hermanita me hizo una Bocchi a mano por mi cumple https://t.co/I45nfvMdWt"
+    },
+    {
+      "labels": [
+        "sociopolitical"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet menciona la retransmisión de eventos extremos (muerte y nacimiento) en plataformas de streaming, lo que puede generar desinformación o polarización sobre la percepción de estos eventos.",
+      "spans": [
+        {
+          "text": "retransmitieron la muerte de una persona",
+          "start": 3,
+          "end": 37,
+          "label": "sociopolitical"
+        },
+        {
+          "text": "en Twitch el nacimiento de otra",
+          "start": 42,
+          "end": 74,
+          "label": "sociopolitical"
+        }
+      ],
+      "confidence": 0.7,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 54,
+      "text": "En Kick retransmitieron la muerte de una persona y en Twitch el nacimiento de otra.\n\nYa no importa nada. https://t.co/1n2L6U7ZpS"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión positiva sobre un evento deportivo sin contenido ofensivo o riesgoso.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 55,
+      "text": "@S0yMike @Oscar_BrockWah @CapitanPokemon De los mejores goles que he visto en Inazuma Eleven , que locura"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas o contenido problemático. Es una expresión de sorpresa o admiración.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 56,
+      "text": "RT @S0yMike: Bro, esto que ha sido?? histórico si me preguntan  @Oscar_BrockWah  @CapitanPokemon  #MercenariosFC \n\nES EL JODIDO ARCHER HALC…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas ni contenido riesgoso. Es una observación sobre la interacción en Twitch.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 57,
+      "text": "RT @TndenciaStream: \"Twitch\"\n\nPorque si no interactúas en el chat, Twitch ya no te considera como viewer. https://t.co/MorlbWlFtw"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión sobre un videojuego sin lenguaje ofensivo ni contenido riesgoso.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 58,
+      "text": "Vaya putísimo peak la historia del Silent Hill F. \n\nCada final es mejor que el anterior, qué barbaridad. Y todos en su conjunto hacen de esta una de las historias de terror más originales y mejor narradas que he visto. Tengo quejas con los aspectos jugables, pero todos los https://t.co/FNzttnjxv3"
+    },
+    {
+      "labels": [
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "El comentario sugiere un posible acoso o vigilancia hacia otra persona, lo que puede ser interpretado como intimidación.",
+      "spans": [
+        {
+          "text": "vigilarme entre minita y minita",
+          "start": 30,
+          "end": 60,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 59,
+      "text": "@soymatt_ Tienes tiempo para vigilarme entre minita y minita?"
+    },
+    {
+      "labels": [
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet menciona recibir 'hate' y críticas, lo que sugiere un contexto de acoso o hostigamiento.",
+      "spans": [
+        {
+          "text": "comentarios tirándome hate",
+          "start": 36,
+          "end": 63,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.7,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 60,
+      "text": "@OneEyedGuille @Jamke0820 @CarlitoBurner77 Pero que piensen de mí lo que quieran, nunca fue mi intención caerle bien a todo el mundo ni mucho menos a los fans de las obras que critico.\n\nEl problema es que me pareció  surrealista que tras TODOS esos comentarios tirándome hate, aún así quisieran dejarme mal diciendo que no"
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene un tono de burla y referencia a insultos repetidos, lo que puede interpretarse como acoso.",
+      "spans": [
+        {
+          "text": "insultarme una vez, dos, tres...pero decenas?",
+          "start": 24,
+          "end": 66,
+          "label": "bullying"
+        },
+        {
+          "text": "estoy resentido por 20 xd",
+          "start": 108,
+          "end": 134,
+          "label": "offensive"
+        }
+      ],
+      "confidence": 0.68,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 61,
+      "text": "@Jamke0820 @OneEyedGuille @CarlitoBurner77 Hombre, está bien insultarme una vez, dos, tres...pero decenas?\n\nLo que me llamó la atención aquí fue la cantidad jajaja \n\nEso y que me acusaban de estar resentido por un comentario. Y no, yo estoy resentido por 20 xd"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es humorístico y describe una experiencia personal sin contenido ofensivo o riesgoso.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 62,
+      "text": "Me encontré una marmota salvaje y tocó hacer de guia turístico 😌\n\nTremendo fotón el de la catedral jajaja https://t.co/DHXeCb6ppH"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet describe una experiencia positiva y no contiene contenido ofensivo, violento o de riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 63,
+      "text": "RT @MarmotaSenpai: chavales me encontré con @TheDarkraimola 🙀 me invitó una pizza en un local de kebabs y me mostró su universidad 🥸gracias…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas ni contenido sensible; parece ser una referencia a un evento sin implicaciones negativas.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 64,
+      "text": "RT @_Swado_: El hermano de Darkrai un 29 de Marzo del 2017: https://t.co/2FPx4OZ2Ra"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas ni desinformación. Es una expresión personal sin riesgo evidente.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 65,
+      "text": "RT @TheDarkraimola: @OneEyedGuille @LorenaRokuhira @CarlitoBurner77 A ver, igual soy un poco resentido, no lo voy a negar. Pero está claro…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet menciona una situación en una plataforma de streaming sin lenguaje ofensivo ni contenido riesgoso.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 66,
+      "text": "RT @MovistareSports: 🟣 Twitch sigue recortando los viewers de los streamers y la tensión crece:\n\nLa plataforma estaría descontando a los ll…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es una referencia cultural y no contiene lenguaje ofensivo, amenazas o contenido inapropiado.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 67,
+      "text": "RT @DqKeita: #HonkaiStarRail si fuese un anime de los 80s https://t.co/hrre6tu6qa"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento o de riesgo evidente.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 68,
+      "text": "RT @Bardopacotilla: Basado https://t.co/8MHJ6lQKjh"
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene insultos y un tono de confrontación que puede considerarse acoso.",
+      "spans": [
+        {
+          "text": "empezaste a insultar",
+          "start": 36,
+          "end": 57,
+          "label": "offensive"
+        },
+        {
+          "text": "hablar con alguien que desde el minuto 1 ya había dejado claro que yo le caía mal",
+          "start": 61,
+          "end": 118,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.68,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 69,
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Pues si we, porque te lo tomaste a mal y me empezaste a insultar xd\n\nPero bueno, culpa mía por hablar con alguien que desde el minuto 1 ya había dejado claro que yo le caía mal.\n\nMe vas a acusar de tener el ego fragil otra vez o podemos dejarlo aquí? https://t.co/l2IkYqrejR"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión sobre críticas recibidas sin lenguaje ofensivo o amenazante.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 70,
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 1. Veo a un tipo diciendo que no le gusta mi contenido.\n\n2. Entro a su perfil a ver si descubro el porqué (Suelo hacerlo cuando veo críticas contra mi o mi canal, ya que  si el \"hater\" en cuestión es fan de BnHa/Jujutsu/BC, etc. pues ya entiendo cuál es el problema conmigo."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas ni contenido que pueda clasificarse en las categorías de riesgo establecidas.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 71,
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Y porque a mí me hizo gracia que el motivo de que te cayese mal FUESE TAN OBVIO xD: https://t.co/YQ3nMaj5SJ"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas, ni contenido inapropiado. Es una interacción ligera entre usuarios.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 72,
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Y dale jsjsjsjsjsjs https://t.co/72aIy1pkbK"
+    },
+    {
+      "labels": [
+        "offensive"
+      ],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión que puede ser considerada como despectiva hacia quienes no comparten su gusto por los mangas, pero no contiene insultos directos ni lenguaje violento.",
+      "spans": [],
+      "confidence": 0.6,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 73,
+      "text": "@Simp_de_hw @Paolo1276789500 @ezflarenze @si6568723994531 Pues es lo que hay jajaja\n\nMientras sólo me odien por opiniones de mangas, pues está bien."
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene un insulto dirigido a otra persona y un tono de confrontación.",
+      "spans": [
+        {
+          "text": "ME INSULTASTE A MÍ Y A ZROLY",
+          "start": 54,
+          "end": 81,
+          "label": "offensive"
+        },
+        {
+          "text": "Fuiste tú el que se lo tomó en serio",
+          "start": 83,
+          "end": 118,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.78,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 74,
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Me lo tomé en serio cuando después de señalar lo curiosa que me parecía tu foto...ME INSULTASTE A MÍ Y A ZROLY xD\n\nFuiste tú el que se lo tomó en serio. Pero ya está, déjalo."
+    },
+    {
+      "labels": [
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet menciona que hay personas que no le caen bien al autor, lo que puede implicar un contexto de acoso o hostigamiento en el ámbito de las opiniones sobre animes.",
+      "spans": [
+        {
+          "text": "gente a la que no le caigo bien porque son fans de BnHa",
+          "start": 70,
+          "end": 114,
+          "label": "bullying"
+        },
+        {
+          "text": "gente que me odia por lo que dije de Black Clover",
+          "start": 146,
+          "end": 188,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 75,
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Que no fue porque me doliese xdd \n\nYa te dije que fue porque me hizo gracia. He conocido gente a la que no le caigo bien porque son fans de BnHa, gente a la que no le caigo bien por mis opiniones de Jujutsu, gente que me odia por lo que dije de Black Clover...\n\nY TÚ LOS TENIAS A"
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet contiene una defensa personal que puede interpretarse como una respuesta a un insulto, lo que sugiere un tono confrontativo.",
+      "spans": [
+        {
+          "text": "si me insultas",
+          "start": 83,
+          "end": 97,
+          "label": "bullying"
+        },
+        {
+          "text": "me defienda",
+          "start": 100,
+          "end": 111,
+          "label": "offensive"
+        }
+      ],
+      "confidence": 0.68,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 76,
+      "text": "@Paolo1276789500 @si6568723994531 Ni tú eres un grano de arena ni yo soy más de uno. Somos seres humanos, los dos. \n\nY por eso si veo un comentario tuyo que me llama la atención, puedo responderte. Y si me insultas, es lógico que me defienda. \n\nNo hay nada de raro en eso."
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene un tono despectivo y burlón hacia otros usuarios, sugiriendo una confrontación.",
+      "spans": [
+        {
+          "text": "se notaban las ganas de pelear",
+          "start": 30,
+          "end": 60,
+          "label": "bullying"
+        },
+        {
+          "text": "vaya panda jajaja",
+          "start": 78,
+          "end": 95,
+          "label": "offensive"
+        }
+      ],
+      "confidence": 0.7,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 77,
+      "text": "@si6568723994531 @Paolo1276789500 \"se notaban las ganas de pelear\"\n\nUy, ahora el que asume cosas parece que no soy yo.\n\nEn fin, vaya panda jajaja"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas o contenido problemático. Es una expresión de opinión sobre una discusión personal.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 78,
+      "text": "@ezflarenze @si6568723994531 Esto es surrealista xD\n\nLas vueltas que están dando para no darme la razón en el hecho de que dije que es lógico que a un fan de X cosas no le guste mi canal en el que critico...X cosas!\n\nNi siquiera es una discusión sobre algo. Es ver el campo mojado, llegar a la conclusión de"
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene insultos y lenguaje despectivo hacia otra persona, además de insinuar que no se puede defender ante ataques.",
+      "spans": [
+        {
+          "text": "me insultas",
+          "start": 22,
+          "end": 34,
+          "label": "offensive"
+        },
+        {
+          "text": "eres todo un papeador",
+          "start": 101,
+          "end": 123,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.78,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 79,
+      "text": "@Paolo1276789500 @si6568723994531 Claro porque si me insultas, como hace el otro tipo, me tengo que quedar callado. Es lo que tenemos que hacer los youtubers, es verdad.\n\nNo tenemos derecho a defendernos porque si lo hacemos estamos mostrando que \"nos dañaron el ego\".\n\nTú ganas Paolo, eres todo un papeador."
+    },
+    {
+      "labels": [
+        "offensive",
+        "sociopolitical"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene insinuaciones sobre la opinión política y el gusto musical que pueden ser interpretadas como despectivas.",
+      "spans": [
+        {
+          "text": "critiqué a los que tiene en la portada",
+          "start": 49,
+          "end": 83,
+          "label": "sociopolitical"
+        },
+        {
+          "text": "por mi opinión política o por mi gusto musical",
+          "start": 88,
+          "end": 128,
+          "label": "offensive"
+        }
+      ],
+      "confidence": 0.68,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 80,
+      "text": "@si6568723994531 Todo tiene su público. Y bueno, sí, dale, SEGURO que no está enfadado conmigo por alguna vez de las que critiqué a los que tiene en la portada xD\n\nSeguro que es por mi opinión política o por mi gusto musical jajaja"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión personal y humorística sin lenguaje ofensivo o amenazas.",
+      "spans": [],
+      "confidence": 0.85,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 81,
+      "text": "@Paolo1276789500 @si6568723994531 Porque me pareció graciosa la portada. Nunca había visto una señal TAN clara de por qué a alguien no le gustaría mi contenido. Fue tan obvio cuando vi a todos los shonens ahí juntos, que me hizo mucha gracia.\n\nEl que lo tomó como un ataque fuiste tú."
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene insultos y un tono provocador hacia otra persona, además de señalar que la discusión fue iniciada por el otro usuario.",
+      "spans": [
+        {
+          "text": "insultar [a mí y a Zroly",
+          "start": 54,
+          "end": 75,
+          "label": "offensive"
+        },
+        {
+          "text": "la discusión la iniciaste tú",
+          "start": 116,
+          "end": 145,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.78,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 82,
+      "text": "@Paolo1276789500 @si6568723994531 Yo solo usé tu portada para apuntar a qué con razón no te gustaba mi contenido. Tú fuiste el primero insultar [a mí y a Zroly, por algún motivo jajaja]\n\nNo quiero disculpas ni nada, pero tampoco te hagas tú el ofendido, que la discusión la iniciaste tú jajaja"
+    },
+    {
+      "labels": [
+        "offensive"
+      ],
+      "risk_level": "low",
+      "rationale": "Contiene un leve tono despectivo hacia la crítica de otro creador de contenido, pero no es agresivo ni amenazante.",
+      "spans": [
+        {
+          "text": "hatea los spaghettis y las hamburguesas",
+          "start": 40,
+          "end": 78,
+          "label": "offensive"
+        }
+      ],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 83,
+      "text": "@si6568723994531 Truvix si tú comida favorita son los spaghettis y las hamburguesas, es lógico que el youtuber que hatea los spaghettis y las hamburguesas no te guste.\n\nEs el caso de Paolo, que anda criticando mi contenido cuando mi contenido se basa en todo lo contrario de lo que (al parecer) le"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet parece ser una respuesta a una conversación sin contenido ofensivo o amenazante.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 84,
+      "text": "@Paolo1276789500 @si6568723994531 No fue lo primero, Paolo, revisa la conversación 👉"
+    },
+    {
+      "labels": [
+        "offensive"
+      ],
+      "risk_level": "low",
+      "rationale": "El tweet contiene un tono despectivo hacia el público de otra persona, pero no incluye insultos graves ni amenazas.",
+      "spans": [
+        {
+          "text": "no le guste ni contenido",
+          "start": 36,
+          "end": 58,
+          "label": "offensive"
+        },
+        {
+          "text": "ni tú eres el tipo de público que busco",
+          "start": 60,
+          "end": 95,
+          "label": "offensive"
+        }
+      ],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 85,
+      "text": "@Paolo1276789500 @si6568723994531 Pero por qué me iba a molestar que a un fan de esas cosas no le guste ni contenido xd\n\nNi yo soy un youtuber para ti, ni tú eres el tipo de público que busco.\n\nDicho esto, sé feliz con tus shonens."
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "El tweet contiene un tono sarcástico que puede interpretarse como un ataque indirecto, sugiriendo que la otra persona se siente atacada.",
+      "spans": [
+        {
+          "text": "yo no te ESTABA insultando",
+          "start": 40,
+          "end": 66,
+          "label": "offensive"
+        },
+        {
+          "text": "pues que así sea",
+          "start": 84,
+          "end": 101,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.68,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 86,
+      "text": "@si6568723994531 @Paolo1276789500 Si, tienes razón. La frase correcta ahí era \"yo no te ESTABA insultando\" y eso es cierto. Pero ya  que el se dio por atacado, pues que así sea 😵‍💫"
+    },
+    {
+      "labels": [
+        "offensive"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene lenguaje despectivo hacia los fandoms, lo que puede ser considerado ofensivo.",
+      "spans": [
+        {
+          "text": "su puta madre",
+          "start": 56,
+          "end": 70,
+          "label": "offensive"
+        }
+      ],
+      "confidence": 0.7,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 87,
+      "text": "@Jos42358656 @OneEyedGuille @LorenaRokuhira @CarlitoBurner77 Es muy posible. De los fandoms más \"resentidos\" con los que me he cruzado.\n\nMira que llevo meses sin decir nada del Deku y su puta madre y cada cierto tiempo salen a llorar. \n\nY, siendo honestos, con BnHa no me metí ni la mitad que con Jujutsu, One Piece, Chainsaw Man o Black"
+    },
+    {
+      "error_code": "tweet_timeout",
+      "error": "Timeout total por tweet excedido",
+      "attempt": 3,
+      "tweet_id": 88,
+      "text": "@Paolo1276789500 @si6568723994531 Yo no te estoy insultando ni criticando tus gustos (aunque sí, ya que lo dices, me parecen terribles). Sólo apuntaba que es normal que mi contenido que muchas veces se basa en putear a esas obras no sea de tu agrado. Lógico, no?"
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene lenguaje que puede ser considerado ofensivo y una insinuación de hostigamiento hacia otros usuarios.",
+      "spans": [
+        {
+          "text": "llamando resentido",
+          "start": 42,
+          "end": 61,
+          "label": "offensive"
+        },
+        {
+          "text": "me había insultado una vez",
+          "start": 113,
+          "end": 139,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.68,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 89,
+      "text": "@rodbeingshy @goge59472 @SamAnima07 Dejando de lado sus obsesiones, esto empezó porque me estaban llamando resentido por no querer ver sus vídeos (que encima mi compa resulta que es YouTuber de anime también, vaya huevos jajaja) porque \"me había insultado una vez\". \n\nY solo quería mostrar que fueron muchas más que"
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene un comentario que puede ser considerado como un insulto y refleja una situación de hostigamiento.",
+      "spans": [
+        {
+          "text": "20 tweets insultándome",
+          "start": 36,
+          "end": 58,
+          "label": "bullying"
+        },
+        {
+          "text": "es un poco obsesivo",
+          "start": 61,
+          "end": 81,
+          "label": "offensive"
+        }
+      ],
+      "confidence": 0.7,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 90,
+      "text": "@goge59472 @rodbeingshy @SamAnima07 Yo no vine a decirle nada, sólo que tener 20 tweets insultándome (pese a tenerme bloqueado) es un poco obsesivo jajaja"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet contiene comentarios sobre preferencias personales sin lenguaje ofensivo o amenazas.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 91,
+      "text": "@Paolo1276789500 @si6568723994531 Hombre Paolo, con esa portada que me traes, está claro que mi contenido no es para ti xd\n\nPueden ser fácilmente las obras que más detesto, te faltó un Luffy o un Rudeus en vez del Tanjiro para rematar jajaja https://t.co/iJ1Tpt0GI7"
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "El uso de 'jodería' puede ser considerado lenguaje vulgar y hay un tono de burla hacia la reacción de otros.",
+      "spans": [
+        {
+          "text": "jodería",
+          "start": 15,
+          "end": 22,
+          "label": "offensive"
+        },
+        {
+          "text": "malo aún voy a ser yo",
+          "start": 30,
+          "end": 52,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 92,
+      "text": "@OneEyedGuille Es que ya me jodería jajaja\n\nSi el malo aún voy a ser yo por no querer reaccionar a los videos de este tipo jajaja"
+    },
+    {
+      "labels": [
+        "offensive",
+        "bullying"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene insultos y menciones de hostigamiento hacia el autor del tweet.",
+      "spans": [
+        {
+          "text": "maté a su abuela",
+          "start": 22,
+          "end": 39,
+          "label": "offensive"
+        },
+        {
+          "text": "tiene como 20 tweets insultándome",
+          "start": 41,
+          "end": 75,
+          "label": "bullying"
+        }
+      ],
+      "confidence": 0.78,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 93,
+      "text": "@OneEyedGuille @LorenaRokuhira @CarlitoBurner77 En plan, ¿maté a su abuela o algo y no me di cuenta?\n\nTiene como 20 tweets insultándome y aún por encima me lo queréis victimizar jajaja https://t.co/rmhrRWyNlP"
+    },
+    {
+      "labels": [
+        "offensive",
+        "sociopolitical"
+      ],
+      "risk_level": "mid",
+      "rationale": "Contiene un comentario que sugiere resentimiento y menciona una acusación grave, lo que puede generar polarización.",
+      "spans": [
+        {
+          "text": "soy un poco resentido",
+          "start": 19,
+          "end": 42,
+          "label": "offensive"
+        },
+        {
+          "text": "me llamase terrorista",
+          "start": 67,
+          "end": 89,
+          "label": "sociopolitical"
+        }
+      ],
+      "confidence": 0.7,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 94,
+      "text": "@OneEyedGuille @LorenaRokuhira @CarlitoBurner77 A ver, igual soy un poco resentido, no lo voy a negar. Pero está claro que vuestro amiguito tiene un pequeño problema conmigo.\n\nNo es que \"me llamase  terrorista\" una vez xd https://t.co/1RH7IbVzzZ"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento o de riesgo, es una opinión sobre un personaje de ficción.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 95,
+      "text": "Ah, y el plot twist del personaje de Fate y su verdadera identidad también fue muy bueno, todo sea dicho."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene contenido ofensivo, violento o de riesgo evidente. Es ambiguo y no proporciona información suficiente para clasificarlo en ninguna categoría de riesgo.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 96,
+      "text": "Nadie lo vio venir. https://t.co/nf2gkksUgB"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet no contiene lenguaje ofensivo, amenazas o contenido sensible. Es una opinión sobre preferencias futbolísticas.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 97,
+      "text": "@DarkNomura @OneEyedGuille Pues tú lo has dicho xd\n\nSi te gusta Cristiano Ronaldo no tienes porqué ser fan del delantero de un equipillo local solo porque ambos juegan al fútbol."
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet es una broma ligera y no contiene contenido ofensivo ni riesgoso.",
+      "spans": [],
+      "confidence": 0.9,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 98,
+      "text": "@DarkNomura @OneEyedGuille Entonces no me conocías tanto jaja"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El contenido del tweet es una secuencia de caracteres sin significado claro y un enlace, no presenta riesgos evidentes.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 99,
+      "text": "Jsjsjsjsjsydhdyeudfh https://t.co/mDj97d27PU"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "El tweet expresa una opinión personal sobre una experiencia en un videojuego, sin contenido ofensivo o de riesgo.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "tweet_id": 100,
+      "text": "La parte de los espantapájaros del Silent Hill F...lo pasé mal eh jajaja"
+    }
+  ]
+}

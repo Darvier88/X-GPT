@@ -1,0 +1,2598 @@
+{
+  "success": true,
+  "user": {
+    "success": true,
+    "author_id": "1304378475604836353",
+    "username": "TheDarkraimola",
+    "name": "🐎 Darkraimola #100K 🐎",
+    "followers": 49343,
+    "account_created": "2020-09-11T11:17:27.000Z"
+  },
+  "tweets": [
+    {
+      "text": "RT @qingcichuan: Thirty million cycles of reincarnation…\n#Phainon #HonkaiStarRail https://t.co/AFYQyB3bUN",
+      "edit_history_tweet_ids": [
+        "1977024512291225640"
+      ],
+      "public_metrics": {
+        "retweet_count": 2223,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1977024512291225640",
+      "author_id": "1304378475604836353",
+      "lang": "en",
+      "created_at": "2025-10-11T14:52:29.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976956953659383835"
+        }
+      ],
+      "id": "1977024512291225640",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @licheng199: 深水雛子の夢 https://t.co/nANkoEpSax",
+      "edit_history_tweet_ids": [
+        "1977024480062193755"
+      ],
+      "public_metrics": {
+        "retweet_count": 4814,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1977024480062193755",
+      "author_id": "1304378475604836353",
+      "lang": "ja",
+      "created_at": "2025-10-11T14:52:22.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976674414709424308"
+        }
+      ],
+      "id": "1977024480062193755",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @undertaker: Thank you @JohnCena and thank you @AJStylesOrg. A masterclass and beautiful tribute to wrestling. \n\nThe #WWEUniverse said i…",
+      "edit_history_tweet_ids": [
+        "1977023827071967605"
+      ],
+      "public_metrics": {
+        "retweet_count": 2863,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1977023827071967605",
+      "author_id": "1304378475604836353",
+      "lang": "en",
+      "created_at": "2025-10-11T14:49:46.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1977016486415024380"
+        }
+      ],
+      "id": "1977023827071967605",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @ayunoko: ❁⃘*.ﾟ #sirenthillf https://t.co/8XynE1UVGn",
+      "edit_history_tweet_ids": [
+        "1977023115835461948"
+      ],
+      "public_metrics": {
+        "retweet_count": 2035,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1977023115835461948",
+      "author_id": "1304378475604836353",
+      "lang": "ja",
+      "created_at": "2025-10-11T14:46:56.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976664680329593029"
+        }
+      ],
+      "id": "1977023115835461948",
+      "is_retweet": true
+    },
+    {
+      "text": "Ha sido, sin exagerar, uno de los mejores combates que he visto en mi vida. Clase magistral de wrestling por parte de Cena y Styles; un homenaje a toda la historia reciente de la lucha libre.\n\nYa se me pusieron llorosos los ojos con la dedicatoria especial de Cena a Styles, https://t.co/YORZ2f9DMs https://t.co/xXsLJ44vcB",
+      "edit_history_tweet_ids": [
+        "1977021099633176605"
+      ],
+      "public_metrics": {
+        "retweet_count": 2,
+        "reply_count": 4,
+        "like_count": 70,
+        "quote_count": 0,
+        "bookmark_count": 3,
+        "impression_count": 1824
+      },
+      "conversation_id": "1977021099633176605",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-11T14:38:56.000Z",
+      "referenced_tweets": [
+        {
+          "type": "quoted",
+          "id": "1977010254249353628"
+        }
+      ],
+      "id": "1977021099633176605",
+      "is_retweet": false
+    },
+    {
+      "text": "Nooooo\n\nCon lo buenísimo que está Frieren actualmente 😞 https://t.co/VtMB63hyi1",
+      "edit_history_tweet_ids": [
+        "1976994561018019966"
+      ],
+      "public_metrics": {
+        "retweet_count": 10,
+        "reply_count": 12,
+        "like_count": 270,
+        "quote_count": 0,
+        "bookmark_count": 13,
+        "impression_count": 7030
+      },
+      "conversation_id": "1976994561018019966",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-11T12:53:28.000Z",
+      "referenced_tweets": [
+        {
+          "type": "quoted",
+          "id": "1976889170351247676"
+        }
+      ],
+      "id": "1976994561018019966",
+      "is_retweet": false
+    },
+    {
+      "text": "@_skiller115 Iba a dormir y ahora tendré pesadillas.",
+      "edit_history_tweet_ids": [
+        "1976880650566447262"
+      ],
+      "public_metrics": {
+        "retweet_count": 4,
+        "reply_count": 2,
+        "like_count": 304,
+        "quote_count": 0,
+        "bookmark_count": 8,
+        "impression_count": 6405
+      },
+      "conversation_id": "1976837313595589059",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-11T05:20:50.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976837313595589059"
+        }
+      ],
+      "id": "1976880650566447262",
+      "is_retweet": false
+    },
+    {
+      "text": "RT @KagaOnda: I haven’t seen anyone talk about this… But did you know? Iuno once mentioned that, besides Augusta, she had many other friend…",
+      "edit_history_tweet_ids": [
+        "1976879685075452408"
+      ],
+      "public_metrics": {
+        "retweet_count": 82,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976879685075452408",
+      "author_id": "1304378475604836353",
+      "lang": "en",
+      "created_at": "2025-10-11T05:17:00.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976773534602215767"
+        }
+      ],
+      "id": "1976879685075452408",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @bitter_r18tya: 寿雛の幸せなご結婚をですね…… https://t.co/UKPIWSDL7y",
+      "edit_history_tweet_ids": [
+        "1976876761901383937"
+      ],
+      "public_metrics": {
+        "retweet_count": 1139,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976876761901383937",
+      "author_id": "1304378475604836353",
+      "lang": "ja",
+      "created_at": "2025-10-11T05:05:23.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976622032642330652"
+        }
+      ],
+      "id": "1976876761901383937",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @Sitback101: #ONEPIECE1162\nKaido is just happy to be here lol https://t.co/RNg4Wgry3Z",
+      "edit_history_tweet_ids": [
+        "1976846130182078703"
+      ],
+      "public_metrics": {
+        "retweet_count": 705,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976846130182078703",
+      "author_id": "1304378475604836353",
+      "lang": "en",
+      "created_at": "2025-10-11T03:03:40.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976068496648962263"
+        }
+      ],
+      "id": "1976846130182078703",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @Johan_radiant: Y esto !? Rudo es el primer pokemon del shonen semanal en evolucionar! \n\nEh estado experimentado y vaya que costo meter…",
+      "edit_history_tweet_ids": [
+        "1976813635172442608"
+      ],
+      "public_metrics": {
+        "retweet_count": 8,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976813635172442608",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-11T00:54:32.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976501044474511393"
+        }
+      ],
+      "id": "1976813635172442608",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @TFGridPr1me_86: #umamusumeprettyderby \n#umamusume \n#CinderellaGray\nUma musume x Need for speed underground \nDibujando Uma musume hasta…",
+      "edit_history_tweet_ids": [
+        "1976794001463558331"
+      ],
+      "public_metrics": {
+        "retweet_count": 10,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976794001463558331",
+      "author_id": "1304378475604836353",
+      "lang": "en",
+      "created_at": "2025-10-10T23:36:31.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1974417155975270706"
+        }
+      ],
+      "id": "1976794001463558331",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @Majima_Kensetsu: Luego he vuelto a por un quesito gratis también \n\nhttps://t.co/aRQ0uCcFCT https://t.co/oWfJ3Zw9v1",
+      "edit_history_tweet_ids": [
+        "1976723536770482690"
+      ],
+      "public_metrics": {
+        "retweet_count": 2,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976723536770482690",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T18:56:31.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976708692121993651"
+        }
+      ],
+      "id": "1976723536770482690",
+      "is_retweet": true
+    },
+    {
+      "text": "@MrGoldenDD Azumarill el de la derecha y Pikachu el de la izquierda.\n\nBásicamente los dos del centro",
+      "edit_history_tweet_ids": [
+        "1976723363079860424"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 7,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 1408
+      },
+      "conversation_id": "1976664479036539382",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T18:55:50.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976664479036539382"
+        }
+      ],
+      "id": "1976723363079860424",
+      "is_retweet": false
+    },
+    {
+      "text": "@Cinnabar_Phos La hiciste tú? Me gusta muchísimo jaja",
+      "edit_history_tweet_ids": [
+        "1976722897130369149"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 50,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 1911
+      },
+      "conversation_id": "1976719897993302299",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T18:53:59.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976722194483782043"
+        }
+      ],
+      "id": "1976722897130369149",
+      "is_retweet": false
+    },
+    {
+      "text": "Igual yo supuestamente inventé el hate a Jujutsu, BnHa, Black Clover, Chainsaw Man, Frieren(?), Takopi, HxH y muchos más dependiendo del esquizofrénico al que le preguntes.\n\nAsí que mis pecados también son muy graves. Nos veremos en el infierno, Beelce. https://t.co/lepYAngj3F",
+      "edit_history_tweet_ids": [
+        "1976720643803795618"
+      ],
+      "public_metrics": {
+        "retweet_count": 7,
+        "reply_count": 14,
+        "like_count": 332,
+        "quote_count": 0,
+        "bookmark_count": 9,
+        "impression_count": 10430
+      },
+      "conversation_id": "1976719897993302299",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T18:45:01.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976719897993302299"
+        }
+      ],
+      "id": "1976720643803795618",
+      "is_retweet": false
+    },
+    {
+      "text": "Entre Beelce y Perico, efectivamente. Eso es una realidad absoluta.\n\nSus acciones y comentarios dañaron la reputación del mejor de todos los tiempos durante años, pero bueno hay que quererlos igual. https://t.co/cINEekzAfe https://t.co/IPvjc8itt0",
+      "edit_history_tweet_ids": [
+        "1976719897993302299"
+      ],
+      "public_metrics": {
+        "retweet_count": 9,
+        "reply_count": 36,
+        "like_count": 414,
+        "quote_count": 1,
+        "bookmark_count": 35,
+        "impression_count": 16214
+      },
+      "conversation_id": "1976719897993302299",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T18:42:04.000Z",
+      "referenced_tweets": [
+        {
+          "type": "quoted",
+          "id": "1976710072962044205"
+        }
+      ],
+      "id": "1976719897993302299",
+      "is_retweet": false
+    },
+    {
+      "text": "@Bryanji98791739 @Apun_01 @Beelce_ @grok @BrujaNumi Feliz cumpleaños, Capitán Arroz! 🎂",
+      "edit_history_tweet_ids": [
+        "1976708441096782272"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 10,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 1040
+      },
+      "conversation_id": "1976704859023065401",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T17:56:32.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976704859023065401"
+        }
+      ],
+      "id": "1976708441096782272",
+      "is_retweet": false
+    },
+    {
+      "text": "RT @toffynarufy: また会いましょ\nDon’t worry I’ll take care everything from here.\n\n#SILENTHILLf #サイレントヒルf #サイレントヒル https://t.co/v1x0dMSJZg",
+      "edit_history_tweet_ids": [
+        "1976700414298087600"
+      ],
+      "public_metrics": {
+        "retweet_count": 3324,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976700414298087600",
+      "author_id": "1304378475604836353",
+      "lang": "ja",
+      "created_at": "2025-10-10T17:24:38.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976656382683492846"
+        }
+      ],
+      "id": "1976700414298087600",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @jii_0208: I hope to reevaluate my feelings for you.\n#サイレントヒルf #silenthillf #寂静岭f https://t.co/xFsMosVu14",
+      "edit_history_tweet_ids": [
+        "1976700034902335580"
+      ],
+      "public_metrics": {
+        "retweet_count": 2278,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976700034902335580",
+      "author_id": "1304378475604836353",
+      "lang": "en",
+      "created_at": "2025-10-10T17:23:08.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976603625985044656"
+        }
+      ],
+      "id": "1976700034902335580",
+      "is_retweet": true
+    },
+    {
+      "text": "PERO POR QUÉ? JAJAJA https://t.co/GbvToNXiuz",
+      "edit_history_tweet_ids": [
+        "1976667682511733107"
+      ],
+      "public_metrics": {
+        "retweet_count": 105,
+        "reply_count": 19,
+        "like_count": 828,
+        "quote_count": 6,
+        "bookmark_count": 164,
+        "impression_count": 13796
+      },
+      "conversation_id": "1976667682511733107",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T15:14:34.000Z",
+      "id": "1976667682511733107",
+      "is_retweet": false
+    },
+    {
+      "text": "@Oscar_BrockWah @padriag0 Seguido de un \"Tengo una vida sana\"",
+      "edit_history_tweet_ids": [
+        "1976665263262302687"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 10,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 481
+      },
+      "conversation_id": "1976617987869426158",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T15:04:58.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976651267339657477"
+        }
+      ],
+      "id": "1976665263262302687",
+      "is_retweet": false
+    },
+    {
+      "text": "Rinascita tuvo 11 wuwitas y 1 wuwito jajaja \n\nPero es cierto que Natlan tuvo 8 genshincitas y 3 genshincitos. Y Amphoreus tuvo 10 honkaicitas y 3 honkaicitos.\n\nDefinitivamente falta representación masculina. Hay que meter más husbandos (para así skipearlos y poder ahorrar tiradas https://t.co/RJezCrk75L",
+      "edit_history_tweet_ids": [
+        "1976637101375414635",
+        "1976638727398015215"
+      ],
+      "public_metrics": {
+        "retweet_count": 15,
+        "reply_count": 26,
+        "like_count": 397,
+        "quote_count": 0,
+        "bookmark_count": 47,
+        "impression_count": 19734
+      },
+      "conversation_id": "1976638727398015215",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T13:19:31.000Z",
+      "referenced_tweets": [
+        {
+          "type": "quoted",
+          "id": "1976265022319063419"
+        }
+      ],
+      "id": "1976638727398015215",
+      "is_retweet": false
+    },
+    {
+      "text": "@Kalyor_ En Natlan jugamos una guerra en la que dependiendo de nuestras decisiones podían morir miles de personas, entre ellas numerosos NPC's. Por no hablar de los muertos durante la propia historia como Capitano, la amiga de Mualani, o la hermana de Chasca.\n\nTodo fue mucho más",
+      "edit_history_tweet_ids": [
+        "1976499978844463269"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 14,
+        "quote_count": 0,
+        "bookmark_count": 2,
+        "impression_count": 1555
+      },
+      "conversation_id": "1976438722582249661",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T04:08:11.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976469572699267299"
+        }
+      ],
+      "id": "1976499978844463269",
+      "is_retweet": false
+    },
+    {
+      "text": "@Kurapika_EX Pero ya no hubo más capítulos papu",
+      "edit_history_tweet_ids": [
+        "1976461635524100175"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 1705
+      },
+      "conversation_id": "1976438722582249661",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T01:35:49.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976461485271621809"
+        }
+      ],
+      "id": "1976461635524100175",
+      "is_retweet": false
+    },
+    {
+      "text": "@yoko777117 @Bardopacotilla Atea era Pyro WTF jajaja https://t.co/iAmdyCIROI",
+      "edit_history_tweet_ids": [
+        "1976461422696743065"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 63,
+        "quote_count": 0,
+        "bookmark_count": 2,
+        "impression_count": 3358
+      },
+      "conversation_id": "1976426119973961842",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T01:34:58.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976460995355897925"
+        }
+      ],
+      "id": "1976461422696743065",
+      "is_retweet": false
+    },
+    {
+      "text": "@yoko777117 @Bardopacotilla Quién es la muerta?",
+      "edit_history_tweet_ids": [
+        "1976460995355897925"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 18,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 4357
+      },
+      "conversation_id": "1976426119973961842",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T01:33:16.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976437867028361436"
+        }
+      ],
+      "id": "1976460995355897925",
+      "is_retweet": false
+    },
+    {
+      "text": "@Iskanda58920177 Le hice un vídeo de una hora al Genshin, papu\n\nFeliz cumpleaños, por cierto.",
+      "edit_history_tweet_ids": [
+        "1976457216808083764"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 28,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 1856
+      },
+      "conversation_id": "1976438722582249661",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T01:18:15.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976455143618117751"
+        }
+      ],
+      "id": "1976457216808083764",
+      "is_retweet": false
+    },
+    {
+      "text": "@JonaEmiya A ver, puedo darte varios ejemplos de NPC's de gachas como Avidius (Cariberto en Genshin, sin ir más lejos), pero sí, un GOAT.",
+      "edit_history_tweet_ids": [
+        "1976452879126003869"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 37,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 2293
+      },
+      "conversation_id": "1976446081371341300",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T01:01:01.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976446081371341300"
+        }
+      ],
+      "id": "1976452879126003869",
+      "is_retweet": false
+    },
+    {
+      "text": "@2294Ken @LeonPlay26 Y si, pero les salió mejor. Porque los personajes de WuWa en este arco están mejor trabajados que los del Zzz en la 1.0.",
+      "edit_history_tweet_ids": [
+        "1976452351453212711"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 9,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 557
+      },
+      "conversation_id": "1976438722582249661",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T00:58:55.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976449523900874956"
+        }
+      ],
+      "id": "1976452351453212711",
+      "is_retweet": false
+    },
+    {
+      "text": "@MarcosFelipeRa7 Ni de broma jajaja",
+      "edit_history_tweet_ids": [
+        "1976443672356122971"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 3,
+        "like_count": 61,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 3234
+      },
+      "conversation_id": "1976438722582249661",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T00:24:26.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1976443516915245133"
+        }
+      ],
+      "id": "1976443672356122971",
+      "is_retweet": false
+    },
+    {
+      "text": "Pues ya terminé la 2.7 de Wuthering Waves y WOW, VAYA MISIÓN TAN BUENA\n\nEra verdad que había que dejar cocinar al juego. Una de las mayores quejas que había sobre WuWa era la falta de interacciones o \"desaparición\" de los personajes antiguos con cada versión. Al final se ve que https://t.co/Uhx3yucFJS",
+      "edit_history_tweet_ids": [
+        "1976438333724037482",
+        "1976438722582249661"
+      ],
+      "public_metrics": {
+        "retweet_count": 24,
+        "reply_count": 37,
+        "like_count": 545,
+        "quote_count": 4,
+        "bookmark_count": 85,
+        "impression_count": 24918
+      },
+      "conversation_id": "1976438722582249661",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-10T00:04:46.000Z",
+      "id": "1976438722582249661",
+      "is_retweet": false
+    },
+    {
+      "text": "\"Escucha bien, CEO de Twitch. Este grito viene de todas tus creaciones abandonadas...\n\nEn 2022, vi como por cada suscripción vuestra empresa se llevaba más de la mitad del dinero de los donantes. Presencié como la gente compraba bits para apoyarme aún sabiendo que un gran https://t.co/6OdI6uUp2f",
+      "edit_history_tweet_ids": [
+        "1976347852508180874"
+      ],
+      "public_metrics": {
+        "retweet_count": 83,
+        "reply_count": 62,
+        "like_count": 854,
+        "quote_count": 4,
+        "bookmark_count": 106,
+        "impression_count": 26005
+      },
+      "conversation_id": "1976347852508180874",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-09T18:03:41.000Z",
+      "id": "1976347852508180874",
+      "is_retweet": false
+    },
+    {
+      "text": "RT @HITBOXKING: Imagínate ser CEO de TWITCH y donarle a una streamer en directo por el labor que desempeña en ella, pero hacerlo con dinero…",
+      "edit_history_tweet_ids": [
+        "1976328035860398519"
+      ],
+      "public_metrics": {
+        "retweet_count": 183,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976328035860398519",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-09T16:44:56.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976300970284904736"
+        }
+      ],
+      "id": "1976328035860398519",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @turtle_0718: #サイレントヒルf #silenthillf\n⛩️ https://t.co/5Hc1IgSTzT",
+      "edit_history_tweet_ids": [
+        "1976327578161213461"
+      ],
+      "public_metrics": {
+        "retweet_count": 1717,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976327578161213461",
+      "author_id": "1304378475604836353",
+      "lang": "qme",
+      "created_at": "2025-10-09T16:43:07.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976173605190074449"
+        }
+      ],
+      "id": "1976327578161213461",
+      "is_retweet": true
+    },
+    {
+      "text": "Dominik es como Boruto.\n\nHijo de Naruto (Rey Misterio), pero prefiere ser como Sasuke (Eddie Guerrero).\n\nY los dos reciben mucho hate jajaja https://t.co/XQt6U3IvNM",
+      "edit_history_tweet_ids": [
+        "1976327398607204569"
+      ],
+      "public_metrics": {
+        "retweet_count": 10,
+        "reply_count": 16,
+        "like_count": 267,
+        "quote_count": 0,
+        "bookmark_count": 14,
+        "impression_count": 11149
+      },
+      "conversation_id": "1976327398607204569",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-09T16:42:24.000Z",
+      "referenced_tweets": [
+        {
+          "type": "quoted",
+          "id": "1976141264920670227"
+        }
+      ],
+      "id": "1976327398607204569",
+      "is_retweet": false
+    },
+    {
+      "text": "SILENT Hill F: https://t.co/U5iPRJSkUd",
+      "edit_history_tweet_ids": [
+        "1976284769383219288"
+      ],
+      "public_metrics": {
+        "retweet_count": 4,
+        "reply_count": 8,
+        "like_count": 222,
+        "quote_count": 0,
+        "bookmark_count": 20,
+        "impression_count": 8835
+      },
+      "conversation_id": "1976284769383219288",
+      "author_id": "1304378475604836353",
+      "lang": "en",
+      "created_at": "2025-10-09T13:53:01.000Z",
+      "referenced_tweets": [
+        {
+          "type": "quoted",
+          "id": "1975936387162734933"
+        }
+      ],
+      "id": "1976284769383219288",
+      "is_retweet": false
+    },
+    {
+      "text": "RT @Rellakinoko: 腐敗する夢 https://t.co/PiEvKr9jI6",
+      "edit_history_tweet_ids": [
+        "1976282102258860532"
+      ],
+      "public_metrics": {
+        "retweet_count": 8077,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976282102258860532",
+      "author_id": "1304378475604836353",
+      "lang": "ja",
+      "created_at": "2025-10-09T13:42:25.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976255646858101148"
+        }
+      ],
+      "id": "1976282102258860532",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @hanadakeika: Fata Morgana has reached 5,000 reviews!! I’m honestly so surprised and so happy.\n\nWhen I first released Fatamoru, I never…",
+      "edit_history_tweet_ids": [
+        "1976280551616352454"
+      ],
+      "public_metrics": {
+        "retweet_count": 510,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976280551616352454",
+      "author_id": "1304378475604836353",
+      "lang": "en",
+      "created_at": "2025-10-09T13:36:15.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975916078481232089"
+        }
+      ],
+      "id": "1976280551616352454",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @TheDarkraimola: \"La verdadera razón por la que acabé siendo de esta manera fue...\n\nPorque pienso que eres hermosa. Eso es todo...\"\n\n✍️🔥…",
+      "edit_history_tweet_ids": [
+        "1976143270225867000"
+      ],
+      "public_metrics": {
+        "retweet_count": 55,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976143270225867000",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-09T04:30:45.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1910192378800959944"
+        }
+      ],
+      "id": "1976143270225867000",
+      "is_retweet": true
+    },
+    {
+      "text": "GRACIAS PADRE WUWA\n\nSOLO CON DOS MULTIS https://t.co/XVzq7bk7Ud",
+      "edit_history_tweet_ids": [
+        "1976140023880654887"
+      ],
+      "public_metrics": {
+        "retweet_count": 9,
+        "reply_count": 15,
+        "like_count": 393,
+        "quote_count": 0,
+        "bookmark_count": 11,
+        "impression_count": 10059
+      },
+      "conversation_id": "1976140023880654887",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-09T04:17:51.000Z",
+      "id": "1976140023880654887",
+      "is_retweet": false
+    },
+    {
+      "text": "RT @hei11999: 🌟+⭐️+✨=✴️ https://t.co/yZ7j83A7LI",
+      "edit_history_tweet_ids": [
+        "1976133012531081601"
+      ],
+      "public_metrics": {
+        "retweet_count": 6820,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976133012531081601",
+      "author_id": "1304378475604836353",
+      "lang": "und",
+      "created_at": "2025-10-09T03:49:59.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975835405145808977"
+        }
+      ],
+      "id": "1976133012531081601",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @piyokoy_: 私の雛子\n\n寿雛\n\n#サイレントヒルf\n#silenthillf https://t.co/Ws3Iu4McaU",
+      "edit_history_tweet_ids": [
+        "1976131110305247541"
+      ],
+      "public_metrics": {
+        "retweet_count": 1940,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976131110305247541",
+      "author_id": "1304378475604836353",
+      "lang": "ja",
+      "created_at": "2025-10-09T03:42:26.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975985308052373553"
+        }
+      ],
+      "id": "1976131110305247541",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @Alternativevt: Si usan Twitch desde PC, sean Streamers o Viewers pueden usar esta extensión llamada \"Enhancer\" \nTiene una gran cantidad…",
+      "edit_history_tweet_ids": [
+        "1976110831546036424"
+      ],
+      "public_metrics": {
+        "retweet_count": 34,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976110831546036424",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-09T02:21:51.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976040711352139923"
+        }
+      ],
+      "id": "1976110831546036424",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @KotaKotonya: @MegumiShigaisen it’s a Google chrome extension called twitch enhancer!\n\nit is worth noting however that this extension al…",
+      "edit_history_tweet_ids": [
+        "1976110647542002083"
+      ],
+      "public_metrics": {
+        "retweet_count": 5,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976110647542002083",
+      "author_id": "1304378475604836353",
+      "lang": "en",
+      "created_at": "2025-10-09T02:21:07.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1976037301739520135"
+        }
+      ],
+      "id": "1976110647542002083",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @Tsuma____: 寿雛\n#サイレントヒルf\n#silenthillf https://t.co/nwAGZ5dKcC",
+      "edit_history_tweet_ids": [
+        "1976027323515478136"
+      ],
+      "public_metrics": {
+        "retweet_count": 3237,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976027323515478136",
+      "author_id": "1304378475604836353",
+      "lang": "ja",
+      "created_at": "2025-10-08T20:50:01.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975914737344168178"
+        }
+      ],
+      "id": "1976027323515478136",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @SumiSamuuu: 寿雛\n#サイレントヒルf #silenthillf https://t.co/rOxNKcpWu9",
+      "edit_history_tweet_ids": [
+        "1976019105359745056"
+      ],
+      "public_metrics": {
+        "retweet_count": 1944,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976019105359745056",
+      "author_id": "1304378475604836353",
+      "lang": "ja",
+      "created_at": "2025-10-08T20:17:22.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975857528300028048"
+        }
+      ],
+      "id": "1976019105359745056",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @yuno_11_02: #サイレントヒルf\n#silenthillf https://t.co/eH8HXuFPRs",
+      "edit_history_tweet_ids": [
+        "1976017429043216695"
+      ],
+      "public_metrics": {
+        "retweet_count": 6887,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976017429043216695",
+      "author_id": "1304378475604836353",
+      "lang": "qme",
+      "created_at": "2025-10-08T20:10:42.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975863924278071393"
+        }
+      ],
+      "id": "1976017429043216695",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @99PEKOPECO99: #silenthillf #サイレントヒルf \n寿雛 https://t.co/IoAT03u2p6",
+      "edit_history_tweet_ids": [
+        "1976017374743757237"
+      ],
+      "public_metrics": {
+        "retweet_count": 5757,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976017374743757237",
+      "author_id": "1304378475604836353",
+      "lang": "ja",
+      "created_at": "2025-10-08T20:10:29.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975736365649437101"
+        }
+      ],
+      "id": "1976017374743757237",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @Lemonhighball6: 寿雛／狐の窓 https://t.co/c491V2T4RB",
+      "edit_history_tweet_ids": [
+        "1976016265656533463"
+      ],
+      "public_metrics": {
+        "retweet_count": 14189,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 1
+      },
+      "conversation_id": "1976016265656533463",
+      "author_id": "1304378475604836353",
+      "lang": "ja",
+      "created_at": "2025-10-08T20:06:04.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975883140574085625"
+        }
+      ],
+      "id": "1976016265656533463",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @i_do_Anime: #サイレントヒルf\n#silenthillƒ https://t.co/KwjjkQhYDo",
+      "edit_history_tweet_ids": [
+        "1976015862026076218"
+      ],
+      "public_metrics": {
+        "retweet_count": 5478,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1976015862026076218",
+      "author_id": "1304378475604836353",
+      "lang": "qme",
+      "created_at": "2025-10-08T20:04:28.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975551455382982717"
+        }
+      ],
+      "id": "1976015862026076218",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @arraveri: 4 viewers you say? Because I counted at least 32 including vips and mods @Twitch @TwitchSupport https://t.co/f8CVSsXqLy",
+      "edit_history_tweet_ids": [
+        "1975983124606746670"
+      ],
+      "public_metrics": {
+        "retweet_count": 70,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1975983124606746670",
+      "author_id": "1304378475604836353",
+      "lang": "en",
+      "created_at": "2025-10-08T17:54:23.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975343418101621033"
+        }
+      ],
+      "id": "1975983124606746670",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @Mrenghy: Mi hermanita me hizo una Bocchi a mano por mi cumple https://t.co/I45nfvMdWt",
+      "edit_history_tweet_ids": [
+        "1975980431477703083"
+      ],
+      "public_metrics": {
+        "retweet_count": 783,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1975980431477703083",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-08T17:43:41.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975706115582345370"
+        }
+      ],
+      "id": "1975980431477703083",
+      "is_retweet": true
+    },
+    {
+      "text": "En Kick retransmitieron la muerte de una persona y en Twitch el nacimiento de otra.\n\nYa no importa nada. https://t.co/1n2L6U7ZpS",
+      "edit_history_tweet_ids": [
+        "1975955517911740678"
+      ],
+      "public_metrics": {
+        "retweet_count": 44,
+        "reply_count": 38,
+        "like_count": 1160,
+        "quote_count": 3,
+        "bookmark_count": 89,
+        "impression_count": 20289
+      },
+      "conversation_id": "1975955517911740678",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-08T16:04:41.000Z",
+      "referenced_tweets": [
+        {
+          "type": "quoted",
+          "id": "1975921656703877192"
+        }
+      ],
+      "id": "1975955517911740678",
+      "is_retweet": false
+    },
+    {
+      "text": "@S0yMike @Oscar_BrockWah @CapitanPokemon De los mejores goles que he visto en Inazuma Eleven , que locura",
+      "edit_history_tweet_ids": [
+        "1975952238398071265"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 61,
+        "quote_count": 0,
+        "bookmark_count": 3,
+        "impression_count": 3469
+      },
+      "conversation_id": "1975618990119714889",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-08T15:51:39.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975618990119714889"
+        }
+      ],
+      "id": "1975952238398071265",
+      "is_retweet": false
+    },
+    {
+      "text": "RT @S0yMike: Bro, esto que ha sido?? histórico si me preguntan  @Oscar_BrockWah  @CapitanPokemon  #MercenariosFC \n\nES EL JODIDO ARCHER HALC…",
+      "edit_history_tweet_ids": [
+        "1975952038396899793"
+      ],
+      "public_metrics": {
+        "retweet_count": 38,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1975952038396899793",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-08T15:50:52.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975618990119714889"
+        }
+      ],
+      "id": "1975952038396899793",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @TndenciaStream: \"Twitch\"\n\nPorque si no interactúas en el chat, Twitch ya no te considera como viewer. https://t.co/MorlbWlFtw",
+      "edit_history_tweet_ids": [
+        "1975914029886722081"
+      ],
+      "public_metrics": {
+        "retweet_count": 254,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1975914029886722081",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-08T13:19:50.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975775638230606050"
+        }
+      ],
+      "id": "1975914029886722081",
+      "is_retweet": true
+    },
+    {
+      "text": "Vaya putísimo peak la historia del Silent Hill F. \n\nCada final es mejor que el anterior, qué barbaridad. Y todos en su conjunto hacen de esta una de las historias de terror más originales y mejor narradas que he visto. Tengo quejas con los aspectos jugables, pero todos los https://t.co/FNzttnjxv3",
+      "edit_history_tweet_ids": [
+        "1975775800243671519"
+      ],
+      "public_metrics": {
+        "retweet_count": 53,
+        "reply_count": 34,
+        "like_count": 879,
+        "quote_count": 7,
+        "bookmark_count": 144,
+        "impression_count": 28354
+      },
+      "conversation_id": "1975775800243671519",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-08T04:10:33.000Z",
+      "id": "1975775800243671519",
+      "is_retweet": false
+    },
+    {
+      "text": "@soymatt_ Tienes tiempo para vigilarme entre minita y minita?",
+      "edit_history_tweet_ids": [
+        "1975667292848677161"
+      ],
+      "public_metrics": {
+        "retweet_count": 2,
+        "reply_count": 6,
+        "like_count": 198,
+        "quote_count": 0,
+        "bookmark_count": 2,
+        "impression_count": 4844
+      },
+      "conversation_id": "1975661793100841007",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T20:59:23.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975663896246821228"
+        }
+      ],
+      "id": "1975667292848677161",
+      "is_retweet": false
+    },
+    {
+      "text": "@OneEyedGuille @Jamke0820 @CarlitoBurner77 Pero que piensen de mí lo que quieran, nunca fue mi intención caerle bien a todo el mundo ni mucho menos a los fans de las obras que critico.\n\nEl problema es que me pareció  surrealista que tras TODOS esos comentarios tirándome hate, aún así quisieran dejarme mal diciendo que no",
+      "edit_history_tweet_ids": [
+        "1975666904540061808"
+      ],
+      "public_metrics": {
+        "retweet_count": 1,
+        "reply_count": 0,
+        "like_count": 13,
+        "quote_count": 0,
+        "bookmark_count": 2,
+        "impression_count": 713
+      },
+      "conversation_id": "1975306430069821607",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T20:57:50.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975664483680100441"
+        }
+      ],
+      "id": "1975666904540061808",
+      "is_retweet": false
+    },
+    {
+      "text": "@Jamke0820 @OneEyedGuille @CarlitoBurner77 Hombre, está bien insultarme una vez, dos, tres...pero decenas?\n\nLo que me llamó la atención aquí fue la cantidad jajaja \n\nEso y que me acusaban de estar resentido por un comentario. Y no, yo estoy resentido por 20 xd",
+      "edit_history_tweet_ids": [
+        "1975663275946954983"
+      ],
+      "public_metrics": {
+        "retweet_count": 1,
+        "reply_count": 3,
+        "like_count": 13,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 773
+      },
+      "conversation_id": "1975306430069821607",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T20:43:25.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975657894340092201"
+        }
+      ],
+      "id": "1975663275946954983",
+      "is_retweet": false
+    },
+    {
+      "text": "Me encontré una marmota salvaje y tocó hacer de guia turístico 😌\n\nTremendo fotón el de la catedral jajaja https://t.co/DHXeCb6ppH",
+      "edit_history_tweet_ids": [
+        "1975661793100841007"
+      ],
+      "public_metrics": {
+        "retweet_count": 15,
+        "reply_count": 67,
+        "like_count": 766,
+        "quote_count": 0,
+        "bookmark_count": 53,
+        "impression_count": 23441
+      },
+      "conversation_id": "1975661793100841007",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T20:37:32.000Z",
+      "referenced_tweets": [
+        {
+          "type": "quoted",
+          "id": "1975645231790821809"
+        }
+      ],
+      "id": "1975661793100841007",
+      "is_retweet": false
+    },
+    {
+      "text": "RT @MarmotaSenpai: chavales me encontré con @TheDarkraimola 🙀 me invitó una pizza en un local de kebabs y me mostró su universidad 🥸gracias…",
+      "edit_history_tweet_ids": [
+        "1975661792111002068"
+      ],
+      "public_metrics": {
+        "retweet_count": 16,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1975661792111002068",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T20:37:31.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975645231790821809"
+        }
+      ],
+      "id": "1975661792111002068",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @_Swado_: El hermano de Darkrai un 29 de Marzo del 2017: https://t.co/2FPx4OZ2Ra",
+      "edit_history_tweet_ids": [
+        "1975635547772326129"
+      ],
+      "public_metrics": {
+        "retweet_count": 9,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1975635547772326129",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T18:53:14.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975560854914375984"
+        }
+      ],
+      "id": "1975635547772326129",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @TheDarkraimola: @OneEyedGuille @LorenaRokuhira @CarlitoBurner77 A ver, igual soy un poco resentido, no lo voy a negar. Pero está claro…",
+      "edit_history_tweet_ids": [
+        "1975547237267833084"
+      ],
+      "public_metrics": {
+        "retweet_count": 6,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1975547237267833084",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T13:02:19.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975352853683425565"
+        }
+      ],
+      "id": "1975547237267833084",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @MovistareSports: 🟣 Twitch sigue recortando los viewers de los streamers y la tensión crece:\n\nLa plataforma estaría descontando a los ll…",
+      "edit_history_tweet_ids": [
+        "1975536053403754618"
+      ],
+      "public_metrics": {
+        "retweet_count": 129,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1975536053403754618",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T12:17:53.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975216817900540050"
+        }
+      ],
+      "id": "1975536053403754618",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @DqKeita: #HonkaiStarRail si fuese un anime de los 80s https://t.co/hrre6tu6qa",
+      "edit_history_tweet_ids": [
+        "1975529883137925492"
+      ],
+      "public_metrics": {
+        "retweet_count": 333,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1975529883137925492",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T11:53:22.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975320410997858533"
+        }
+      ],
+      "id": "1975529883137925492",
+      "is_retweet": true
+    },
+    {
+      "text": "RT @Bardopacotilla: Basado https://t.co/8MHJ6lQKjh",
+      "edit_history_tweet_ids": [
+        "1975431001162576280"
+      ],
+      "public_metrics": {
+        "retweet_count": 288,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 2
+      },
+      "conversation_id": "1975431001162576280",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T05:20:27.000Z",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1975306501532360874"
+        }
+      ],
+      "id": "1975431001162576280",
+      "is_retweet": true
+    },
+    {
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Pues si we, porque te lo tomaste a mal y me empezaste a insultar xd\n\nPero bueno, culpa mía por hablar con alguien que desde el minuto 1 ya había dejado claro que yo le caía mal.\n\nMe vas a acusar de tener el ego fragil otra vez o podemos dejarlo aquí? https://t.co/l2IkYqrejR",
+      "edit_history_tweet_ids": [
+        "1975406643115614488"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 4,
+        "like_count": 15,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 1176
+      },
+      "conversation_id": "1975387951929651624",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T03:43:39.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975405508652609757"
+        }
+      ],
+      "id": "1975406643115614488",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 1. Veo a un tipo diciendo que no le gusta mi contenido.\n\n2. Entro a su perfil a ver si descubro el porqué (Suelo hacerlo cuando veo críticas contra mi o mi canal, ya que  si el \"hater\" en cuestión es fan de BnHa/Jujutsu/BC, etc. pues ya entiendo cuál es el problema conmigo.",
+      "edit_history_tweet_ids": [
+        "1975404772778803694"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 11,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 980
+      },
+      "conversation_id": "1975387951929651624",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T03:36:13.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975402877083656399"
+        }
+      ],
+      "id": "1975404772778803694",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Y porque a mí me hizo gracia que el motivo de que te cayese mal FUESE TAN OBVIO xD: https://t.co/YQ3nMaj5SJ",
+      "edit_history_tweet_ids": [
+        "1975402220666692083"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 12,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 1002
+      },
+      "conversation_id": "1975387951929651624",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T03:26:05.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975401718515904944"
+        }
+      ],
+      "id": "1975402220666692083",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Y dale jsjsjsjsjsjs https://t.co/72aIy1pkbK",
+      "edit_history_tweet_ids": [
+        "1975400627552338405"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 19,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 922
+      },
+      "conversation_id": "1975387951929651624",
+      "author_id": "1304378475604836353",
+      "lang": "it",
+      "created_at": "2025-10-07T03:19:45.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975400083677208622"
+        }
+      ],
+      "id": "1975400627552338405",
+      "is_retweet": false
+    },
+    {
+      "text": "@Simp_de_hw @Paolo1276789500 @ezflarenze @si6568723994531 Pues es lo que hay jajaja\n\nMientras sólo me odien por opiniones de mangas, pues está bien.",
+      "edit_history_tweet_ids": [
+        "1975399788356010394"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 11,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 541
+      },
+      "conversation_id": "1975387951929651624",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T03:16:25.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975399342732169520"
+        }
+      ],
+      "id": "1975399788356010394",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Me lo tomé en serio cuando después de señalar lo curiosa que me parecía tu foto...ME INSULTASTE A MÍ Y A ZROLY xD\n\nFuiste tú el que se lo tomó en serio. Pero ya está, déjalo.",
+      "edit_history_tweet_ids": [
+        "1975399471006527849"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 16,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 790
+      },
+      "conversation_id": "1975387951929651624",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T03:15:09.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975398788069024136"
+        }
+      ],
+      "id": "1975399471006527849",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @ezflarenze @si6568723994531 Que no fue porque me doliese xdd \n\nYa te dije que fue porque me hizo gracia. He conocido gente a la que no le caigo bien porque son fans de BnHa, gente a la que no le caigo bien por mis opiniones de Jujutsu, gente que me odia por lo que dije de Black Clover...\n\nY TÚ LOS TENIAS A",
+      "edit_history_tweet_ids": [
+        "1975398540315668669"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 4,
+        "like_count": 19,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 903
+      },
+      "conversation_id": "1975387951929651624",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T03:11:27.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975398031446188358"
+        }
+      ],
+      "id": "1975398540315668669",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @si6568723994531 Ni tú eres un grano de arena ni yo soy más de uno. Somos seres humanos, los dos. \n\nY por eso si veo un comentario tuyo que me llama la atención, puedo responderte. Y si me insultas, es lógico que me defienda. \n\nNo hay nada de raro en eso.",
+      "edit_history_tweet_ids": [
+        "1975396957377208381"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 3,
+        "like_count": 31,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 940
+      },
+      "conversation_id": "1975366437385679207",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T03:05:10.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975395864777793885"
+        }
+      ],
+      "id": "1975396957377208381",
+      "is_retweet": false
+    },
+    {
+      "text": "@si6568723994531 @Paolo1276789500 \"se notaban las ganas de pelear\"\n\nUy, ahora el que asume cosas parece que no soy yo.\n\nEn fin, vaya panda jajaja",
+      "edit_history_tweet_ids": [
+        "1975396184903606310"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 3,
+        "like_count": 14,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 697
+      },
+      "conversation_id": "1975366437385679207",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T03:02:06.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975395483058360361"
+        }
+      ],
+      "id": "1975396184903606310",
+      "is_retweet": false
+    },
+    {
+      "text": "@ezflarenze @si6568723994531 Esto es surrealista xD\n\nLas vueltas que están dando para no darme la razón en el hecho de que dije que es lógico que a un fan de X cosas no le guste mi canal en el que critico...X cosas!\n\nNi siquiera es una discusión sobre algo. Es ver el campo mojado, llegar a la conclusión de",
+      "edit_history_tweet_ids": [
+        "1975395803146399763"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 57,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 1697
+      },
+      "conversation_id": "1975387951929651624",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T03:00:35.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975394541344899470"
+        }
+      ],
+      "id": "1975395803146399763",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @si6568723994531 Claro porque si me insultas, como hace el otro tipo, me tengo que quedar callado. Es lo que tenemos que hacer los youtubers, es verdad.\n\nNo tenemos derecho a defendernos porque si lo hacemos estamos mostrando que \"nos dañaron el ego\".\n\nTú ganas Paolo, eres todo un papeador.",
+      "edit_history_tweet_ids": [
+        "1975395028794253790"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 27,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 878
+      },
+      "conversation_id": "1975366437385679207",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:57:30.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975393759061025146"
+        }
+      ],
+      "id": "1975395028794253790",
+      "is_retweet": false
+    },
+    {
+      "text": "@si6568723994531 Todo tiene su público. Y bueno, sí, dale, SEGURO que no está enfadado conmigo por alguna vez de las que critiqué a los que tiene en la portada xD\n\nSeguro que es por mi opinión política o por mi gusto musical jajaja",
+      "edit_history_tweet_ids": [
+        "1975393791193587836"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 3,
+        "like_count": 55,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 2413
+      },
+      "conversation_id": "1975387951929651624",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:52:35.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975393409759387958"
+        }
+      ],
+      "id": "1975393791193587836",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @si6568723994531 Porque me pareció graciosa la portada. Nunca había visto una señal TAN clara de por qué a alguien no le gustaría mi contenido. Fue tan obvio cuando vi a todos los shonens ahí juntos, que me hizo mucha gracia.\n\nEl que lo tomó como un ataque fuiste tú.",
+      "edit_history_tweet_ids": [
+        "1975393368789426291"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 53,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 1560
+      },
+      "conversation_id": "1975366437385679207",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:50:54.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975392593400713449"
+        }
+      ],
+      "id": "1975393368789426291",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @si6568723994531 Yo solo usé tu portada para apuntar a qué con razón no te gustaba mi contenido. Tú fuiste el primero insultar [a mí y a Zroly, por algún motivo jajaja]\n\nNo quiero disculpas ni nada, pero tampoco te hagas tú el ofendido, que la discusión la iniciaste tú jajaja",
+      "edit_history_tweet_ids": [
+        "1975393005600449015"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 16,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 930
+      },
+      "conversation_id": "1975366437385679207",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:49:28.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975392248499229159"
+        }
+      ],
+      "id": "1975393005600449015",
+      "is_retweet": false
+    },
+    {
+      "text": "@si6568723994531 Truvix si tú comida favorita son los spaghettis y las hamburguesas, es lógico que el youtuber que hatea los spaghettis y las hamburguesas no te guste.\n\nEs el caso de Paolo, que anda criticando mi contenido cuando mi contenido se basa en todo lo contrario de lo que (al parecer) le",
+      "edit_history_tweet_ids": [
+        "1975392264105951279"
+      ],
+      "public_metrics": {
+        "retweet_count": 2,
+        "reply_count": 5,
+        "like_count": 199,
+        "quote_count": 0,
+        "bookmark_count": 9,
+        "impression_count": 9665
+      },
+      "conversation_id": "1975387951929651624",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:46:31.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975387951929651624"
+        }
+      ],
+      "id": "1975392264105951279",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @si6568723994531 No fue lo primero, Paolo, revisa la conversación 👉",
+      "edit_history_tweet_ids": [
+        "1975391850795311363"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 9,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 556
+      },
+      "conversation_id": "1975366437385679207",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:44:52.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975391580187206047"
+        }
+      ],
+      "id": "1975391850795311363",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @si6568723994531 Pero por qué me iba a molestar que a un fan de esas cosas no le guste ni contenido xd\n\nNi yo soy un youtuber para ti, ni tú eres el tipo de público que busco.\n\nDicho esto, sé feliz con tus shonens.",
+      "edit_history_tweet_ids": [
+        "1975391636231454929"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 37,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 1504
+      },
+      "conversation_id": "1975366437385679207",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:44:01.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975390213867511922"
+        }
+      ],
+      "id": "1975391636231454929",
+      "is_retweet": false
+    },
+    {
+      "text": "@si6568723994531 @Paolo1276789500 Si, tienes razón. La frase correcta ahí era \"yo no te ESTABA insultando\" y eso es cierto. Pero ya  que el se dio por atacado, pues que así sea 😵‍💫",
+      "edit_history_tweet_ids": [
+        "1975391221360333282"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 8,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 577
+      },
+      "conversation_id": "1975366437385679207",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:42:22.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975390360420688003"
+        }
+      ],
+      "id": "1975391221360333282",
+      "is_retweet": false
+    },
+    {
+      "text": "@Jos42358656 @OneEyedGuille @LorenaRokuhira @CarlitoBurner77 Es muy posible. De los fandoms más \"resentidos\" con los que me he cruzado.\n\nMira que llevo meses sin decir nada del Deku y su puta madre y cada cierto tiempo salen a llorar. \n\nY, siendo honestos, con BnHa no me metí ni la mitad que con Jujutsu, One Piece, Chainsaw Man o Black",
+      "edit_history_tweet_ids": [
+        "1975390485192843439"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 41,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 1839
+      },
+      "conversation_id": "1975306430069821607",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:39:27.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975384934136316161"
+        }
+      ],
+      "id": "1975390485192843439",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @si6568723994531 Yo no te estoy insultando ni criticando tus gustos (aunque sí, ya que lo dices, me parecen terribles). Sólo apuntaba que es normal que mi contenido que muchas veces se basa en putear a esas obras no sea de tu agrado. Lógico, no?",
+      "edit_history_tweet_ids": [
+        "1975389957914341388"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 52,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 2353
+      },
+      "conversation_id": "1975366437385679207",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:37:21.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975387997832159339"
+        }
+      ],
+      "id": "1975389957914341388",
+      "is_retweet": false
+    },
+    {
+      "text": "@rodbeingshy @goge59472 @SamAnima07 Dejando de lado sus obsesiones, esto empezó porque me estaban llamando resentido por no querer ver sus vídeos (que encima mi compa resulta que es YouTuber de anime también, vaya huevos jajaja) porque \"me había insultado una vez\". \n\nY solo quería mostrar que fueron muchas más que",
+      "edit_history_tweet_ids": [
+        "1975389510297899076"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 11,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 587
+      },
+      "conversation_id": "1975365451355238504",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:35:34.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975388788357825006"
+        }
+      ],
+      "id": "1975389510297899076",
+      "is_retweet": false
+    },
+    {
+      "text": "@goge59472 @rodbeingshy @SamAnima07 Yo no vine a decirle nada, sólo que tener 20 tweets insultándome (pese a tenerme bloqueado) es un poco obsesivo jajaja",
+      "edit_history_tweet_ids": [
+        "1975388326665564282"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 9,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 559
+      },
+      "conversation_id": "1975365451355238504",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:30:52.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975387800867643908"
+        }
+      ],
+      "id": "1975388326665564282",
+      "is_retweet": false
+    },
+    {
+      "text": "@Paolo1276789500 @si6568723994531 Hombre Paolo, con esa portada que me traes, está claro que mi contenido no es para ti xd\n\nPueden ser fácilmente las obras que más detesto, te faltó un Luffy o un Rudeus en vez del Tanjiro para rematar jajaja https://t.co/iJ1Tpt0GI7",
+      "edit_history_tweet_ids": [
+        "1975387596399448283"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 3,
+        "like_count": 63,
+        "quote_count": 5,
+        "bookmark_count": 4,
+        "impression_count": 20081
+      },
+      "conversation_id": "1975366437385679207",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T02:27:58.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975369739947155771"
+        }
+      ],
+      "id": "1975387596399448283",
+      "is_retweet": false
+    },
+    {
+      "text": "@OneEyedGuille Es que ya me jodería jajaja\n\nSi el malo aún voy a ser yo por no querer reaccionar a los videos de este tipo jajaja",
+      "edit_history_tweet_ids": [
+        "1975354355357524072"
+      ],
+      "public_metrics": {
+        "retweet_count": 1,
+        "reply_count": 2,
+        "like_count": 127,
+        "quote_count": 0,
+        "bookmark_count": 5,
+        "impression_count": 5430
+      },
+      "conversation_id": "1975353371474469304",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T00:15:53.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975353371474469304"
+        }
+      ],
+      "id": "1975354355357524072",
+      "is_retweet": false
+    },
+    {
+      "text": "@OneEyedGuille @LorenaRokuhira @CarlitoBurner77 En plan, ¿maté a su abuela o algo y no me di cuenta?\n\nTiene como 20 tweets insultándome y aún por encima me lo queréis victimizar jajaja https://t.co/rmhrRWyNlP",
+      "edit_history_tweet_ids": [
+        "1975353630233604603"
+      ],
+      "public_metrics": {
+        "retweet_count": 1,
+        "reply_count": 21,
+        "like_count": 213,
+        "quote_count": 3,
+        "bookmark_count": 13,
+        "impression_count": 18624
+      },
+      "conversation_id": "1975306430069821607",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T00:13:00.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975352853683425565"
+        }
+      ],
+      "id": "1975353630233604603",
+      "is_retweet": false
+    },
+    {
+      "text": "@OneEyedGuille @LorenaRokuhira @CarlitoBurner77 A ver, igual soy un poco resentido, no lo voy a negar. Pero está claro que vuestro amiguito tiene un pequeño problema conmigo.\n\nNo es que \"me llamase  terrorista\" una vez xd https://t.co/1RH7IbVzzZ",
+      "edit_history_tweet_ids": [
+        "1975352853683425565"
+      ],
+      "public_metrics": {
+        "retweet_count": 6,
+        "reply_count": 12,
+        "like_count": 240,
+        "quote_count": 12,
+        "bookmark_count": 14,
+        "impression_count": 34532
+      },
+      "conversation_id": "1975306430069821607",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-07T00:09:55.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975308625334984900"
+        }
+      ],
+      "id": "1975352853683425565",
+      "is_retweet": false
+    },
+    {
+      "text": "Ah, y el plot twist del personaje de Fate y su verdadera identidad también fue muy bueno, todo sea dicho.",
+      "edit_history_tweet_ids": [
+        "1975289929065533715"
+      ],
+      "public_metrics": {
+        "retweet_count": 2,
+        "reply_count": 1,
+        "like_count": 240,
+        "quote_count": 0,
+        "bookmark_count": 6,
+        "impression_count": 11506
+      },
+      "conversation_id": "1975289542082212136",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-06T19:59:52.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975289542082212136"
+        }
+      ],
+      "id": "1975289929065533715",
+      "is_retweet": false
+    },
+    {
+      "text": "Nadie lo vio venir. https://t.co/nf2gkksUgB",
+      "edit_history_tweet_ids": [
+        "1975289542082212136"
+      ],
+      "public_metrics": {
+        "retweet_count": 9,
+        "reply_count": 14,
+        "like_count": 369,
+        "quote_count": 2,
+        "bookmark_count": 33,
+        "impression_count": 19770
+      },
+      "conversation_id": "1975289542082212136",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-06T19:58:20.000Z",
+      "referenced_tweets": [
+        {
+          "type": "quoted",
+          "id": "1975123017320788120"
+        }
+      ],
+      "id": "1975289542082212136",
+      "is_retweet": false
+    },
+    {
+      "text": "@DarkNomura @OneEyedGuille Pues tú lo has dicho xd\n\nSi te gusta Cristiano Ronaldo no tienes porqué ser fan del delantero de un equipillo local solo porque ambos juegan al fútbol.",
+      "edit_history_tweet_ids": [
+        "1975243728789926378"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 9,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 849
+      },
+      "conversation_id": "1974522254487855285",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-06T16:56:17.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975241485265346727"
+        }
+      ],
+      "id": "1975243728789926378",
+      "is_retweet": false
+    },
+    {
+      "text": "@DarkNomura @OneEyedGuille Entonces no me conocías tanto jaja",
+      "edit_history_tweet_ids": [
+        "1975240171210875366"
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 1,
+        "like_count": 3,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 710
+      },
+      "conversation_id": "1974522254487855285",
+      "author_id": "1304378475604836353",
+      "lang": "es",
+      "created_at": "2025-10-06T16:42:09.000Z",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1975236888593403998"
+        }
+      ],
+      "id": "1975240171210875366",
+      "is_retweet": false
+    },
+    {
+      "conversation_id": "1975200916149240033",
+      "lang": "it",
+      "public_metrics": {
+        "retweet_count": 3,
+        "reply_count": 8,
+        "like_count": 472,
+        "quote_count": 0,
+        "bookmark_count": 37,
+        "impression_count": 17069
+      },
+      "created_at": "2025-10-06T14:06:10.000Z",
+      "id": "1975200916149240033",
+      "text": "Jsjsjsjsjsydhdyeudfh https://t.co/mDj97d27PU",
+      "referenced_tweets": [
+        {
+          "type": "quoted",
+          "id": "1974924994674405576"
+        }
+      ],
+      "author_id": "1304378475604836353",
+      "edit_history_tweet_ids": [
+        "1975200916149240033"
+      ],
+      "is_retweet": false
+    },
+    {
+      "conversation_id": "1975057146158194691",
+      "lang": "es",
+      "public_metrics": {
+        "retweet_count": 6,
+        "reply_count": 3,
+        "like_count": 260,
+        "quote_count": 0,
+        "bookmark_count": 3,
+        "impression_count": 11311
+      },
+      "created_at": "2025-10-06T04:34:53.000Z",
+      "id": "1975057146158194691",
+      "text": "La parte de los espantapájaros del Silent Hill F...lo pasé mal eh jajaja",
+      "author_id": "1304378475604836353",
+      "edit_history_tweet_ids": [
+        "1975057146158194691"
+      ],
+      "is_retweet": false
+    }
+  ],
+  "stats": {
+    "total_tweets": 100,
+    "retweet_count": 37,
+    "original_count": 63,
+    "date_range": {
+      "start": "2025-10-06T04:34:53+00:00",
+      "end": "2025-10-11T14:52:29+00:00"
+    },
+    "languages": {
+      "en": 10,
+      "ja": 10,
+      "es": 74,
+      "qme": 3,
+      "und": 1,
+      "it": 2
+    }
+  },
+  "pages_fetched": 2,
+  "fetched_at": "2025-10-11T10:01:25.989804"
+}
