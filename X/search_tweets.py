@@ -4,12 +4,13 @@ Versión simplificada - sin filtros de año ni keywords
 Con temporizadores de tiempo total y tiempo restante estimado
 Con validación de rate limits desde el inicio
 Con JSON de tiempo estimado al inicio
+CON EXTRACCIÓN DE MEDIOS (imágenes/videos)
 """
 import requests
 import time
 import json
 from datetime import datetime, timedelta
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -71,9 +72,80 @@ def is_retweet(tweet: dict) -> bool:
     return False
 
 
+def extract_media_info(tweet: Dict[str, Any], media_objects: List[Dict[str, Any]]) -> List[Dict[str, str]]:
+    """
+    Extrae información de medios (imágenes/videos) de un tweet
+    
+    Args:
+        tweet: Datos del tweet
+        media_objects: Lista de objetos de media desde 'includes.media'
+        
+    Returns:
+        Lista de dicts con info de medios
+    """
+    media_list = []
+    
+    # Obtener media_keys del tweet
+    attachments = tweet.get('attachments', {})
+    media_keys = attachments.get('media_keys', [])
+    
+    if not media_keys:
+        return media_list
+    
+    for media_key in media_keys:
+        # Encontrar el objeto de media correspondiente
+        media_obj = next((m for m in media_objects if m.get('media_key') == media_key), None)
+        
+        if media_obj:
+            media_type = media_obj.get('type')  # 'photo', 'video', 'animated_gif'
+            
+            media_info = {
+                'media_key': media_key,
+                'type': media_type,
+                'url': None,
+                'preview_url': None,
+                'video_url': None,
+                'alt_text': media_obj.get('alt_text'),
+                'width': media_obj.get('width'),
+                'height': media_obj.get('height'),
+                'duration_ms': media_obj.get('duration_ms')
+            }
+            
+            # Obtener URL según el tipo
+            if media_type == 'photo':
+                # Para fotos, simplemente usar la URL directa
+                media_info['url'] = media_obj.get('url')
+                
+            elif media_type in ['video', 'animated_gif']:
+                # Para videos/GIFs: preview (JPG) + URL de video si está disponible
+                media_info['preview_url'] = media_obj.get('preview_image_url')
+                
+                # Intentar obtener la mejor variante de video
+                variants = media_obj.get('variants', [])
+                if variants:
+                    # Filtrar solo variantes de video (mp4)
+                    video_variants = [v for v in variants if v.get('content_type') == 'video/mp4']
+                    
+                    if video_variants:
+                        # Ordenar por bitrate (mayor calidad primero)
+                        video_variants.sort(key=lambda x: x.get('bit_rate', 0), reverse=True)
+                        best_variant = video_variants[0]
+                        media_info['video_url'] = best_variant.get('url')
+                        media_info['bitrate'] = best_variant.get('bit_rate')
+                
+                # Para análisis de riesgos, usar el preview (más rápido)
+                # pero guardar el video_url para referencia
+                media_info['url'] = media_info['preview_url']
+            
+            media_list.append(media_info)
+    
+    return media_list
+
+
 def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[str, Any]:
     """
     Obtiene tweets de un usuario (versión simplificada con temporizadores)
+    AHORA CON EXTRACCIÓN DE MEDIOS
     
     Args:
         username: Username del usuario (con o sin @)
@@ -84,7 +156,7 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
         {
             'success': bool,
             'user': dict,           # Info del usuario
-            'tweets': list,         # Lista de tweets
+            'tweets': list,         # Lista de tweets CON MEDIOS
             'stats': dict,          # Estadísticas
             'pages_fetched': int,
             'fetched_at': str,
@@ -108,7 +180,7 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
         if user_result.get('account_created'):
             print(f"   Cuenta creada: {user_result['account_created']}")
         
-        print(f"\nObteniendo tweets...")
+        print(f"\nObteniendo tweets CON MEDIOS...")
         if max_tweets:
             print(f"   Límite: {max_tweets} tweets")
         else:
@@ -129,16 +201,21 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
         estimated_pages = None
         estimated_time_str = None
         
+        # Estadísticas de medios
+        total_media_count = 0
+        tweets_with_media = 0
+        
         # ESTIMACIÓN INICIAL DEL TIEMPO
         print(f"\nCalculando tiempo estimado...")
         estimation_start = time.time()
         
-        # Hacer primera request para estimar
+        # Hacer primera request para estimar (AHORA CON EXPANSIONES DE MEDIA)
         test_params = {
             "max_results": 100,
-            "tweet.fields": "id,text,created_at,public_metrics,author_id,lang,conversation_id,referenced_tweets",
+            "tweet.fields": "id,text,created_at,public_metrics,author_id,lang,conversation_id,referenced_tweets,attachments",
             "user.fields": "id,username,name",
-            "expansions": "author_id,referenced_tweets.id"
+            "media.fields": "media_key,type,url,preview_image_url,alt_text,width,height,duration_ms,variants",
+            "expansions": "author_id,referenced_tweets.id,attachments.media_keys"
         }
         
         test_response = requests.get(url, headers=headers, params=test_params, timeout=30)
@@ -222,8 +299,20 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
         if test_response.status_code == 200:
             test_data = test_response.json()
             test_tweets = test_data.get('data', [])
+            test_includes = test_data.get('includes', {})
+            test_media = test_includes.get('media', [])
             
             if test_tweets:
+                # PROCESAR MEDIOS EN TWEETS DE PRUEBA
+                for tweet in test_tweets:
+                    tweet['is_retweet'] = is_retweet(tweet)
+                    media_info = extract_media_info(tweet, test_media)
+                    tweet['media'] = media_info
+                    
+                    if media_info:
+                        tweets_with_media += 1
+                        total_media_count += len(media_info)
+                
                 tweets_per_page = len(test_tweets)
                 
                 if max_tweets:
@@ -274,13 +363,13 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
                 print(f"   Sin límite establecido - no se puede estimar tiempo total")
                 print(f"   Rate limit disponible: {rate_limit_remaining}/{rate_limit_total}")
             
-            for tweet in test_tweets:
-                tweet['is_retweet'] = is_retweet(tweet)
             all_tweets.extend(test_tweets)
             next_token = test_data.get('meta', {}).get('next_token')
             page_start_times.append(estimation_time)
             
             print(f"   Primera pagina obtenida: {len(test_tweets)} tweets")
+            print(f"   Tweets con medios: {tweets_with_media}")
+            print(f"   Total medios: {total_media_count}")
             page += 1
             time.sleep(1)
         else:
@@ -311,9 +400,10 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
             
             params = {
                 "max_results": 100,
-                "tweet.fields": "id,text,created_at,public_metrics,author_id,lang,conversation_id,referenced_tweets",
+                "tweet.fields": "id,text,created_at,public_metrics,author_id,lang,conversation_id,referenced_tweets,attachments",
                 "user.fields": "id,username,name",
-                "expansions": "author_id,referenced_tweets.id"
+                "media.fields": "media_key,type,url,preview_image_url,alt_text,width,height,duration_ms,variants",
+                "expansions": "author_id,referenced_tweets.id,attachments.media_keys"
             }
             
             if max_tweets:
@@ -408,13 +498,27 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
             
             data = response.json()
             tweets = data.get('data', [])
+            includes = data.get('includes', {})
+            media_objects = includes.get('media', [])
             
             if not tweets:
                 print("   No hay mas tweets disponibles")
                 break
             
+            # PROCESAR MEDIOS PARA CADA TWEET
+            page_media_count = 0
+            page_tweets_with_media = 0
+            
             for tweet in tweets:
                 tweet['is_retweet'] = is_retweet(tweet)
+                media_info = extract_media_info(tweet, media_objects)
+                tweet['media'] = media_info
+                
+                if media_info:
+                    page_tweets_with_media += 1
+                    page_media_count += len(media_info)
+                    tweets_with_media += 1
+                    total_media_count += len(media_info)
             
             all_tweets.extend(tweets)
             
@@ -446,7 +550,8 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
                     else:
                         status = "Calculando..."
                     
-                    print(f"   Obtenidos {len(tweets)} tweets (Total acumulado: {len(all_tweets)})")
+                    print(f"   Obtenidos {len(tweets)} tweets (Total: {len(all_tweets)})")
+                    print(f"   Medios en esta página: {page_media_count} | Total medios: {total_media_count}")
                     print(f"   Paginas: {pages_completed}/{estimated_pages} ({progress_pages*100:.1f}%)")
                     print(f"   Tiempo transcurrido: {format_time(current_elapsed)}")
                     print(f"   Tiempo restante (estimado): {format_time(estimated_remaining_real)}")
@@ -455,11 +560,13 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
                         print(f"   Estimacion inicial: {estimated_time_str} -> Proyeccion actual: {format_time(estimated_total_real)}")
                         print(f"   Estado: {status}")
                 else:
-                    print(f"   Obtenidos {len(tweets)} tweets (Total acumulado: {len(all_tweets)})")
+                    print(f"   Obtenidos {len(tweets)} tweets (Total: {len(all_tweets)})")
+                    print(f"   Medios en esta página: {page_media_count}")
                     print(f"   Paginas: {pages_completed}/{estimated_pages}")
             else:
                 avg_page_time = sum(page_start_times) / len(page_start_times) if page_start_times else 0
-                print(f"   Obtenidos {len(tweets)} tweets (Total acumulado: {len(all_tweets)})")
+                print(f"   Obtenidos {len(tweets)} tweets (Total: {len(all_tweets)})")
+                print(f"   Medios en esta página: {page_media_count}")
                 print(f"   Tiempo transcurrido: {format_time(current_elapsed)}")
                 if avg_page_time > 0:
                     print(f"   Tiempo promedio por pagina: {avg_page_time:.2f}s")
@@ -506,12 +613,35 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
             lang = tweet.get('lang', 'unknown')
             languages[lang] = languages.get(lang, 0) + 1
         
+        # Estadísticas de medios
+        media_types = {}
+        video_stats = {"with_video_url": 0, "only_preview": 0}
+        
+        for tweet in all_tweets:
+            for media in tweet.get('media', []):
+                media_type = media.get('type', 'unknown')
+                media_types[media_type] = media_types.get(media_type, 0) + 1
+                
+                # Contar videos con URL real vs solo preview
+                if media_type in ['video', 'animated_gif']:
+                    if media.get('video_url'):
+                        video_stats['with_video_url'] += 1
+                    else:
+                        video_stats['only_preview'] += 1
+        
         print(f"\n{'='*70}")
         print(f"ESTADÍSTICAS FINALES")
         print(f"{'='*70}")
         print(f"   Total tweets: {len(all_tweets)}")
         print(f"   Retweets: {retweet_count}")
         print(f"   Originales: {original_count}")
+        print(f"   Tweets con medios: {tweets_with_media} ({tweets_with_media/len(all_tweets)*100:.1f}%)")
+        print(f"   Total medios extraídos: {total_media_count}")
+        if media_types:
+            print(f"   Tipos de medios: {dict(sorted(media_types.items(), key=lambda x: x[1], reverse=True))}")
+            if video_stats['with_video_url'] > 0 or video_stats['only_preview'] > 0:
+                print(f"   Videos/GIFs con URL: {video_stats['with_video_url']}")
+                print(f"   Videos/GIFs solo preview: {video_stats['only_preview']}")
         if date_range:
             print(f"   Rango: {date_range['start']} a {date_range['end']}")
         print(f"   Idiomas: {dict(sorted(languages.items(), key=lambda x: x[1], reverse=True))}")
@@ -549,6 +679,9 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
                 'total_tweets': len(all_tweets),
                 'retweet_count': retweet_count,
                 'original_count': original_count,
+                'tweets_with_media': tweets_with_media,
+                'total_media_count': total_media_count,
+                'media_types': media_types,
                 'date_range': date_range,
                 'languages': languages
             },
@@ -597,6 +730,8 @@ def save_tweets_to_file(result: dict, filename: str = None):
     
     print(f"\nGuardado: {filepath}")
     print(f"   Tweets: {result['stats']['total_tweets']}")
+    print(f"   Tweets con medios: {result['stats'].get('tweets_with_media', 0)}")
+    print(f"   Total medios: {result['stats'].get('total_media_count', 0)}")
     print(f"   Tamaño: {len(json.dumps(result)) / 1024:.2f} KB")
     if 'execution_time' in result:
         print(f"   Tiempo de obtención: {result['execution_time']}")
@@ -606,13 +741,13 @@ def save_tweets_to_file(result: dict, filename: str = None):
 
 if __name__ == "__main__":
     print("=" * 70)
-    print("SEARCH_TWEETS.PY - OBTENCIÓN SIMPLE DE TWEETS")
+    print("SEARCH_TWEETS.PY - OBTENCIÓN DE TWEETS CON MEDIOS")
     print("Con validación de rate limits y temporizadores")
     print("=" * 70)
     
     result1 = fetch_user_tweets(
         username="@TheDarkraimola",
-        max_tweets=100
+        max_tweets=1000
     )
     
     if result1['success']:

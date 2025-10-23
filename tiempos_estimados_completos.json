@@ -1,0 +1,53 @@
+{
+  "timestamp": "2025-10-22T18:54:40.010415",
+  "tiempo_estimado_total": "00:18:14",
+  "tiempo_estimado_segundos": 1094.82,
+  "configuracion": {
+    "usuario": "@TheDarkraimola",
+    "max_tweets": 1000,
+    "archivo_tweets": "C:\\Users\\ASUS VIVOBOOK PRO\\tff-bgchecker\\tweets_TheDarkraimola_20251011_100125.json"
+  },
+  "estimaciones": [
+    {
+      "modulo": "user_resolver",
+      "funcion": "resolve_user",
+      "tiempo_real": "0.32s",
+      "tiempo_segundos": 0.32,
+      "exito": true
+    },
+    {
+      "modulo": "search_tweets",
+      "funcion": "fetch_user_tweets",
+      "error": "Operación cancelada por el usuario - Rate limit agotado",
+      "tiempo_real": "00:00:20",
+      "exito": false
+    },
+    {
+      "modulo": "sentiment_analysis",
+      "funcion": "analyze_sentiment_simple",
+      "total_tweets": 100,
+      "muestra_analizada": 3,
+      "tiempo_promedio_por_tweet": "7.78s",
+      "tiempo_estimado_total": "00:12:58",
+      "tiempo_segundos": 778.12,
+      "exito": true
+    },
+    {
+      "modulo": "risk_classifier",
+      "funcion": "classify_risk",
+      "total_tweets": 100,
+      "muestra_analizada": 3,
+      "con_politica": {
+        "tiempo_promedio_por_tweet": "3.96s",
+        "tiempo_estimado_total": "00:06:35",
+        "tiempo_segundos": 395.88
+      },
+      "sin_politica": {
+        "tiempo_promedio_por_tweet": "2.79s",
+        "tiempo_estimado_total": "00:04:39",
+        "tiempo_segundos": 279.16
+      },
+      "exito": true
+    }
+  ]
+}
