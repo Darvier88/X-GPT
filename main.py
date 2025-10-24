@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from X.search_tweets import fetch_user_tweets
 from X.user_resolver import resolve_user
-from GPT.risk_classifier import classify_risk, load_tweets_from_json as load_risk_tweets
+from GPT.risk_classifier_media import classify_risk, load_tweets_from_json as load_risk_tweets
 
 
 def format_time(seconds: float) -> str:

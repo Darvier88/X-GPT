@@ -1,62 +1,36 @@
 {
-  "timestamp": "2025-10-17 16:14:54",
-  "tiempo_total": "10m 40s",
+  "timestamp": "2025-10-23 22:50:33",
+  "tiempo_total": "45s",
   "total_tweets": 100,
   "comparativa": {
     "con_politica_v1": {
       "version": "v1.0",
-      "tiempo_total": "10m 40s",
-      "exitosos": 100,
-      "fallos": 0,
+      "tiempo_total": "45s",
+      "exitosos": 0,
+      "fallos": 100,
       "distribucion_riesgos": {
-        "low": 81,
-        "mid": 17,
-        "high": 2
-      },
-      "labels_detectados": {
-        "toxic": 17,
-        "hate": 2,
-        "political_sensitivity": 2,
-        "bullying": 3
-      },
-      "resumen_labels": {
-        "toxic": {
-          "nombre": "Ofensivo/Tóxico",
-          "cantidad": 17
-        },
-        "hate": {
-          "nombre": "Odio/Discriminación",
-          "cantidad": 2
-        },
-        "political_sensitivity": {
-          "nombre": "Sensibilidad Socio-Política",
-          "cantidad": 2
-        },
-        "bullying": {
-          "nombre": "Acoso/Hostigamiento",
-          "cantidad": 3
-        }
-      }
-    },
-    "sin_politica": {
-      "tiempo_total": "10m 40s",
-      "exitosos": 99,
-      "fallos": 1,
-      "distribucion_riesgos": {
-        "low": 77,
-        "mid": 22,
+        "low": 0,
+        "mid": 0,
         "high": 0
       },
-      "labels_detectados": {
-        "offensive": 21,
-        "bullying": 16,
-        "sociopolitical": 3
-      }
+      "labels_detectados": {},
+      "resumen_labels": {}
+    },
+    "sin_politica": {
+      "tiempo_total": "45s",
+      "exitosos": 0,
+      "fallos": 100,
+      "distribucion_riesgos": {
+        "low": 0,
+        "mid": 0,
+        "high": 0
+      },
+      "labels_detectados": {}
     },
     "diferencias": {
-      "high": 2,
-      "mid": -5,
-      "low": 4
+      "high": 0,
+      "mid": 0,
+      "low": 0
     }
   }
 }
