@@ -1,8 +1,11 @@
 from openai import OpenAI
-from config import get_openai_api_key
 import json
 import os
 from datetime import datetime
+from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from config import get_openai_api_key
 
 def generate_summary(tweets_data):
     """Genera resumen usando ChatGPT y lo guarda automáticamente"""

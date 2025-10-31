@@ -1,0 +1,87 @@
+﻿{
+    "num_ejecuciones":  10,
+    "tiempo_total_formato":  "00:43:13",
+    "tiempo_total_segundos":  2593.3782086,
+    "procesos":  [
+                     {
+                         "id":  1,
+                         "duracion_segundos":  2562.6377376,
+                         "hora_fin":  "2025-10-28 20:03:46",
+                         "hora_inicio":  "2025-10-28 19:21:04",
+                         "exitoso":  true,
+                         "exit_code":  0
+                     },
+                     {
+                         "id":  2,
+                         "duracion_segundos":  2558.1710617,
+                         "hora_fin":  "2025-10-28 20:03:42",
+                         "hora_inicio":  "2025-10-28 19:21:04",
+                         "exitoso":  true,
+                         "exit_code":  0
+                     },
+                     {
+                         "id":  3,
+                         "duracion_segundos":  2565.6486191,
+                         "hora_fin":  "2025-10-28 20:03:50",
+                         "hora_inicio":  "2025-10-28 19:21:05",
+                         "exitoso":  true,
+                         "exit_code":  0
+                     },
+                     {
+                         "id":  4,
+                         "duracion_segundos":  2547.2048256999997,
+                         "hora_fin":  "2025-10-28 20:03:32",
+                         "hora_inicio":  "2025-10-28 19:21:05",
+                         "exitoso":  true,
+                         "exit_code":  0
+                     },
+                     {
+                         "id":  5,
+                         "duracion_segundos":  2581.6490701,
+                         "hora_fin":  "2025-10-28 20:04:07",
+                         "hora_inicio":  "2025-10-28 19:21:05",
+                         "exitoso":  true,
+                         "exit_code":  0
+                     },
+                     {
+                         "id":  6,
+                         "duracion_segundos":  2557.2680649,
+                         "hora_fin":  "2025-10-28 20:03:43",
+                         "hora_inicio":  "2025-10-28 19:21:06",
+                         "exitoso":  true,
+                         "exit_code":  0
+                     },
+                     {
+                         "id":  7,
+                         "duracion_segundos":  2552.8269366,
+                         "hora_fin":  "2025-10-28 20:03:46",
+                         "hora_inicio":  "2025-10-28 19:21:13",
+                         "exitoso":  true,
+                         "exit_code":  0
+                     },
+                     {
+                         "id":  8,
+                         "duracion_segundos":  2560.155421,
+                         "hora_fin":  "2025-10-28 20:03:53",
+                         "hora_inicio":  "2025-10-28 19:21:13",
+                         "exitoso":  true,
+                         "exit_code":  0
+                     },
+                     {
+                         "id":  9,
+                         "duracion_segundos":  2582.8186465999997,
+                         "hora_fin":  "2025-10-28 20:04:16",
+                         "hora_inicio":  "2025-10-28 19:21:13",
+                         "exitoso":  true,
+                         "exit_code":  0
+                     },
+                     {
+                         "id":  10,
+                         "duracion_segundos":  2555.4710655999997,
+                         "hora_fin":  "2025-10-28 20:03:49",
+                         "hora_inicio":  "2025-10-28 19:21:13",
+                         "exitoso":  true,
+                         "exit_code":  0
+                     }
+                 ]
+}

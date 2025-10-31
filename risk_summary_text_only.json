@@ -1,21 +1,21 @@
 {
-  "timestamp": "2025-10-23 23:42:37",
-  "tiempo_total": "38m8s",
+  "timestamp": "2025-10-28 18:58:08",
+  "tiempo_total": "42m2s",
   "total_tweets": 896,
   "exitosos": 896,
   "errores": 0,
   "distribucion": {
-    "low": 804,
-    "mid": 64,
-    "high": 28
+    "low": 805,
+    "mid": 59,
+    "high": 32
   },
   "labels": {
-    "violence": 5,
-    "legal_privacy": 22,
-    "toxic": 98,
-    "nsfw": 3,
-    "political_sensitivity": 35,
-    "bullying": 4,
-    "hate": 1
+    "violence": 6,
+    "political_sensitivity": 34,
+    "legal_privacy": 24,
+    "toxic": 94,
+    "nsfw": 2,
+    "bullying": 5,
+    "hate": 2
   }
 }

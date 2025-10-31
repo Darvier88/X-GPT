@@ -1,0 +1,28 @@
+{
+  "timestamp": "2025-10-24 15:36:11",
+  "tiempo_total": "171m0s",
+  "tiempo_calibracion": "2m54s",
+  "tiempo_texto": "29m38s",
+  "tiempo_media": "138m26s",
+  "velocidad_calibrada_texto": "3.80s/tweet",
+  "velocidad_calibrada_media": "13.69s/tweet",
+  "total_tweets": 896,
+  "tweets_sin_media": 448,
+  "tweets_con_media": 448,
+  "exitosos": 893,
+  "errores": 3,
+  "distribucion": {
+    "low": 746,
+    "mid": 81,
+    "high": 66
+  },
+  "labels": {
+    "violence": 57,
+    "toxic": 99,
+    "political_sensitivity": 17,
+    "nsfw": 25,
+    "bullying": 4,
+    "legal_privacy": 3,
+    "hate": 5
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-10-28 20:04:16",
+  "tiempo_total": "43m0s",
+  "total_tweets": 896,
+  "exitosos": 896,
+  "errores": 0,
+  "distribucion": {
+    "low": 798,
+    "mid": 65,
+    "high": 33
+  },
+  "labels": {
+    "violence": 6,
+    "political_sensitivity": 33,
+    "legal_privacy": 24,
+    "toxic": 92,
+    "nsfw": 3,
+    "bullying": 5,
+    "hate": 3
+  }
+}

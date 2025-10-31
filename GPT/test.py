@@ -1,8 +1,11 @@
 # Test simple
 import os
 from openai import OpenAI
-
-client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from config import get_openai_api_key
+client = OpenAI(api_key=get_openai_api_key())
 
 try: 
     response = client.chat.completions.create(

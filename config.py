@@ -23,6 +23,7 @@ def get_oauth2_credentials():
     """
     client_id = os.getenv('X_CLIENT_ID')
     client_secret = os.getenv('X_CLIENT_SECRET')
+    redirect_uri = os.getenv('REDIRECT_URI')
     
     if not client_id:
         raise ValueError("X_CLIENT_ID no configurado en variables de entorno")
