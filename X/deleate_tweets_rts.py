@@ -16,7 +16,7 @@ import sys
 from urllib.parse import urlencode, parse_qs, urlparse
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from config import get_x_oauth2_credentials
+from config import get_oauth2_credentials
 
 
 # ===== OAUTH 2.0 CON PKCE =====
@@ -25,7 +25,7 @@ class OAuth2Session:
     """Maneja la autenticación OAuth 2.0 con PKCE"""
     
     def __init__(self):
-        creds = get_x_oauth2_credentials()
+        creds = get_oauth2_credentials()
         self.client_id = creds['client_id']
         self.client_secret = creds.get('client_secret')  # Opcional para public clients
         self.redirect_uri = creds['redirect_uri']

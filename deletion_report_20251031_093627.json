@@ -1,0 +1,13 @@
+{
+  "source_json": "tweets_Xavier41795643_20251031_021501.json",
+  "deletion_timestamp": "2025-10-31T09:36:27.686746",
+  "result": {
+    "success": true,
+    "total_processed": 6,
+    "retweets_deleted": 3,
+    "tweets_deleted": 3,
+    "failed": [],
+    "execution_time": "6.22s",
+    "execution_time_seconds": 6.217427492141724
+  }
+}
