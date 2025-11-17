@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from X.search_tweets import fetch_user_tweets
 from X.user_resolver import resolve_user
-from GPT.risk_classifier_media import classify_risk, load_tweets_from_json as load_risk_tweets
+from GPT.risk_classifier_only_text import classify_risk_text_only, load_tweets_from_json
 
 
 def format_time(seconds: float) -> str:
@@ -97,7 +97,7 @@ def estimate_risk_classification(json_path: str, sample_size: int = 3, max_tweet
     print(f"{'='*70}")
     
     try:
-        tweets_data = load_risk_tweets(json_path)
+        tweets_data = load_tweets_from_json(json_path)
         tweets = [t.get("text", "") for t in tweets_data if t.get("text", "").strip()]
         total_tweets_in_file = len(tweets)
         
@@ -118,7 +118,7 @@ def estimate_risk_classification(json_path: str, sample_size: int = 3, max_tweet
         for i, tweet in enumerate(tweets[:sample_size], 1):
             print(f"   Muestra {i}/{sample_size}...", end=" ", flush=True)
             start = time.time()
-            classify_risk(tweet, use_policy=True)
+            classify_risk_text_only(tweet)  # <-- CAMBIO AQUI
             elapsed = time.time() - start
             sample_times.append(elapsed)
             print(f"✓ ({elapsed:.2f}s)")
@@ -231,7 +231,7 @@ def quick_estimate_all(username: str, max_tweets: int, json_path: str, sample_si
     
     # 3. Risk classifier CON política - Usar max_tweets (NO limitado por archivo)
     try:
-        tweets_data = load_risk_tweets(json_path)
+        tweets_data = load_tweets_from_json(json_path)  # <-- YA ESTÁ CORRECTO
         tweets = [t.get("text", "") for t in tweets_data if t.get("text", "").strip()]
         # Siempre usar max_tweets para la estimación, aunque el archivo tenga menos
         total_tweets = max_tweets
@@ -241,7 +241,7 @@ def quick_estimate_all(username: str, max_tweets: int, json_path: str, sample_si
         sample_times = []
         for tweet in tweets[:sample_size]:
             start = time.time()
-            classify_risk(tweet, use_policy=True)
+            classify_risk_text_only(tweet)  # <-- CAMBIO AQUI
             sample_times.append(time.time() - start)
         
         avg_time = sum(sample_times) / len(sample_times)
