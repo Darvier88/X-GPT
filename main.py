@@ -1,11 +1,11 @@
-# main.py - API con FastAPI (FLUJO OAUTH CORRECTO)
+# main.py - API con FastAPI (FLUJO OAUTH CORRECTO + JSONs ALINEADOS)
 """
 API REST para análisis de tweets con autenticación OAuth 2.0
 Flujo: Login → Obtener userName del usuario autenticado → Operar con sus tweets
 """
 
 from fastapi import FastAPI, HTTPException, BackgroundTasks, Query
-from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
@@ -15,6 +15,7 @@ import uuid
 import time
 import requests
 import base64
+import json
 from pathlib import Path
 import sys
 
@@ -39,7 +40,7 @@ from X.deleate_tweets_rts import delete_tweets_batch
 oauth_creds = get_oauth2_credentials()
 CLIENT_ID = oauth_creds['client_id']
 CLIENT_SECRET = oauth_creds['client_secret']
-REDIRECT_URI = oauth_creds['redirect_uri']  # Debe ser tu URL de API: http://localhost:8000/api/auth/callback
+REDIRECT_URI = oauth_creds['redirect_uri']
 print(f"REDIRECT_URI cargado: {REDIRECT_URI}")
 
 # ============================================================================
@@ -64,10 +65,7 @@ app.add_middleware(
 # Almacenamiento en memoria
 # ============================================================================
 
-# Sesiones OAuth temporales (en producción usar Redis/DB)
 oauth_sessions: Dict[str, Dict[str, Any]] = {}
-
-# Jobs en background
 background_jobs: Dict[str, Dict[str, Any]] = {}
 
 # ============================================================================
@@ -140,7 +138,6 @@ def exchange_code_for_token(session_id: str, code: str) -> Dict[str, Any]:
     if not session:
         return {'success': False, 'error': 'Sesión no encontrada'}
     
-    # Preparar request de token
     auth_string = f"{CLIENT_ID}:{CLIENT_SECRET}"
     auth_b64 = base64.b64encode(auth_string.encode('utf-8')).decode('utf-8')
     
@@ -238,12 +235,7 @@ def get_session(session_id: str) -> Optional[Dict[str, Any]]:
 
 @app.get("/api/auth/login", response_model=LoginResponse)
 async def login():
-    """
-    Paso 1: Inicia el proceso de login OAuth 2.0
-    
-    Retorna la URL de autorización que el usuario debe visitar en su navegador.
-    El frontend debe redirigir al usuario a esta URL.
-    """
+    """Paso 1: Inicia el proceso de login OAuth 2.0"""
     session_id, code_challenge, state = create_oauth_session()
     
     # Construir URL de autorización
@@ -397,6 +389,7 @@ async def search_my_tweets(
 ):
     """
     Busca tweets del usuario autenticado
+    Incluye avatar_url del usuario en la respuesta
     """
     session = get_session(session_id)
     if not session or not session.get('user'):
@@ -417,12 +410,28 @@ async def search_my_tweets(
         if request.save_to_file:
             file_path = save_tweets_to_file(result)
         
+        # Extraer info del usuario (incluye avatar_url desde search_tweets.py)
+        user_info = result.get('user', {})
+        
+        # RETORNAR ESTRUCTURA COMPLETA incluyendo tweets + avatar_url
         return {
             "success": True,
             "username": username,
+            "user": {
+                "id": user_info.get('author_id'),
+                "username": user_info.get('username'),
+                "name": user_info.get('name'),
+                "followers": user_info.get('followers'),
+                "account_created": user_info.get('account_created'),
+                "avatar_url": user_info.get('avatar_url'),  # ✅ Incluido aquí
+                "profile_image_url": user_info.get('profile_image_url')  # Alternativo si existe
+            },
+            "tweets": result.get('tweets', []),
             "stats": result.get('stats'),
-            "tweets_count": len(result.get('tweets', [])),
+            "pages_fetched": result.get('pages_fetched'),
+            "fetched_at": result.get('fetched_at'),
             "execution_time": result.get('execution_time'),
+            "execution_time_seconds": result.get('execution_time_seconds'),
             "file_path": file_path
         }
     
@@ -436,34 +445,68 @@ async def search_my_tweets(
 @app.post("/api/risk/classify")
 async def classify_risk(
     request: ClassifyRequest,
-    session_id: str = Query(..., description="Session ID")
+    session_id: str = Query(..., description="Session ID"),
+    save_files: bool = Query(True, description="Guardar archivos JSON de resultados")
 ):
-    """
-    Clasifica riesgos de tweets
-    """
+    """Clasifica riesgos de tweets"""
     session = get_session(session_id)
     if not session:
         raise HTTPException(status_code=401, detail="Sesión inválida")
     
+    username = session.get('user', {}).get('username', 'unknown')
+    
     # Obtener tweets
     if request.json_path:
-        tweets_data = load_tweets_from_json(request.json_path)
-        tweets = [t.get("text", "") for t in tweets_data if t.get("text", "").strip()]
+        try:
+            # load_tweets_from_json retorna lista directa o dict con 'tweets'
+            tweets_data = load_tweets_from_json(request.json_path)
+            
+            # Manejar diferentes formatos
+            if isinstance(tweets_data, list):
+                tweets = [t.get("text", "") if isinstance(t, dict) else str(t) 
+                         for t in tweets_data if t]
+            elif isinstance(tweets_data, dict):
+                # Puede tener 'tweets' o ser directamente el objeto
+                if 'tweets' in tweets_data:
+                    tweets = [t.get("text", "") if isinstance(t, dict) else str(t) 
+                             for t in tweets_data['tweets'] if t]
+                else:
+                    tweets = []
+            else:
+                tweets = []
+            
+            # Filtrar vacíos
+            tweets = [t.strip() for t in tweets if isinstance(t, str) and t.strip()]
+            
+        except FileNotFoundError:
+            raise HTTPException(status_code=404, detail=f"Archivo no encontrado: {request.json_path}")
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Error leyendo JSON: {str(e)}")
+    
     elif request.tweets:
-        tweets = request.tweets
+        tweets = [str(t).strip() for t in request.tweets if t]
     else:
         raise HTTPException(status_code=400, detail="Proporciona 'tweets' o 'json_path'")
     
+    if not tweets:
+        raise HTTPException(status_code=400, detail="No se encontraron tweets para clasificar")
+    
+    # Aplicar límite si se especificó
     if request.max_tweets:
         tweets = tweets[:request.max_tweets]
     
     # Clasificar
+    start_time = time.time()
     results = []
     stats = {
+        "total_analyzed": len(tweets),
         "risk_distribution": {"low": 0, "mid": 0, "high": 0},
         "label_counts": {},
-        "errors": 0
+        "errors": 0,
+        "throttle_waits": 0
     }
+    
+    print(f"\n🛡️  Clasificando {len(tweets)} tweets para @{username}...")
     
     for i, tweet_text in enumerate(tweets, 1):
         result = classify_risk_text_only(tweet_text)
@@ -479,11 +522,60 @@ async def classify_risk(
         else:
             stats["errors"] += 1
     
+    end_time = time.time()
+    execution_time = end_time - start_time
+    
+    # Preparar archivos de salida (igual que risk_classifier_only_text.py)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    
+    # Summary (igual que risk_summary_text_only.json)
+    summary = {
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "username": username,
+        "tiempo_total": f"{int(execution_time//60)}m{int(execution_time%60)}s" if execution_time >= 60 else f"{int(execution_time)}s",
+        "total_tweets": len(tweets),
+        "exitosos": len(tweets) - stats["errors"],
+        "errores": stats["errors"],
+        "distribucion": stats["risk_distribution"],
+        "labels": stats["label_counts"]
+    }
+    
+    # Detailed (igual que risk_detailed_text_only.json)
+    detailed = {
+        "resultados": results
+    }
+    
+    # Guardar archivos si se solicita
+    saved_files = {}
+    if save_files:
+        summary_filename = f"risk_summary_{username}_{timestamp}.json"
+        detailed_filename = f"risk_detailed_{username}_{timestamp}.json"
+        
+        Path(summary_filename).write_text(
+            json.dumps(summary, ensure_ascii=False, indent=2), 
+            encoding="utf-8"
+        )
+        Path(detailed_filename).write_text(
+            json.dumps(detailed, ensure_ascii=False, indent=2), 
+            encoding="utf-8"
+        )
+        
+        saved_files = {
+            "summary_file": summary_filename,
+            "detailed_file": detailed_filename
+        }
+        
+        print(f"✅ Archivos guardados:")
+        print(f"   📄 {summary_filename}")
+        print(f"   📄 {detailed_filename}")
+    
     return {
         "success": True,
         "total_tweets": len(tweets),
         "results": results,
-        "summary": stats
+        "summary": stats,
+        "execution_time": f"{execution_time:.2f}s",
+        "files": saved_files
     }
 
 # ============================================================================

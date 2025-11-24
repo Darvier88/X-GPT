@@ -1,0 +1,82 @@
+{
+  "resultados": [
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "No contiene contenido ofensivo ni sensible",
+      "spans": [],
+      "confidence": 0.0,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "sin cambios",
+      "tweet_id": 1,
+      "text": "RT @SpainFateFan: https://t.co/luuHNQK5UE"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "Contenido sin riesgo identificado",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "sin cambios",
+      "tweet_id": 2,
+      "text": "RT @pokefroste: ✨️70€/$ twins ✨️ https://t.co/OLN1mipwq2"
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "low",
+      "rationale": "El comentario es una crítica a un personaje sin insultos directos ni lenguaje denigrante.",
+      "spans": [
+        {
+          "text": "terriblemente misógino",
+          "start": 36,
+          "end": 56,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.65,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "sin cambios",
+      "tweet_id": 3,
+      "text": "RT @upiledge: La manera en que Nobara acabo siendo un personaje terriblemente misógino en su escritura. Tipo es una mujer de refrigerador p…"
+    },
+    {
+      "labels": [],
+      "risk_level": "low",
+      "rationale": "Contenido de entretenimiento sin lenguaje ofensivo ni ataques",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "sin cambios",
+      "tweet_id": 4,
+      "text": "RT @Rheypower: El Jojo más poderoso de la actualidad VS. El Jojo más poderoso de la historia https://t.co/P6elGiyodV"
+    },
+    {
+      "labels": [
+        "toxic"
+      ],
+      "risk_level": "mid",
+      "rationale": "Insulto implícito sin un slur directo",
+      "spans": [
+        {
+          "text": "insulto a la vida y a la memoria",
+          "start": 36,
+          "end": 66,
+          "label": "toxic"
+        }
+      ],
+      "confidence": 0.75,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "sin cambios",
+      "tweet_id": 5,
+      "text": "RT @RanguGamer: Hacía tiempo que no me sentía tan asqueado.\nEs un insulto a la vida y a la memoria de los seres queridos de cualquiera.\nDel…"
+    }
+  ]
+}

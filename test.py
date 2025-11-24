@@ -1,6 +1,7 @@
 """
 Script de Prueba para Twitter Analysis API v2.0
 Flujo: Login OAuth → Obtener userName → Buscar/Clasificar/Eliminar
+CORREGIDO: Alineado con estructuras JSON reales de los módulos
 """
 
 import requests
@@ -175,14 +176,16 @@ class APIClient:
                 print(f"❌ Error en búsqueda")
                 return None
             
-            stats = data['stats']
+            # ESTRUCTURA CORRECTA: data contiene 'stats', 'tweets', 'user', etc.
+            stats = data.get('stats', {})
             
             print(f"\n✅ Tweets obtenidos:")
-            print(f"   Total: {stats['total_tweets']}")
-            print(f"   Retweets: {stats['retweet_count']}")
-            print(f"   Originales: {stats['original_count']}")
+            print(f"   Total: {stats.get('total_tweets', 0)}")
+            print(f"   Retweets: {stats.get('retweet_count', 0)}")
+            print(f"   Originales: {stats.get('original_count', 0)}")
             print(f"   Con medios: {stats.get('tweets_with_media', 0)}")
-            print(f"   Tiempo: {data['execution_time']}")
+            print(f"   Total medios: {stats.get('total_media_count', 0)}")
+            print(f"   Tiempo: {data.get('execution_time', 'N/A')}")
             
             if data.get('file_path'):
                 print(f"   Guardado en: {data['file_path']}")
@@ -192,6 +195,8 @@ class APIClient:
         
         except Exception as e:
             print(f"❌ Error: {e}")
+            import traceback
+            traceback.print_exc()
             return None
     
     def classify_tweets(self, json_path: Optional[str] = None, max_tweets: int = 10):
@@ -210,6 +215,8 @@ class APIClient:
                     "json_path": json_path,
                     "max_tweets": max_tweets
                 }
+                print(f"📂 Usando archivo: {json_path}")
+                print(f"📊 Límite: {max_tweets} tweets")
             else:
                 # Ejemplo con tweets directos
                 payload = {
@@ -220,6 +227,7 @@ class APIClient:
                         "Estos inmigrantes son basura"
                     ]
                 }
+                print(f"📝 Usando tweets de ejemplo (4 tweets)")
             
             print(f"\n⏳ Clasificando tweets...")
             
@@ -232,29 +240,71 @@ class APIClient:
             
             if response.status_code != 200:
                 print(f"❌ Error: HTTP {response.status_code}")
+                print(f"   Respuesta: {response.text}")
                 return False
             
             data = response.json()
-            summary = data['summary']
+            
+            if not data.get('success'):
+                print(f"❌ Error en clasificación")
+                return False
+            
+            # ESTRUCTURA CORRECTA: data['summary'] contiene 'total_analyzed'
+            summary = data.get('summary', {})
+            
+            total_analyzed = summary.get('total_analyzed', 0)
+            errors = summary.get('errors', 0)
+            exitosos = total_analyzed - errors
             
             print(f"\n✅ Clasificación completada:")
-            print(f"   Total: {data['total_tweets']}")
-            print(f"   Exitosos: {summary['total'] - summary['errors']}")
-            print(f"   Errores: {summary['errors']}")
-            print(f"\n   Distribución de riesgos:")
-            print(f"      Low:  {summary['risk_distribution']['low']}")
-            print(f"      Mid:  {summary['risk_distribution']['mid']}")
-            print(f"      High: {summary['risk_distribution']['high']}")
+            print(f"   Total analizado: {total_analyzed}")
+            print(f"   Exitosos: {exitosos}")
+            print(f"   Errores: {errors}")
             
-            if summary['label_counts']:
+            risk_dist = summary.get('risk_distribution', {})
+            print(f"\n   Distribución de riesgos:")
+            print(f"      Low:  {risk_dist.get('low', 0)}")
+            print(f"      Mid:  {risk_dist.get('mid', 0)}")
+            print(f"      High: {risk_dist.get('high', 0)}")
+            
+            label_counts = summary.get('label_counts', {})
+            if label_counts:
                 print(f"\n   Labels detectados:")
-                for label, count in sorted(summary['label_counts'].items(), key=lambda x: x[1], reverse=True)[:5]:
+                sorted_labels = sorted(label_counts.items(), key=lambda x: x[1], reverse=True)
+                for label, count in sorted_labels[:5]:
                     print(f"      {label}: {count}")
+            
+            # Mostrar archivos guardados
+            files = data.get('files', {})
+            if files:
+                print(f"\n   Archivos guardados:")
+                if files.get('summary_file'):
+                    print(f"      📄 Summary:  {files['summary_file']}")
+                if files.get('detailed_file'):
+                    print(f"      📄 Detailed: {files['detailed_file']}")
+            
+            # Mostrar algunos ejemplos de clasificación
+            results = data.get('results', [])
+            if results:
+                print(f"\n   Ejemplos de clasificación (primeros 3):")
+                for i, result in enumerate(results[:3], 1):
+                    text = result.get('text', '')[:50] + '...' if len(result.get('text', '')) > 50 else result.get('text', '')
+                    level = result.get('risk_level', 'N/A')
+                    labels = ', '.join(result.get('labels', [])) or 'ninguno'
+                    print(f"      {i}. [{level}] {labels}")
+                    print(f"         \"{text}\"")
+            
+            # Mostrar tiempo de ejecución
+            exec_time = data.get('execution_time')
+            if exec_time:
+                print(f"\n   Tiempo de ejecución: {exec_time}")
             
             return True
         
         except Exception as e:
             print(f"❌ Error: {e}")
+            import traceback
+            traceback.print_exc()
             return False
     
     def delete_tweets(self, json_path: str):
@@ -277,7 +327,7 @@ class APIClient:
             payload = {
                 "json_path": json_path,
                 "delete_retweets": True,
-                "delete_originals": False,  # Por seguridad, solo RTs por defecto
+                "delete_originals": False,  # Por seguridad, solo RTs
                 "delay_seconds": 1.0
             }
             
@@ -297,11 +347,11 @@ class APIClient:
             data = response.json()
             
             print(f"\n✅ Eliminación completada:")
-            print(f"   Total procesado: {data['total_processed']}")
-            print(f"   Retweets eliminados: {data['retweets_deleted']}")
-            print(f"   Tweets eliminados: {data['tweets_deleted']}")
-            print(f"   Fallidos: {len(data['failed'])}")
-            print(f"   Tiempo: {data['execution_time']}")
+            print(f"   Total procesado: {data.get('total_processed', 0)}")
+            print(f"   Retweets eliminados: {data.get('retweets_deleted', 0)}")
+            print(f"   Tweets eliminados: {data.get('tweets_deleted', 0)}")
+            print(f"   Fallidos: {len(data.get('failed', []))}")
+            print(f"   Tiempo: {data.get('execution_time', 'N/A')}")
             
             return True
         
@@ -348,7 +398,11 @@ def full_test_flow():
     print("\n" + "─"*70)
     input("Presiona ENTER para clasificar tweets...")
     
-    client.classify_tweets(json_path=json_path if isinstance(json_path, str) else None, max_tweets=5)
+    if json_path and isinstance(json_path, str):
+        client.classify_tweets(json_path=json_path, max_tweets=5)
+    else:
+        print("Usando tweets de ejemplo...")
+        client.classify_tweets(max_tweets=5)
     
     # 5. Resumen
     print("\n" + "="*70)

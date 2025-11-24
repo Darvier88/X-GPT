@@ -1,0 +1,4483 @@
+{
+  "success": true,
+  "user": {
+    "success": true,
+    "author_id": "1324033765425979396",
+    "username": "Xavier41795643",
+    "name": "Tortilla88",
+    "followers": 35,
+    "account_created": "2020-11-04T17:01:02.000Z"
+  },
+  "tweets": [
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @SpainFateFan: https://t.co/luuHNQK5UE",
+      "edit_history_tweet_ids": [
+        "1989898831404699720"
+      ],
+      "id": "1989898831404699720",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1989842147840069864"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 6,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1989842141439311872"
+        ],
+        "media_source_tweet_id": [
+          "1989842147840069864"
+        ]
+      },
+      "conversation_id": "1989898831404699720",
+      "created_at": "2025-11-16T03:30:26.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1989842141439311872",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G51W4o-XwAAULGa.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 658,
+          "height": 505,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @pokefroste: ✨️70€/$ twins ✨️ https://t.co/OLN1mipwq2",
+      "edit_history_tweet_ids": [
+        "1989874683366326319"
+      ],
+      "id": "1989874683366326319",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1989770679802343529"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 97,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1989770675117035521"
+        ],
+        "media_source_tweet_id": [
+          "1989770679802343529"
+        ]
+      },
+      "conversation_id": "1989874683366326319",
+      "created_at": "2025-11-16T01:54:29.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1989770675117035521",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G50V4wLXEAEn4IG.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 916,
+          "height": 999,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @upiledge: La manera en que Nobara acabo siendo un personaje terriblemente misógino en su escritura. Tipo es una mujer de refrigerador p…",
+      "edit_history_tweet_ids": [
+        "1989534552021193018"
+      ],
+      "id": "1989534552021193018",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1989091689202610437"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 10,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1989534552021193018",
+      "created_at": "2025-11-15T03:22:55.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Rheypower: El Jojo más poderoso de la actualidad VS. El Jojo más poderoso de la historia https://t.co/P6elGiyodV",
+      "edit_history_tweet_ids": [
+        "1989429510253502721"
+      ],
+      "id": "1989429510253502721",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1989360160763158853"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 28,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1989360075962523648"
+        ],
+        "media_source_tweet_id": [
+          "1989360160763158853"
+        ]
+      },
+      "conversation_id": "1989429510253502721",
+      "created_at": "2025-11-14T20:25:31.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1989360075962523648",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G5ugcvIXIAAHKC_.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1920,
+          "height": 1080,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @RanguGamer: Hacía tiempo que no me sentía tan asqueado.\nEs un insulto a la vida y a la memoria de los seres queridos de cualquiera.\nDel…",
+      "edit_history_tweet_ids": [
+        "1989386017854689647"
+      ],
+      "id": "1989386017854689647",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1989044602502856826"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 710,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1989386017854689647",
+      "created_at": "2025-11-14T17:32:42.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @zexal1650: オベロン       \n#FGO https://t.co/Mh75CL2TT6",
+      "edit_history_tweet_ids": [
+        "1988651127253135447"
+      ],
+      "id": "1988651127253135447",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1988204449811362002"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 623,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1988204436720865280"
+        ],
+        "media_source_tweet_id": [
+          "1988204449811362002"
+        ]
+      },
+      "conversation_id": "1988651127253135447",
+      "created_at": "2025-11-12T16:52:30.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1988204436720865280",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G5eFZreaUAArEPx.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1191,
+          "height": 2000,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @mqq11: ORION https://t.co/vN5dydmslG",
+      "edit_history_tweet_ids": [
+        "1988620024966242304"
+      ],
+      "id": "1988620024966242304",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1988025243555037367"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1651,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1988025213666398208"
+        ],
+        "media_source_tweet_id": [
+          "1988025243555037367"
+        ]
+      },
+      "conversation_id": "1988620024966242304",
+      "created_at": "2025-11-12T14:48:55.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1988025213666398208",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G5biZhkbEAAuU6E.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 723,
+          "height": 1024,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @pump_upthejam_: Tall beautiful uma how I love you https://t.co/FA93ez0W8C",
+      "edit_history_tweet_ids": [
+        "1988314725801943258"
+      ],
+      "id": "1988314725801943258",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1987092057454776490"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 18878,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1987092051406565376"
+        ],
+        "media_source_tweet_id": [
+          "1987092057454776490"
+        ]
+      },
+      "conversation_id": "1988314725801943258",
+      "created_at": "2025-11-11T18:35:46.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1987092051406565376",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G5ORsVQXMAA4zxJ.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1698,
+          "height": 2028,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @HeyItsGat0w: voyager and abby swapping bodies https://t.co/kRQf7RNYn9",
+      "edit_history_tweet_ids": [
+        "1987971806989279482"
+      ],
+      "id": "1987971806989279482",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1987964852128936436"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 92,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1987964836332855296",
+          "3_1987964836395802624"
+        ],
+        "media_source_tweet_id": [
+          "1987964852128936436",
+          "1987964852128936436"
+        ]
+      },
+      "conversation_id": "1987971806989279482",
+      "created_at": "2025-11-10T19:53:08.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1987964836332855296",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G5arfGeWYAAOPjP.png",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1080,
+          "height": 1350,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1987964836395802624",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G5arfGtW4AAPK1y.png",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1080,
+          "height": 1350,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Dolphin_0028: ファザコンVSファザコンのスマブラ https://t.co/9CBs2UZh0F",
+      "edit_history_tweet_ids": [
+        "1987032802802446501"
+      ],
+      "id": "1987032802802446501",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1986558841535012918"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 211,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1986558836376014849"
+        ],
+        "media_source_tweet_id": [
+          "1986558841535012918"
+        ]
+      },
+      "conversation_id": "1987032802802446501",
+      "created_at": "2025-11-08T05:41:52.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1986558836376014849",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G5GsvIebEAEKPay.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1210,
+          "height": 2048,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @HORMIGA_RETURNS: https://t.co/OkIR1bQXEd",
+      "edit_history_tweet_ids": [
+        "1986929143808692441"
+      ],
+      "id": "1986929143808692441",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1986784488186106147"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 407,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1986784477540921346"
+        ],
+        "media_source_tweet_id": [
+          "1986784488186106147"
+        ]
+      },
+      "conversation_id": "1986929143808692441",
+      "created_at": "2025-11-07T22:49:57.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1986784477540921346",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G5J59LUWMAIYAmK.png",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 526,
+          "height": 526,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Selk_dav: Alguien tuiteando: \"Fua, me he gastado 400 SQ en el banner y no me salió el Servant SSR\"\n\nUn cabrón spawneando de la nada en…",
+      "edit_history_tweet_ids": [
+        "1986908938990727516"
+      ],
+      "id": "1986908938990727516",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1986897121061298214"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 17,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1986908938990727516",
+      "created_at": "2025-11-07T21:29:40.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @FateGO_USA: [GUDAGUDA Super Goryoukaku Social Media Campaign]\n\nIf the combined number of Facebook Reactions/Shares + X (Twitter) Likes/…",
+      "edit_history_tweet_ids": [
+        "1986908322587369774"
+      ],
+      "id": "1986908322587369774",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1986871824387309709"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 4176,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1986908322587369774",
+      "created_at": "2025-11-07T21:27:13.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @KenjakuFan: El típico dúo de amigos que es:\n\nMisógino de verdad / Misógino de mentira",
+      "edit_history_tweet_ids": [
+        "1986818215608295676"
+      ],
+      "id": "1986818215608295676",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1986787250667958602"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 95,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1986818215608295676",
+      "created_at": "2025-11-07T15:29:10.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @FoXxarius: Gojokima drawings https://t.co/vTCqSxGJbG",
+      "edit_history_tweet_ids": [
+        "1986154447597195404"
+      ],
+      "id": "1986154447597195404",
+      "lang": "lt",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1690833840506556416"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 32,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1690833811163250688",
+          "3_1690833811175829504",
+          "3_1690833811180052480",
+          "3_1690833811179970560"
+        ],
+        "media_source_tweet_id": [
+          "1690833840506556416",
+          "1690833840506556416",
+          "1690833840506556416",
+          "1690833840506556416"
+        ]
+      },
+      "conversation_id": "1986154447597195404",
+      "created_at": "2025-11-05T19:31:35.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1690833811163250688",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/F3cMZJCbAAAhFIx.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2480,
+          "height": 3508,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1690833811175829504",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/F3cMZJFa8AAEssH.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2971,
+          "height": 3000,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1690833811180052480",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/F3cMZJGbYAAeKDX.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 3287,
+          "height": 3892,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1690833811179970560",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/F3cMZJGaIAAFpM_.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 3000,
+          "height": 3000,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Ris_Bluue: Hay personas que odian a este personaje btw",
+      "edit_history_tweet_ids": [
+        "1986154098232619084"
+      ],
+      "id": "1986154098232619084",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1986140845200826410"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 49,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1986154098232619084",
+      "created_at": "2025-11-05T19:30:12.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @TUNA_MAYO_MEME: Saquenme del hospital 😿 https://t.co/8rXphely80",
+      "edit_history_tweet_ids": [
+        "1986151252783231462"
+      ],
+      "id": "1986151252783231462",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1985724845884056022"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 273,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1985724840582496256"
+        ],
+        "media_source_tweet_id": [
+          "1985724845884056022"
+        ]
+      },
+      "conversation_id": "1986151252783231462",
+      "created_at": "2025-11-05T19:18:54.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1985724840582496256",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G462OMCWwAAA7mF.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 736,
+          "height": 920,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @GabrielitoKun: Para ustedes cómo ha sido este 2025? https://t.co/Pee4X6w38b",
+      "edit_history_tweet_ids": [
+        "1986150037232230875"
+      ],
+      "id": "1986150037232230875",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1985488670674034728"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 4611,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1985488667780001792"
+        ],
+        "media_source_tweet_id": [
+          "1985488670674034728"
+        ]
+      },
+      "conversation_id": "1986150037232230875",
+      "created_at": "2025-11-05T19:14:04.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1985488667780001792",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G43fbHyXMAAaRJV.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 720,
+          "height": 900,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Chun_Grandfa: bite https://t.co/wMzBxq95G5",
+      "edit_history_tweet_ids": [
+        "1986146138756706652"
+      ],
+      "id": "1986146138756706652",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1986011454173319617"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 8039,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1986011368064241664"
+        ],
+        "media_source_tweet_id": [
+          "1986011454173319617"
+        ]
+      },
+      "conversation_id": "1986146138756706652",
+      "created_at": "2025-11-05T18:58:34.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1986011368064241664",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G4-60SFbUAA50ce.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2622,
+          "height": 3282,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @GabrielitoKun: No le ganan ni a un Saibaman XD https://t.co/TiDMNbX0bl",
+      "edit_history_tweet_ids": [
+        "1986144209531736091"
+      ],
+      "id": "1986144209531736091",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1985870948583567483"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1266,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1985870945752432640"
+        ],
+        "media_source_tweet_id": [
+          "1985870948583567483"
+        ]
+      },
+      "conversation_id": "1986144209531736091",
+      "created_at": "2025-11-05T18:50:54.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1985870945752432640",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G487GoNXwAAzpns.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 720,
+          "height": 728,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @TheKingThor982: https://t.co/nGyE9Y8yJE",
+      "edit_history_tweet_ids": [
+        "1986143822527512793"
+      ],
+      "id": "1986143822527512793",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1985494120240975955"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 6097,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1985494116633845760"
+        ],
+        "media_source_tweet_id": [
+          "1985494120240975955"
+        ]
+      },
+      "conversation_id": "1986143822527512793",
+      "created_at": "2025-11-05T18:49:22.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1985494116633845760",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G43kYSWWoAAIWCk.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 720,
+          "height": 949,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @55nyako20: ティアマト(弓)がPUみたいなので\nこんなぶっ飛ばないだろうけど\n2人の長いリボンがタイヤに\n絡まったら危ないよな…って\n思って描いた落描き🚲 https://t.co/Hh4f3u4YxG",
+      "edit_history_tweet_ids": [
+        "1986143788281065659"
+      ],
+      "id": "1986143788281065659",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1986023028103516331"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 934,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1986022994620432384"
+        ],
+        "media_source_tweet_id": [
+          "1986023028103516331"
+        ]
+      },
+      "conversation_id": "1986143788281065659",
+      "created_at": "2025-11-05T18:49:14.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1986022994620432384",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G4_FZCYbwAAUL1P.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1229,
+          "height": 2048,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Maxdosehiii: \"el mundo se volvió violento por culpa de las armas\"\n\nel día más tranquilo en la antigua grecia: https://t.co/6VOaxvPqDK",
+      "edit_history_tweet_ids": [
+        "1986142913114612014"
+      ],
+      "id": "1986142913114612014",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1985515201463038006"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 7956,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1985515198245912576"
+        ],
+        "media_source_tweet_id": [
+          "1985515201463038006"
+        ]
+      },
+      "conversation_id": "1986142913114612014",
+      "created_at": "2025-11-05T18:45:45.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1985515198245912576",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G433jZeWQAAK3tR.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1000,
+          "height": 567,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @JuanPabPinos: When you equip the Architect´s Crest https://t.co/kQJnRHY5WR",
+      "edit_history_tweet_ids": [
+        "1985896335329882207"
+      ],
+      "id": "1985896335329882207",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1985430735134589184"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 5846,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1985430714247000064"
+        ],
+        "media_source_tweet_id": [
+          "1985430735134589184"
+        ]
+      },
+      "conversation_id": "1985896335329882207",
+      "created_at": "2025-11-05T02:25:57.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1985430714247000064",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G42qtyDXsAAPUJn.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2400,
+          "height": 1600,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @_lkppp: https://t.co/iN6kVVIdJ0",
+      "edit_history_tweet_ids": [
+        "1985896294561247652"
+      ],
+      "id": "1985896294561247652",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1985682254870491575"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 236,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1985682244707688448",
+          "3_1985682244720279552",
+          "3_1985682244724539392",
+          "3_1985682244711923712"
+        ],
+        "media_source_tweet_id": [
+          "1985682254870491575",
+          "1985682254870491575",
+          "1985682254870491575",
+          "1985682254870491575"
+        ]
+      },
+      "conversation_id": "1985896294561247652",
+      "created_at": "2025-11-05T02:25:47.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1985682244707688448",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G46PeyCaIAAdV-o.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 669,
+          "height": 1191,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1985682244720279552",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G46PeyFaQAAB3pd.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 673,
+          "height": 1201,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1985682244724539392",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G46PeyGbQAAFhtJ.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 628,
+          "height": 610,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1985682244711923712",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G46PeyDawAAvXx2.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 771,
+          "height": 996,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @0homi_: Bakugo and Reze are not even close 💥 https://t.co/qle6weOt3W",
+      "edit_history_tweet_ids": [
+        "1985895927941337314"
+      ],
+      "id": "1985895927941337314",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1984715819188887862"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 18506,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1984673800651427840"
+        ],
+        "media_source_tweet_id": [
+          "1984715819188887862"
+        ]
+      },
+      "conversation_id": "1985895927941337314",
+      "created_at": "2025-11-05T02:24:20.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1984673800651427840",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G4r6TnLaUAALQff.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1832,
+          "height": 2550,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @MunstaMasta: Good morning https://t.co/ElTwSmGgfo",
+      "edit_history_tweet_ids": [
+        "1985895419625251096"
+      ],
+      "id": "1985895419625251096",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1985709882092236810"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 8649,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1985709867533815808"
+        ],
+        "media_source_tweet_id": [
+          "1985709882092236810"
+        ]
+      },
+      "conversation_id": "1985895419625251096",
+      "created_at": "2025-11-05T02:22:18.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1985709867533815808",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G46ompFXUAAKVXd.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1080,
+          "height": 1479,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @tma5108: 絶望へ導くもの　ルフレ/魔器ギムレー https://t.co/COh9mDAg3q",
+      "edit_history_tweet_ids": [
+        "1984784309316657412"
+      ],
+      "id": "1984784309316657412",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1984416479425843281"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 198,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1984416470034759680"
+        ],
+        "media_source_tweet_id": [
+          "1984416479425843281"
+        ]
+      },
+      "conversation_id": "1984784309316657412",
+      "created_at": "2025-11-02T00:47:09.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1984416470034759680",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G4oQQ_7bQAATEMp.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2304,
+          "height": 3072,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @rukinya_nya: …🤫 https://t.co/jz4r3mIQKl",
+      "edit_history_tweet_ids": [
+        "1984777997543457275"
+      ],
+      "id": "1984777997543457275",
+      "lang": "und",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1984403400067592504"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 106,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1984403382086647808"
+        ],
+        "media_source_tweet_id": [
+          "1984403400067592504"
+        ]
+      },
+      "conversation_id": "1984777997543457275",
+      "created_at": "2025-11-02T00:22:04.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1984403382086647808",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G4oEXLhbwAA45hQ.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1692,
+          "height": 2048,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @maple926: メガオーダイルごっこ https://t.co/dtNiRh2izV",
+      "edit_history_tweet_ids": [
+        "1984744615065366869"
+      ],
+      "id": "1984744615065366869",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1984553300755431913"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 13089,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1984553296435298304"
+        ],
+        "media_source_tweet_id": [
+          "1984553300755431913"
+        ]
+      },
+      "conversation_id": "1984744615065366869",
+      "created_at": "2025-11-01T22:09:25.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1984553296435298304",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G4qMtV_bQAAw7qq.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 768,
+          "height": 1024,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @kagura_oni: Robin: \"Huh? Our costumes? We made them ourselves!\"\n\nChrom: \"Yeah! We made up these monsters! Cool, right?? I made this sup…",
+      "edit_history_tweet_ids": [
+        "1984743296917188708"
+      ],
+      "id": "1984743296917188708",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1984346838502424760"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 492,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1984743296917188708",
+      "created_at": "2025-11-01T22:04:11.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "Test",
+      "edit_history_tweet_ids": [
+        "1984259158040867231"
+      ],
+      "id": "1984259158040867231",
+      "lang": "en",
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 3
+      },
+      "conversation_id": "1984259158040867231",
+      "created_at": "2025-10-31T14:00:23.000Z",
+      "is_retweet": false,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Ris_Bluue: El tuit me confirmó que muchos quieren vivir en una mentira y necesitan buscar un enemigo por qué no pueden procesar que viv…",
+      "edit_history_tweet_ids": [
+        "1983653937069904288"
+      ],
+      "id": "1983653937069904288",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1983641811684839682"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 26,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1983653937069904288",
+      "created_at": "2025-10-29T21:55:27.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @mahiwaga_bghn: ※Educational Trip\n#銀月 \n#teacherslounge2025 https://t.co/W9IpYa6DAO",
+      "edit_history_tweet_ids": [
+        "1979556397273469277"
+      ],
+      "id": "1979556397273469277",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1979501305749221416"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 25,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1979501300493471745",
+          "3_1979501302448013312"
+        ],
+        "media_source_tweet_id": [
+          "1979501305749221416",
+          "1979501305749221416"
+        ]
+      },
+      "conversation_id": "1979556397273469277",
+      "created_at": "2025-10-18T14:33:18.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1979501300493471745",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G3iZ8ehWUAEVlsj.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2048,
+          "height": 1423,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1979501302448013312",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G3iZ8lzWQAAD5cN.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2048,
+          "height": 1423,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @FadingzZ: #三連休はフォロワーが増えるらしい https://t.co/7K0VIWO1ru",
+      "edit_history_tweet_ids": [
+        "1977820009285226902"
+      ],
+      "id": "1977820009285226902",
+      "lang": "qme",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1977708183566057646"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1381,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1977708025281728512",
+          "3_1977708043426283520",
+          "3_1977708076909408256",
+          "3_1977708140968955904"
+        ],
+        "media_source_tweet_id": [
+          "1977708183566057646",
+          "1977708183566057646",
+          "1977708183566057646",
+          "1977708183566057646"
+        ]
+      },
+      "conversation_id": "1977820009285226902",
+      "created_at": "2025-10-13T19:33:30.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1977708025281728512",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G3I6-HxbUAAhxSZ.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 778,
+          "height": 1100,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1977708043426283520",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G3I6_LXbQAAF19r.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 778,
+          "height": 1100,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1977708076909408256",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G3I7BIGbMAA-e2t.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 778,
+          "height": 1100,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1977708140968955904",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G3I7E2vaUAAQAQ3.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 778,
+          "height": 1100,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @mizuha_oishiina: 効果抜群のおいしくなあれ🫶 https://t.co/q9DZEAN2Ol",
+      "edit_history_tweet_ids": [
+        "1975027930763088050"
+      ],
+      "id": "1975027930763088050",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1974769718209950055"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 374,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1974769710152720384"
+        ],
+        "media_source_tweet_id": [
+          "1974769718209950055"
+        ]
+      },
+      "conversation_id": "1975027930763088050",
+      "created_at": "2025-10-06T02:38:47.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1974769710152720384",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G2fKlq7aoAAH7zj.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1840,
+          "height": 1400,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Naomi_Misora93: Tengo la sensación que ya no disfrutamos los juegos.\n\nLos consumimos como comida rápida: rápidos, olvidables y sin dete…",
+      "edit_history_tweet_ids": [
+        "1974629632164106432"
+      ],
+      "id": "1974629632164106432",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1972632319124205653"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 573,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1974629632164106432",
+      "created_at": "2025-10-05T00:16:05.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @da_fukou: Gintama, Fate/GO edition.\n\nFinished, boss 🫡Hope it turned out well, haha\n\n#FGO #FateGO https://t.co/ep5iouZvTO",
+      "edit_history_tweet_ids": [
+        "1974270283625234700"
+      ],
+      "id": "1974270283625234700",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1974047123403588017"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 297,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1974046804196069376"
+        ],
+        "media_source_tweet_id": [
+          "1974047123403588017"
+        ]
+      },
+      "conversation_id": "1974270283625234700",
+      "created_at": "2025-10-04T00:28:10.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1974046804196069376",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G2U5HAYaEAA7LyG.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2954,
+          "height": 1687,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Pa1mira_Moi01: https://t.co/s0JTxrEaPd",
+      "edit_history_tweet_ids": [
+        "1967323840285192367"
+      ],
+      "id": "1967323840285192367",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1967153757218807940"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1727,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1967153617292689408",
+          "3_1967153640940154880",
+          "3_1967153690638417920",
+          "3_1967153720325763072"
+        ],
+        "media_source_tweet_id": [
+          "1967153757218807940",
+          "1967153757218807940",
+          "1967153757218807940",
+          "1967153757218807940"
+        ]
+      },
+      "conversation_id": "1967323840285192367",
+      "created_at": "2025-09-14T20:25:29.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1967153617292689408",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G0y7yuFbAAAmeux.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1286,
+          "height": 909,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1967153640940154880",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G0y70GLasAAv7zz.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1286,
+          "height": 909,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1967153690638417920",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G0y72_UaAAAuHW6.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1286,
+          "height": 909,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1967153720325763072",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G0y74t6a8AAbixY.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1286,
+          "height": 909,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @liyu47: ソティス…様？ https://t.co/Y0QWDsTic4",
+      "edit_history_tweet_ids": [
+        "1966970075602399669"
+      ],
+      "id": "1966970075602399669",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1966607957866803670"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 2996,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1966607950946201600"
+        ],
+        "media_source_tweet_id": [
+          "1966607957866803670"
+        ]
+      },
+      "conversation_id": "1966970075602399669",
+      "created_at": "2025-09-13T20:59:45.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1966607950946201600",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G0rLgwibcAAPK3W.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1510,
+          "height": 1950,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @TheDarkraimola: 11 de Septiembre...\n\nUn año más, feliz #KaijiDay ! https://t.co/h1HvvLZZgw",
+      "edit_history_tweet_ids": [
+        "1966228995747524848"
+      ],
+      "id": "1966228995747524848",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1966228056915550216"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 72,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1966228054750961664"
+        ],
+        "media_source_tweet_id": [
+          "1966228056915550216"
+        ]
+      },
+      "conversation_id": "1966228995747524848",
+      "created_at": "2025-09-11T19:54:58.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1966228054750961664",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G0lx_47WoAAt-5f.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 384,
+          "height": 384,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @_D_A_S_H_I_: 👽? https://t.co/xam1zLTPSL",
+      "edit_history_tweet_ids": [
+        "1966228630255857694"
+      ],
+      "id": "1966228630255857694",
+      "lang": "und",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1966201224618819747"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 27009,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1966201205928988672"
+        ],
+        "media_source_tweet_id": [
+          "1966201224618819747"
+        ]
+      },
+      "conversation_id": "1966228630255857694",
+      "created_at": "2025-09-11T19:53:30.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1966201205928988672",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G0lZlFRXkAAa9KF.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2777,
+          "height": 3800,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @ifoundyoufaker: My take on future sage!\n\nI'd like to think she'll take a form more similar to Maria, since she's the most known robotni…",
+      "edit_history_tweet_ids": [
+        "1965501124653588949"
+      ],
+      "id": "1965501124653588949",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1965460441838354517"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 2066,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1965501124653588949",
+      "created_at": "2025-09-09T19:42:40.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Subakeye: Last Knights https://t.co/NfCsYYz4Z5",
+      "edit_history_tweet_ids": [
+        "1965405321444348376"
+      ],
+      "id": "1965405321444348376",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1964738963111043335"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 7721,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1964738913391550464"
+        ],
+        "media_source_tweet_id": [
+          "1964738963111043335"
+        ]
+      },
+      "conversation_id": "1965405321444348376",
+      "created_at": "2025-09-09T13:21:58.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1964738913391550464",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G0QnodEXIAAI2M1.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2650,
+          "height": 4096,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @pipipitoto_sou: ✨ #SageRobotnik #ソニミク https://t.co/IrXn9gMhmB",
+      "edit_history_tweet_ids": [
+        "1964359203251794347"
+      ],
+      "id": "1964359203251794347",
+      "lang": "qme",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1963920041768018368"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1897,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1963907210603622400"
+        ],
+        "media_source_tweet_id": [
+          "1963920041768018368"
+        ]
+      },
+      "conversation_id": "1964359203251794347",
+      "created_at": "2025-09-06T16:05:04.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1963907210603622400",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G0EzM-vbcAAHaOU.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1000,
+          "height": 1231,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @FateGO_USA: [3000 Days Anniversary Celebration Social Media Campaign]\n\nIf the combined number of Facebook Reactions/Shares + X (Twitter…",
+      "edit_history_tweet_ids": [
+        "1964318896233591049"
+      ],
+      "id": "1964318896233591049",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1964146621492392294"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 7146,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1964318896233591049",
+      "created_at": "2025-09-06T13:24:54.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @RalicielRanting: https://t.co/anL8fEdmAJ",
+      "edit_history_tweet_ids": [
+        "1964075853001711880"
+      ],
+      "id": "1964075853001711880",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1964031917076205918"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 453,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1964031905176940544"
+        ],
+        "media_source_tweet_id": [
+          "1964031917076205918"
+        ]
+      },
+      "conversation_id": "1964075853001711880",
+      "created_at": "2025-09-05T21:19:08.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1964031905176940544",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G0GknKOa8AAiZB2.png",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 567,
+          "height": 360,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @gtkamenozoki: https://t.co/pJbIaiQcmq",
+      "edit_history_tweet_ids": [
+        "1963964399305064798"
+      ],
+      "id": "1963964399305064798",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1963892122639118813"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 933,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1963892103626559488"
+        ],
+        "media_source_tweet_id": [
+          "1963892122639118813"
+        ]
+      },
+      "conversation_id": "1963964399305064798",
+      "created_at": "2025-09-05T13:56:16.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1963892103626559488",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G0Eldo3bEAAEXzW.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1473,
+          "height": 915,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @HORMIGA_RETURNS: https://t.co/i6zKYhjf15",
+      "edit_history_tweet_ids": [
+        "1963962003602514321"
+      ],
+      "id": "1963962003602514321",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1963682882683105512"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1979,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1963682871035539456"
+        ],
+        "media_source_tweet_id": [
+          "1963682882683105512"
+        ]
+      },
+      "conversation_id": "1963962003602514321",
+      "created_at": "2025-09-05T13:46:44.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1963682871035539456",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G0BnKsuXsAAXEEQ.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 786,
+          "height": 960,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @AramyxFun: Can't scape Ingrid. https://t.co/9i5SaUZOkA",
+      "edit_history_tweet_ids": [
+        "1963703942778356137"
+      ],
+      "id": "1963703942778356137",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1963429964927189000"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 121,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1963429930105991168"
+        ],
+        "media_source_tweet_id": [
+          "1963429964927189000"
+        ]
+      },
+      "conversation_id": "1963703942778356137",
+      "created_at": "2025-09-04T20:41:18.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1963429930105991168",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gz-BHmVWcAAbn2x.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 534,
+          "height": 639,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @FateGO_USA: Part 2 of our Back to School 2025 Daily Login Bonus begins today!\nLog in for seven days by 09/10 to receive Saint Quartz x6…",
+      "edit_history_tweet_ids": [
+        "1963695285441630248"
+      ],
+      "id": "1963695285441630248",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1963459553418228087"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 57,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1963695285441630248",
+      "created_at": "2025-09-04T20:06:54.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Selk_dav: Hilo recopilación de todos los Servant Chibis basados en sus Final Arts con links a sus respectivos artistas\n#FGO https://t.c…",
+      "edit_history_tweet_ids": [
+        "1963693806882107525"
+      ],
+      "id": "1963693806882107525",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1963261325854777563"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 44,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1963693806882107525",
+      "created_at": "2025-09-04T20:01:01.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Jorgby05: Como saber que alguien no tiene buenos argumentos en la comunidad anime:\n\n“Es culpa de Dai”\n“Es culpa de Guibel”\n“Es culpa de…",
+      "edit_history_tweet_ids": [
+        "1963693696324661389"
+      ],
+      "id": "1963693696324661389",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1963655360549376386"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1963693696324661389",
+      "created_at": "2025-09-04T20:00:35.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @kmnm_1403: あの懐かしい笑顔にまた会える夢を見てる https://t.co/HKcVqXDWIx",
+      "edit_history_tweet_ids": [
+        "1963584234049720704"
+      ],
+      "id": "1963584234049720704",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1963554504491598273"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 621,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1963554438322569216"
+        ],
+        "media_source_tweet_id": [
+          "1963554504491598273"
+        ]
+      },
+      "conversation_id": "1963584234049720704",
+      "created_at": "2025-09-04T12:45:37.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1963554438322569216",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gz_yW7lbwAARIwg.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2100,
+          "height": 1600,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @MOVErabbit0305: ルフレちゃんも欲しかったなぁ…の落書き https://t.co/3z65yRYk0A",
+      "edit_history_tweet_ids": [
+        "1963584160536150459"
+      ],
+      "id": "1963584160536150459",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1963560936914260211"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 198,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1963560933286141952"
+        ],
+        "media_source_tweet_id": [
+          "1963560936914260211"
+        ]
+      },
+      "conversation_id": "1963584160536150459",
+      "created_at": "2025-09-04T12:45:20.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1963560933286141952",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gz_4Q_Na4AADe8e.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1240,
+          "height": 1754,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @amanogwazen: 今年の夏の思い出。ありがとう。(※女装) https://t.co/7hywSAsGhN",
+      "edit_history_tweet_ids": [
+        "1963351061655425322"
+      ],
+      "id": "1963351061655425322",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1963185878257508379"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 660,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1963185451868819456",
+          "3_1963185477982572544"
+        ],
+        "media_source_tweet_id": [
+          "1963185878257508379",
+          "1963185878257508379"
+        ]
+      },
+      "conversation_id": "1963351061655425322",
+      "created_at": "2025-09-03T21:19:05.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1963185451868819456",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gz6ixF7bEAAlwej.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 900,
+          "height": 547,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1963185477982572544",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gz6iynNbUAAK7tg.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 900,
+          "height": 765,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @migueldobarce: Me sumo, me suscribí al plan estudiantil y nunca te dicen que tienes compromiso a 4 meses o te cobran más. \nY si te quie…",
+      "edit_history_tweet_ids": [
+        "1963348457009418471"
+      ],
+      "id": "1963348457009418471",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1963315980525834536"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1963348457009418471",
+      "created_at": "2025-09-03T21:08:44.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "@Selk_dav https://t.co/KB7LflAU50",
+      "edit_history_tweet_ids": [
+        "1963348041148379434"
+      ],
+      "id": "1963348041148379434",
+      "lang": "qme",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1963242782811709766"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 1,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 50
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1963348030586757120"
+        ]
+      },
+      "conversation_id": "1963242782811709766",
+      "created_at": "2025-09-03T21:07:04.000Z",
+      "is_retweet": false,
+      "media": [
+        {
+          "media_key": "3_1963348030586757120",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gz82oa2WIAATo9S.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1920,
+          "height": 1078,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @terarenai: Prover https://t.co/ESiAen2gXV",
+      "edit_history_tweet_ids": [
+        "1962641526439162067"
+      ],
+      "id": "1962641526439162067",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1962136911751102852"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1842,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1962136904775991296"
+        ],
+        "media_source_tweet_id": [
+          "1962136911751102852"
+        ]
+      },
+      "conversation_id": "1962641526439162067",
+      "created_at": "2025-09-01T22:19:38.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1962136904775991296",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GzrpHnnbgAAPQLm.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1786,
+          "height": 2687,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @shenanigansen: https://t.co/WxOM1LkwJE",
+      "edit_history_tweet_ids": [
+        "1962638815886987331"
+      ],
+      "id": "1962638815886987331",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1962635732645802313"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 4049,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1962634029309566976"
+        ],
+        "media_source_tweet_id": [
+          "1962635732645802313"
+        ]
+      },
+      "conversation_id": "1962638815886987331",
+      "created_at": "2025-09-01T22:08:52.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1962634029309566976",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GzytQE0XIAA1qgE.png",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": "Panel 1: Shen is gesturing with his hand and happily saying \"I love it when girls try to be scary.\"\n\nPanel 2: Shen puts his hands forward in 'claw' position, big yellow and red glints in his eyes and the top half of his face cloaked in purple shadow. The background is squiggly indigo lines on a purple background emanating from his head. He says \"They just go RAAAH~. And it's more cute than scary\"\n\nPanel 3: Shen turns around, looking at a girl with cocentric circle pupils, sharp teeth, an x shaped scar on the right side of her face and a band-aid on the left, and messy blonde hair in a ponytail. She is wearing a white tank-top and black pants. This it the Professional Hater, who has shown up in the comics previously. He says \"Hey, try to be scary for me.\"\n\nPanel 4: Side view as she hands a happy Shen a piece of paper with something written on it.\n\nPanel 5: Shen's expression sours into a something more somber and concerned as he says \"this is my home address\".",
+          "width": 2000,
+          "height": 2927,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @ChuJing31998: オベロン        \n#FGO https://t.co/18ODNMRCzW",
+      "edit_history_tweet_ids": [
+        "1961829254275944579"
+      ],
+      "id": "1961829254275944579",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1961769297820414015"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 163,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1961769258389737472"
+        ],
+        "media_source_tweet_id": [
+          "1961769297820414015"
+        ]
+      },
+      "conversation_id": "1961829254275944579",
+      "created_at": "2025-08-30T16:31:57.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1961769258389737472",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GzmavyGaEAATUen.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1287,
+          "height": 1716,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @shenanigansen: https://t.co/X3XtRDv764",
+      "edit_history_tweet_ids": [
+        "1961472855771590789"
+      ],
+      "id": "1961472855771590789",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1961135068480426372"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 4706,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1961135014331977728"
+        ],
+        "media_source_tweet_id": [
+          "1961135068480426372"
+        ]
+      },
+      "conversation_id": "1961472855771590789",
+      "created_at": "2025-08-29T16:55:45.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1961135014331977728",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GzdZ563WkAA7qNT.png",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": "Comic titled \"How I Imagine Chess Pieces Move\"\n\nPanel 1: Titled \"Pawn\". A humanized white pawn on a chess board, his helmet crowned with a metal ball, runs forward swinging his sword a bit. \n\nPanel 2: Titled \"Knight\". A dark purple horse with a blue mane leaps happily from one white spot on the chess board to a black spot.\n\nPanel 3: Titled \"Bishop\". A humanized black bishop on a chess board is down on one knee, aiming a sniper rifle along the diagonal. A closeup of the muzzle of the sniper rifled reveals that he himself, the bishop, is also loaded into it as a bullet.\n\nPanel 4: Titled \"Roo (too shakily written, crossed out) Roo (too shakily written again, crossed out) BRO FUCK (shakily written)\". A stone tower cuts along a straight line through the board, shaking the whole board (and in fact, the whole panel) in the process and carving out a deep hole. There are bits of the board flying everywhere. The tower has a tiny content face on it as it causes this destruction.",
+          "width": 2000,
+          "height": 2500,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @FateGO_USA: [The Great Spirit's World Tour! Social Media Campaign]\n\nIf the combined number of Facebook Reactions/Shares + X (Twitter) L…",
+      "edit_history_tweet_ids": [
+        "1961168438115881305"
+      ],
+      "id": "1961168438115881305",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1961126849280344421"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 3979,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1961168438115881305",
+      "created_at": "2025-08-28T20:46:07.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Tierra100able_: El arte no es solo un dibujo. El arte puede ser un dibujo, puede ser componer una canción, tocar un instrumento, animar…",
+      "edit_history_tweet_ids": [
+        "1960339360580038706"
+      ],
+      "id": "1960339360580038706",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1960285085808091364"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 8,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1960339360580038706",
+      "created_at": "2025-08-26T13:51:39.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @mahiwaga_bghn: Posting all three of them together cause the fourth one will be a 'bit' different! (⁠*⁠´⁠︶⁠`⁠*⁠)\n\nueeee--I really love h…",
+      "edit_history_tweet_ids": [
+        "1960337676575428676"
+      ],
+      "id": "1960337676575428676",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1960314906806534252"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 12,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1960337676575428676",
+      "created_at": "2025-08-26T13:44:58.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @KenkougaNoOne: 集合絵がマイブームです https://t.co/NrgNrAJM7b",
+      "edit_history_tweet_ids": [
+        "1958538142224441550"
+      ],
+      "id": "1958538142224441550",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1958457499541279020"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 615,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1958457484957585408",
+          "3_1958457484982771712"
+        ],
+        "media_source_tweet_id": [
+          "1958457499541279020",
+          "1958457499541279020"
+        ]
+      },
+      "conversation_id": "1958538142224441550",
+      "created_at": "2025-08-21T14:34:15.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1958457484957585408",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gy3WtMqaEAAsNty.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2048,
+          "height": 1451,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1958457484982771712",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gy3WtMwaYAA9Muj.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2048,
+          "height": 1450,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @nauki_11: #恋ルキ\n#Bleach https://t.co/DTWNRyHf0j",
+      "edit_history_tweet_ids": [
+        "1958537035309850814"
+      ],
+      "id": "1958537035309850814",
+      "lang": "qme",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1957039381392560277"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 378,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1957039342955986944"
+        ],
+        "media_source_tweet_id": [
+          "1957039381392560277"
+        ]
+      },
+      "conversation_id": "1958537035309850814",
+      "created_at": "2025-08-21T14:29:51.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1957039342955986944",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GyjM6eBbAAAv1qt.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2000,
+          "height": 2707,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @amamya_tokko: ぐだマシュ詰め合わせ https://t.co/6pmg1oxlwv",
+      "edit_history_tweet_ids": [
+        "1958290358057517438"
+      ],
+      "id": "1958290358057517438",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1958049623903465555"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 254,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1958049616601174016",
+          "3_1958049616508907521",
+          "3_1958049616521531392",
+          "3_1958049616525684736"
+        ],
+        "media_source_tweet_id": [
+          "1958049623903465555",
+          "1958049623903465555",
+          "1958049623903465555",
+          "1958049623903465555"
+        ]
+      },
+      "conversation_id": "1958290358057517438",
+      "created_at": "2025-08-20T22:09:39.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1958049616601174016",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GyxjwIoaUAAo9cG.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2048,
+          "height": 1829,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1958049616508907521",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GyxjwISacAEhi5T.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1434,
+          "height": 2048,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1958049616521531392",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GyxjwIVbEAAZMO8.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1434,
+          "height": 2048,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1958049616525684736",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GyxjwIWacAAcvBj.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2048,
+          "height": 1479,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @syatey_12: 1ｺﾏFGO 「なんで いるのよ」 https://t.co/srw8k757Xr",
+      "edit_history_tweet_ids": [
+        "1957932326870216835"
+      ],
+      "id": "1957932326870216835",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1955838627348668537"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 12344,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1955838604653322240"
+        ],
+        "media_source_tweet_id": [
+          "1955838627348668537"
+        ]
+      },
+      "conversation_id": "1957932326870216835",
+      "created_at": "2025-08-19T22:26:58.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1955838604653322240",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GySI2TRbYAAk5mR.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1000,
+          "height": 1235,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @FateGO_USA: [Back to School 2025 Social Media Campaign]\n\nIf the combined number of Facebook Reactions/Shares + X (Twitter) Likes/Repost…",
+      "edit_history_tweet_ids": [
+        "1957141962546634800"
+      ],
+      "id": "1957141962546634800",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1957140511120064865"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 5545,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1957141962546634800",
+      "created_at": "2025-08-17T18:06:20.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @caravthir: I love drawing The Siegfried Family ❤️ #FGO https://t.co/0hjUIEBl7R",
+      "edit_history_tweet_ids": [
+        "1957141542159917274"
+      ],
+      "id": "1957141542159917274",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1957094339902857373"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 881,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1957093970737045505"
+        ],
+        "media_source_tweet_id": [
+          "1957094339902857373"
+        ]
+      },
+      "conversation_id": "1957141542159917274",
+      "created_at": "2025-08-17T18:04:40.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1957093970737045505",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gyj-mOXXIAE-Zfx.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 4096,
+          "height": 2897,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @SpainFateFan: https://t.co/CsbDw6Bkfu",
+      "edit_history_tweet_ids": [
+        "1956770922590773381"
+      ],
+      "id": "1956770922590773381",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1956702467334230019"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 104,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1956702464842817536"
+        ],
+        "media_source_tweet_id": [
+          "1956702467334230019"
+        ]
+      },
+      "conversation_id": "1956770922590773381",
+      "created_at": "2025-08-16T17:31:57.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1956702464842817536",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GyeahlQWYAADE_y.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 960,
+          "height": 1080,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @takashimizu44: 水着再臨全部てぇてぇ…\n#ジククリ https://t.co/hLhBHHpV9V",
+      "edit_history_tweet_ids": [
+        "1956481763074527270"
+      ],
+      "id": "1956481763074527270",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1956205589530599747"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1459,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1956205291860844544",
+          "3_1956205318079438856"
+        ],
+        "media_source_tweet_id": [
+          "1956205589530599747",
+          "1956205589530599747"
+        ]
+      },
+      "conversation_id": "1956481763074527270",
+      "created_at": "2025-08-15T22:22:56.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1956205291860844544",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GyXWWTka4AAzWrL.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1234,
+          "height": 1339,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1956205318079438856",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GyXWX1Pa4AgqgAN.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1202,
+          "height": 1244,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @mizuha_oishiina: 朝の支度の邪魔してくる（ナルマヨ） https://t.co/XwHGv5xCCX",
+      "edit_history_tweet_ids": [
+        "1956346067609337995"
+      ],
+      "id": "1956346067609337995",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1956296779126726990"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 664,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1956296773267550208"
+        ],
+        "media_source_tweet_id": [
+          "1956296779126726990"
+        ]
+      },
+      "conversation_id": "1956346067609337995",
+      "created_at": "2025-08-15T13:23:44.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1956296773267550208",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GyYpjOXa8AAPefx.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 872,
+          "height": 1907,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @caravthir: Shark Family 🦈❤️ #FGO https://t.co/LkcqEwX89j",
+      "edit_history_tweet_ids": [
+        "1956345966199452123"
+      ],
+      "id": "1956345966199452123",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1956284728857739773"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 2476,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1956284427497050115"
+        ],
+        "media_source_tweet_id": [
+          "1956284728857739773"
+        ]
+      },
+      "conversation_id": "1956345966199452123",
+      "created_at": "2025-08-15T13:23:20.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1956284427497050115",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GyYeUmyXEAMjWnn.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2828,
+          "height": 2000,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @NaughtyDogWorld: Rumour: Uncharted 5 is in development at Naughty Dog and will feature Cassie and Sam Drake and will be helmed by the c…",
+      "edit_history_tweet_ids": [
+        "1955689619636510802"
+      ],
+      "id": "1955689619636510802",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1955347048028369144"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 530,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1955689619636510802",
+      "created_at": "2025-08-13T17:55:14.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Shori39639: 既刊からイラストの紹介です。\n\n村正「王様に折り入って頼みがあるんだが。精霊が拵えたって聖剣をひとつ間近で拝ませちゃくれねえかい」\n#FGO https://t.co/F6UPghoqWh",
+      "edit_history_tweet_ids": [
+        "1955687216338145605"
+      ],
+      "id": "1955687216338145605",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1955464352242290767"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1108,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1955462041617276928"
+        ],
+        "media_source_tweet_id": [
+          "1955464352242290767"
+        ]
+      },
+      "conversation_id": "1955687216338145605",
+      "created_at": "2025-08-13T17:45:41.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1955462041617276928",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GyMyXcpboAAteoh.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1000,
+          "height": 1125,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Shori39639: オベロン「ねんがんの刀（竹光）をてにいれたぞ！」\n#FGO https://t.co/tqdJSsdGi0",
+      "edit_history_tweet_ids": [
+        "1955671464759492806"
+      ],
+      "id": "1955671464759492806",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1955464708406022365"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1007,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1955464684070637571"
+        ],
+        "media_source_tweet_id": [
+          "1955464708406022365"
+        ]
+      },
+      "conversation_id": "1955671464759492806",
+      "created_at": "2025-08-13T16:43:06.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1955464684070637571",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GyM0xQjaEAM9D1f.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1000,
+          "height": 1125,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @spatziline: Desperate times call for desperate measures ft Jinshi and Maomao (the vampirediaries reference) #TheApothecaryDiaries #kusu…",
+      "edit_history_tweet_ids": [
+        "1955281952275038216"
+      ],
+      "id": "1955281952275038216",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1955000077703066084"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 609,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1955281952275038216",
+      "created_at": "2025-08-12T14:55:19.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Selk_dav: VIDEO CELEBRACIÓN DEL 10 ANIVERSARIO PARA LA COMUNIDAD HISPANA\n\nMe gustaría haber podido meter más, pero el tiempo límite ner…",
+      "edit_history_tweet_ids": [
+        "1954346213295411417"
+      ],
+      "id": "1954346213295411417",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1953194075982635144"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 59,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1954346213295411417",
+      "created_at": "2025-08-10T00:57:01.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @reluvy5213: 雨の国の妖精\n#FGO https://t.co/cBFgt0aAfH",
+      "edit_history_tweet_ids": [
+        "1954184784801853662"
+      ],
+      "id": "1954184784801853662",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1954122786756276275"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1553,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1954122778497736704"
+        ],
+        "media_source_tweet_id": [
+          "1954122786756276275"
+        ]
+      },
+      "conversation_id": "1954184784801853662",
+      "created_at": "2025-08-09T14:15:34.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1954122778497736704",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gx5wUEvbYAAMONy.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1199,
+          "height": 708,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Pa1mira_Moi01: https://t.co/JSlyKb30HQ",
+      "edit_history_tweet_ids": [
+        "1954009436537663779"
+      ],
+      "id": "1954009436537663779",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1953724417064022411"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 2594,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1953724396797050880"
+        ],
+        "media_source_tweet_id": [
+          "1953724417064022411"
+        ]
+      },
+      "conversation_id": "1954009436537663779",
+      "created_at": "2025-08-09T02:38:48.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1953724396797050880",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gx0F_NQaQAA9Zkc.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 894,
+          "height": 1109,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @IrisBreeze: I finished the sheep crossover drawing!\nRemember to take care of your local sheep 🐑\n\n#FireEmblem #Pokemon https://t.co/Sk17…",
+      "edit_history_tweet_ids": [
+        "1954005865385902387"
+      ],
+      "id": "1954005865385902387",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1953894830888591705"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 254,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1954005865385902387",
+      "created_at": "2025-08-09T02:24:36.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @ChuJing31998: オベロン       \n#FGO https://t.co/SlVDt51ns8",
+      "edit_history_tweet_ids": [
+        "1953948541937717748"
+      ],
+      "id": "1953948541937717748",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1953794328746504376"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1955,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1953794205182308352"
+        ],
+        "media_source_tweet_id": [
+          "1953794328746504376"
+        ]
+      },
+      "conversation_id": "1953948541937717748",
+      "created_at": "2025-08-08T22:36:49.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1953794205182308352",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gx1FelwbsAAvcrb.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1191,
+          "height": 2000,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @hulluzola: 2017-2025 is a wild improvement https://t.co/sCDaYByspu",
+      "edit_history_tweet_ids": [
+        "1952878732089426111"
+      ],
+      "id": "1952878732089426111",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1952719128550076494"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 90,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1952719070823915520",
+          "3_1952719070769364992"
+        ],
+        "media_source_tweet_id": [
+          "1952719128550076494",
+          "1952719128550076494"
+        ]
+      },
+      "conversation_id": "1952878732089426111",
+      "created_at": "2025-08-05T23:45:47.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1952719070823915520",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GxlzpiKXIAA7xPO.png",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 600,
+          "height": 600,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1952719070769364992",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gxlzph9WwAAC9Nq.png",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 900,
+          "height": 900,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @eranahh: Happiest Zelda in the world ❤️✨ https://t.co/j877RssYvV",
+      "edit_history_tweet_ids": [
+        "1951833961585328401"
+      ],
+      "id": "1951833961585328401",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1951784079348686959"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 3467,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1951784007307251712"
+        ],
+        "media_source_tweet_id": [
+          "1951784079348686959"
+        ]
+      },
+      "conversation_id": "1951833961585328401",
+      "created_at": "2025-08-03T02:34:14.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1951784007307251712",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GxYhNrHWUAAP_EN.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1984,
+          "height": 2806,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @ArayaEjiri: Lessons in magic\nCommissioned by @lampreylarry ! Thank you!\n#FireEmblemAwakening #ファイアーエムブレム https://t.co/NpWrgIJ7Ok",
+      "edit_history_tweet_ids": [
+        "1951035256556962022"
+      ],
+      "id": "1951035256556962022",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1951021387549667831"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 186,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1951021350908227587"
+        ],
+        "media_source_tweet_id": [
+          "1951021387549667831"
+        ]
+      },
+      "conversation_id": "1951035256556962022",
+      "created_at": "2025-07-31T21:40:28.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1951021350908227587",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GxNrlOoWcAMCPBc.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2000,
+          "height": 2601,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @shenanigansen: https://t.co/JbORNUWYTM",
+      "edit_history_tweet_ids": [
+        "1950740577126850997"
+      ],
+      "id": "1950740577126850997",
+      "lang": "zxx",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1950699422985154651"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 2785,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1950699218101837824"
+        ],
+        "media_source_tweet_id": [
+          "1950699422985154651"
+        ]
+      },
+      "conversation_id": "1950740577126850997",
+      "created_at": "2025-07-31T02:09:31.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1950699218101837824",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GxJGmoaXoAA0Db6.png",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": "Panel 1: Shen is happily running, grasping the string of a bright yellow balloon. The balloon is labeled \"Self Esteem\".\n\nPanel 2: Life steps into the panel holding a needle to the balloon. Shen skids to a halt in front of Life but it's too late -- the needle has popped the balloon, it's shape still vaguely outlined in the air by the chunks of yellow rubber now falling apart.\n\nPanel 3: Yellow balloon chunks rain down, a few landing on Shen's messy hair. He is distraught. He says: \"Why\"\n\nPanel 4: Shen is surprised to find Life, backlit by the bright sun, now holding out a way BIGGER yellow balloon labeled \"Self Esteem\" towards him, offering it to him.",
+          "width": 2500,
+          "height": 2500,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @KaroshiMyriad: Congratulations to Fate/Grand Order for its 10th anniversary on July 30! https://t.co/qZwT4ZdoT1",
+      "edit_history_tweet_ids": [
+        "1950298351859274220"
+      ],
+      "id": "1950298351859274220",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1950210218500956487"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 675,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1950210214143168512"
+        ],
+        "media_source_tweet_id": [
+          "1950210218500956487"
+        ]
+      },
+      "conversation_id": "1950298351859274220",
+      "created_at": "2025-07-29T20:52:16.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1950210214143168512",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GxCJ22tXkAAPqbz.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2000,
+          "height": 2000,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @IAMK1K11: Todos se creen los mejores velocistas, pero se olvidan del verdadero chad https://t.co/2kktcm3xBq",
+      "edit_history_tweet_ids": [
+        "1946620190118023264"
+      ],
+      "id": "1946620190118023264",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1946272459801481338"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1470,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1946272454302642177",
+          "3_1946272456110489600"
+        ],
+        "media_source_tweet_id": [
+          "1946272459801481338",
+          "1946272459801481338"
+        ]
+      },
+      "conversation_id": "1946620190118023264",
+      "created_at": "2025-07-19T17:16:34.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1946272454302642177",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GwKMfELWMAEarXX.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1000,
+          "height": 761,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1946272456110489600",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GwKMfK6XwAAvjrm.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 736,
+          "height": 1095,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @iamkowai: my ordinary life https://t.co/SjDFE0fdDl",
+      "edit_history_tweet_ids": [
+        "1945273254664396870"
+      ],
+      "id": "1945273254664396870",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1945151375996059779"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 5209,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1945144046219091969"
+        ],
+        "media_source_tweet_id": [
+          "1945151375996059779"
+        ]
+      },
+      "conversation_id": "1945273254664396870",
+      "created_at": "2025-07-16T00:04:19.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1945144046219091969",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gv6KNEfa4AEHXrE.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1674,
+          "height": 2013,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @kmnm_1403: 🏀 https://t.co/fZiXtmltGl",
+      "edit_history_tweet_ids": [
+        "1944759591914316146"
+      ],
+      "id": "1944759591914316146",
+      "lang": "qme",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1944756665854931267"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 2943,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1944756470622367744"
+        ],
+        "media_source_tweet_id": [
+          "1944756665854931267"
+        ]
+      },
+      "conversation_id": "1944759591914316146",
+      "created_at": "2025-07-14T14:03:13.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1944756470622367744",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/Gv0ptM4WsAAc1Mx.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2050,
+          "height": 1800,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @arktoons: More Marianne Horse Trainer shenanigans \n\n#umamusume #ウマ娘 #FireEmblem https://t.co/PK6B9Ds7Ic",
+      "edit_history_tweet_ids": [
+        "1944599515132019075"
+      ],
+      "id": "1944599515132019075",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1944452391350538607"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1579,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1944452234550587392",
+          "3_1944452234734936064"
+        ],
+        "media_source_tweet_id": [
+          "1944452391350538607",
+          "1944452391350538607"
+        ]
+      },
+      "conversation_id": "1944599515132019075",
+      "created_at": "2025-07-14T03:27:07.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1944452234550587392",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GvwVAVMaMAADTO0.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1500,
+          "height": 2100,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1944452234734936064",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GvwVAV4XIAAcMqN.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1500,
+          "height": 2100,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @LaPala325678: #TormentaChinaUmaMusume\n\nartista: AlvaLock en devianart https://t.co/cCFDSa0gAw",
+      "edit_history_tweet_ids": [
+        "1942392725564760133"
+      ],
+      "id": "1942392725564760133",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1942022682444202227"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1951,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1942022589422931968"
+        ],
+        "media_source_tweet_id": [
+          "1942022682444202227"
+        ]
+      },
+      "conversation_id": "1942392725564760133",
+      "created_at": "2025-07-08T01:18:08.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1942022589422931968",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GvNzQXxWkAAcAOh.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 828,
+          "height": 1171,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @FateGO_USA: [Servant Summer Festival Social Media Campaign]\n\nIf the combined number of Facebook Reactions/Shares + X (Twitter) Likes/Re…",
+      "edit_history_tweet_ids": [
+        "1941979575136711106"
+      ],
+      "id": "1941979575136711106",
+      "lang": "en",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1941920203153068206"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 5591,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "conversation_id": "1941979575136711106",
+      "created_at": "2025-07-06T21:56:25.000Z",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @seeds328: 項虞 ありがとう…… https://t.co/4CyENweTyw",
+      "edit_history_tweet_ids": [
+        "1941666256513384778"
+      ],
+      "id": "1941666256513384778",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1941512168350068877"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1117,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1941512160435159040"
+        ],
+        "media_source_tweet_id": [
+          "1941512168350068877"
+        ]
+      },
+      "conversation_id": "1941666256513384778",
+      "created_at": "2025-07-06T01:11:24.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1941512160435159040",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GvGjBfnWwAAcg_q.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1183,
+          "height": 1498,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @Picsas_: ¡Jack gitano te esta ofreciendo un porro!\n\n¿Aceptas? https://t.co/IkxnmsD4d5",
+      "edit_history_tweet_ids": [
+        "1941665882041614393"
+      ],
+      "id": "1941665882041614393",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1941458504600240481"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 499,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1941458342989230080"
+        ],
+        "media_source_tweet_id": [
+          "1941458504600240481"
+        ]
+      },
+      "conversation_id": "1941665882041614393",
+      "created_at": "2025-07-06T01:09:55.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1941458342989230080",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GvFyE6AXcAAJyMF.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2880,
+          "height": 2160,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @nacional_memes: Hombre encuentra un palo genial, hombre ser feliz  🐶 https://t.co/z4VPFs2Q2P",
+      "edit_history_tweet_ids": [
+        "1941665500867555540"
+      ],
+      "id": "1941665500867555540",
+      "lang": "es",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1941303323782676554"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 13496,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1941303315104477184"
+        ],
+        "media_source_tweet_id": [
+          "1941303323782676554"
+        ]
+      },
+      "conversation_id": "1941665500867555540",
+      "created_at": "2025-07-06T01:08:24.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1941303315104477184",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GvDlFGIXMAAHovI.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 827,
+          "height": 808,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1324033765425979396",
+      "text": "RT @zexal1650: 「  さようなら 」 \n#FGO https://t.co/577AtVFDFV",
+      "edit_history_tweet_ids": [
+        "1941652294220628158"
+      ],
+      "id": "1941652294220628158",
+      "lang": "ja",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1941419780747166129"
+        }
+      ],
+      "public_metrics": {
+        "retweet_count": 1176,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "attachments": {
+        "media_keys": [
+          "3_1941419605593030658"
+        ],
+        "media_source_tweet_id": [
+          "1941419780747166129"
+        ]
+      },
+      "conversation_id": "1941652294220628158",
+      "created_at": "2025-07-06T00:15:55.000Z",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1941419605593030658",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/GvFO2F9aAAIOH3g.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2000,
+          "height": 3307,
+          "duration_ms": null
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "total_tweets": 99,
+    "retweet_count": 97,
+    "original_count": 2,
+    "tweets_with_media": 74,
+    "total_media_count": 97,
+    "media_types": {
+      "photo": 97
+    },
+    "date_range": {
+      "start": "2025-07-06T00:15:55+00:00",
+      "end": "2025-11-16T03:30:26+00:00"
+    },
+    "languages": {
+      "zxx": 13,
+      "en": 34,
+      "es": 22,
+      "ja": 22,
+      "lt": 1,
+      "und": 2,
+      "qme": 5
+    }
+  },
+  "pages_fetched": 2,
+  "fetched_at": "2025-11-16T20:39:41.105141",
+  "execution_time": "00:00:03",
+  "execution_time_seconds": 3.68
+}

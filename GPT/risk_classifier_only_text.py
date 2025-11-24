@@ -32,6 +32,7 @@ POLICY_COMPACT = {
         "legal_privacy": "Difamación, PII sensible (tel, dirección, doc)"
     },
     "levels": {
+        "no": "Sin riesgo",
         "low": "Riesgo menor/incierto",
         "mid": "Riesgo claro, daño reputacional posible",
         "high": "Riesgo severo, violación probable"
@@ -283,7 +284,7 @@ def classify_risk_text_only(tweet_text: str) -> Dict[str, Any]:
             except Exception as e:
                 if attempt >= attempts_allowed:
                     return {
-                        "labels": [], "risk_level": "low", "rationale": "Error parseando",
+                        "labels": [], "risk_level": "no", "rationale": "Error parseando",
                         "spans": [], "attempt": attempt, "parse_error": str(e)
                     }
                 time.sleep(0.3)
@@ -291,9 +292,10 @@ def classify_risk_text_only(tweet_text: str) -> Dict[str, Any]:
 
             # Validar
             labels = [l for l in data.get("labels", []) if l in POLICY_COMPACT["categories"]]
-            risk_level = data.get("risk_level", "low")
-            if risk_level not in ["low", "mid", "high"]:
-                risk_level = "low"
+            # permitir 'no' como valor válido y usarlo por defecto
+            risk_level = data.get("risk_level", "no")
+            if risk_level not in ["no", "low", "mid", "high"]:
+                risk_level = "no"
             
             rationale = data.get("rationale", "")
             confidence = max(0.0, min(1.0, float(data.get("confidence", 0.5))))
@@ -303,7 +305,8 @@ def classify_risk_text_only(tweet_text: str) -> Dict[str, Any]:
                 spans = extract_spans_fallback(tweet_text, labels)
 
             if not labels:
-                risk_level = "low"
+                # Si no hay etiquetas explícitas, marcar como 'no' (sin riesgo)
+                risk_level = "no"
 
             # Aplicar reglas de política
             original_level = risk_level
@@ -382,7 +385,8 @@ def apply_policy_rules(labels: List[str], risk_level: str, text: str) -> Tuple[s
     """Aplica reglas compactas de política."""
     reasoning = []
     
-    if ("hate" in labels or "violence" in labels) and risk_level in ("low", "mid"):
+    # Si hay hate/violence escalar incluso desde 'no' o 'low' o 'mid'
+    if ("hate" in labels or "violence" in labels) and risk_level in ("no", "low", "mid"):
         risk_level = "high"
         reasoning.append("hate/violence→high")
     
@@ -458,7 +462,7 @@ if __name__ == "__main__":
     print("   ⚡ Prompts compactos | Modelo rápido | Sin análisis de media")
     print("="*70)
 
-    default_json = Path(__file__).resolve().parents[1] / "tweets_TheDarkraimola_20251023_173729.json"
+    default_json = Path(__file__).resolve().parents[1] / "tweets_TheDarkraimola_20251120_180501.json"
     try:
         result_data = load_tweets_from_json(str(default_json))
         
@@ -489,7 +493,7 @@ if __name__ == "__main__":
 
     results = []
     stats = {
-        "risk_distribution": {"low": 0, "mid": 0, "high": 0},
+        "risk_distribution": {"no": 0, "low": 0, "mid": 0, "high": 0},
         "label_counts": {},
         "errors": 0,
         "times": [],
@@ -605,7 +609,7 @@ if __name__ == "__main__":
     
     if successful > 0:
         print(f"\n📊 Distribución:")
-        for level in ["low", "mid", "high"]:
+        for level in ["no", "low", "mid", "high"]:
             count = stats['risk_distribution'][level]
             pct = (count/successful*100)
             print(f"  {level:4s}: {count:3d} ({pct:5.1f}%)")

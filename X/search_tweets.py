@@ -28,14 +28,14 @@ def format_time(seconds: float) -> str:
 
 
 def get_author_id(username: str) -> dict:
-    """Obtiene el author_id de un usuario por su username"""
+    """Obtiene el author_id y avatar de un usuario por su username"""
     try:
         token = get_x_api_key()
         headers = {"Authorization": f"Bearer {token}"}
         clean_username = username.lstrip('@')
         
         url = f"https://api.twitter.com/2/users/by/username/{clean_username}"
-        params = {"user.fields": "id,username,name,public_metrics,created_at"}
+        params = {"user.fields": "id,username,name,public_metrics,created_at,profile_image_url"}
         
         response = requests.get(url, headers=headers, params=params, timeout=15)
         
@@ -47,7 +47,8 @@ def get_author_id(username: str) -> dict:
                 'username': data.get('username'),
                 'name': data.get('name'),
                 'followers': data.get('public_metrics', {}).get('followers_count', 0),
-                'account_created': data.get('created_at')
+                'account_created': data.get('created_at'),
+                'profile_image_url': data.get('profile_image_url')
             }
         else:
             return {
@@ -145,23 +146,14 @@ def extract_media_info(tweet: Dict[str, Any], media_objects: List[Dict[str, Any]
 def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[str, Any]:
     """
     Obtiene tweets de un usuario (versión simplificada con temporizadores)
-    AHORA CON EXTRACCIÓN DE MEDIOS
+    AHORA CON EXTRACCIÓN DE MEDIOS + AVATAR DEL USUARIO
     
     Args:
         username: Username del usuario (con o sin @)
         max_tweets: Límite máximo de tweets a obtener (None = todos los disponibles)
     
     Returns:
-        Dict con resultado:
-        {
-            'success': bool,
-            'user': dict,           # Info del usuario
-            'tweets': list,         # Lista de tweets CON MEDIOS
-            'stats': dict,          # Estadísticas
-            'pages_fetched': int,
-            'fetched_at': str,
-            'execution_time': str   # Tiempo total de ejecución
-        }
+        Dict con resultado incluyendo avatar_url del usuario
     """
     # INICIO DEL TEMPORIZADOR
     start_time = time.time()
@@ -179,6 +171,11 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
         print(f"   Seguidores: {user_result['followers']:,}")
         if user_result.get('account_created'):
             print(f"   Cuenta creada: {user_result['account_created']}")
+        
+        # OBTENER AVATAR DEL USUARIO
+        avatar_url = user_result.get('profile_image_url')
+        if avatar_url:
+            print(f"   Avatar: {avatar_url}")
         
         print(f"\nObteniendo tweets CON MEDIOS...")
         if max_tweets:
@@ -209,11 +206,11 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
         print(f"\nCalculando tiempo estimado...")
         estimation_start = time.time()
         
-        # Hacer primera request para estimar (AHORA CON EXPANSIONES DE MEDIA)
+        # Hacer primera request para estimar (AHORA CON EXPANSIONES DE MEDIA + USUARIO)
         test_params = {
             "max_results": 100,
             "tweet.fields": "id,text,created_at,public_metrics,author_id,lang,conversation_id,referenced_tweets,attachments",
-            "user.fields": "id,username,name",
+            "user.fields": "id,username,name,profile_image_url",
             "media.fields": "media_key,type,url,preview_image_url,alt_text,width,height,duration_ms,variants",
             "expansions": "author_id,referenced_tweets.id,attachments.media_keys"
         }
@@ -401,7 +398,7 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
             params = {
                 "max_results": 100,
                 "tweet.fields": "id,text,created_at,public_metrics,author_id,lang,conversation_id,referenced_tweets,attachments",
-                "user.fields": "id,username,name",
+                "user.fields": "id,username,name,profile_image_url",
                 "media.fields": "media_key,type,url,preview_image_url,alt_text,width,height,duration_ms,variants",
                 "expansions": "author_id,referenced_tweets.id,attachments.media_keys"
             }
@@ -539,7 +536,7 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
                     
                     if estimated_total_time:
                         time_difference = estimated_total_real - estimated_total_time
-                        percentage_diff = (time_difference / estimated_total_time * 100) if estimated_total_time > 0 else 0
+                        percentage_diff = (time_difference / estimated_total_time * 100)
                         
                         if abs(percentage_diff) < 5:
                             status = "En tiempo"
@@ -673,7 +670,9 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
         # 5. Retornar resultado
         return {
             'success': True,
-            'user': user_result,
+            'user': {
+                **user_result
+            },
             'tweets': all_tweets,
             'stats': {
                 'total_tweets': len(all_tweets),
@@ -747,7 +746,7 @@ if __name__ == "__main__":
     
     result1 = fetch_user_tweets(
         username="@TheDarkraimola",
-        max_tweets=1000
+        max_tweets=100
     )
     
     if result1['success']:
