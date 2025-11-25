@@ -35,13 +35,16 @@ from config import get_oauth2_credentials
 from X.search_tweets import fetch_user_tweets, save_tweets_to_file
 from GPT.risk_classifier_only_text import classify_risk_text_only, load_tweets_from_json
 from X.deleate_tweets_rts import delete_tweets_batch
+from estimacion_de_tiempo import quick_estimate_all, format_time
 
 # Credenciales OAuth
 oauth_creds = get_oauth2_credentials()
 CLIENT_ID = oauth_creds['client_id']
 CLIENT_SECRET = oauth_creds['client_secret']
 REDIRECT_URI = oauth_creds['redirect_uri']
+FRONTEND_CALLBACK_URL = "http://localhost:5173/callback"  # URL del frontend para callback
 print(f"REDIRECT_URI cargado: {REDIRECT_URI}")
+print(f"FRONTEND_CALLBACK_URL: {FRONTEND_CALLBACK_URL}")
 
 # ============================================================================
 # FastAPI Setup
@@ -76,6 +79,7 @@ class LoginResponse(BaseModel):
     success: bool
     authorization_url: str
     state: str
+    session_id: str
     message: str = "Visita la URL para autorizar la aplicación"
 
 class TokenResponse(BaseModel):
@@ -108,6 +112,9 @@ class DeleteRequest(BaseModel):
     delete_retweets: bool = True
     delete_originals: bool = True
     delay_seconds: float = 1.0
+
+class EstimateRequest(BaseModel):
+    max_tweets: Optional[int] = Field(None, description="Número de tweets a analizar")
 
 # ============================================================================
 # Funciones Helper OAuth
@@ -255,7 +262,8 @@ async def login():
         success=True,
         authorization_url=authorization_url,
         state=state,
-        message=f"Session ID: {session_id}. Guarda este ID para el callback."
+        session_id=session_id,
+        message="Redirige al usuario a authorization_url para autorizar"
     )
 
 @app.get("/api/auth/callback")
@@ -264,7 +272,7 @@ async def auth_callback(code: str, state: str):
     Paso 2: Callback de Twitter después de autorización
     
     Twitter redirige aquí con el authorization_code.
-    Este endpoint intercambia el code por access_token.
+    Este endpoint intercambia el code por access_token y redirige al frontend.
     """
     # Buscar sesión por state
     session_id = None
@@ -274,94 +282,23 @@ async def auth_callback(code: str, state: str):
             break
     
     if not session_id:
-        raise HTTPException(status_code=400, detail="State inválido o sesión expirada")
+        # Redirigir al frontend con error
+        error_url = f"{FRONTEND_CALLBACK_URL}?error=invalid_state"
+        return RedirectResponse(url=error_url)
     
     # Intercambiar code por token
     result = exchange_code_for_token(session_id, code)
     
     if not result['success']:
-        raise HTTPException(status_code=400, detail=result['error'])
+        # Redirigir al frontend con error
+        error_url = f"{FRONTEND_CALLBACK_URL}?error={result['error']}"
+        return RedirectResponse(url=error_url)
     
-    # Retornar HTML con el session_id para que el frontend lo capture
-    html_content = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Autenticación Exitosa</title>
-        <style>
-            body {{
-                font-family: Arial, sans-serif;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                margin: 0;
-            }}
-            .container {{
-                background: white;
-                padding: 40px;
-                border-radius: 10px;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-                text-align: center;
-                max-width: 500px;
-            }}
-            h1 {{ color: #1DA1F2; }}
-            .session-id {{
-                background: #f5f5f5;
-                padding: 15px;
-                border-radius: 5px;
-                font-family: monospace;
-                word-break: break-all;
-                margin: 20px 0;
-            }}
-            .user-info {{
-                margin: 20px 0;
-                padding: 15px;
-                background: #e8f5fe;
-                border-radius: 5px;
-            }}
-            button {{
-                background: #1DA1F2;
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 16px;
-            }}
-            button:hover {{ background: #1a8cd8; }}
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>✅ ¡Autenticación Exitosa!</h1>
-            <div class="user-info">
-                <p><strong>Usuario:</strong> @{result['user']['username']}</p>
-                <p><strong>Nombre:</strong> {result['user']['name']}</p>
-            </div>
-            <p>Tu Session ID:</p>
-            <div class="session-id" id="sessionId">{session_id}</div>
-            <button onclick="copySessionId()">📋 Copiar Session ID</button>
-            <p style="margin-top: 20px; color: #666; font-size: 14px;">
-                Guarda este Session ID para hacer requests a la API.
-            </p>
-        </div>
-        <script>
-            function copySessionId() {{
-                const sessionId = document.getElementById('sessionId').textContent;
-                navigator.clipboard.writeText(sessionId);
-                alert('Session ID copiado al portapapeles!');
-            }}
-            // Auto-copiar al cargar
-            copySessionId();
-        </script>
-    </body>
-    </html>
-    """
+    # Redirigir al frontend con session_id y username
+    username = result['user']['username']
+    callback_url = f"{FRONTEND_CALLBACK_URL}?session_id={session_id}&username={username}"
     
-    from fastapi.responses import HTMLResponse
-    return HTMLResponse(content=html_content)
+    return RedirectResponse(url=callback_url)
 
 @app.get("/api/auth/me")
 async def get_current_user(session_id: str = Query(..., description="Session ID obtenido del login")):
@@ -423,8 +360,8 @@ async def search_my_tweets(
                 "name": user_info.get('name'),
                 "followers": user_info.get('followers'),
                 "account_created": user_info.get('account_created'),
-                "avatar_url": user_info.get('avatar_url'),  # ✅ Incluido aquí
-                "profile_image_url": user_info.get('profile_image_url')  # Alternativo si existe
+                "avatar_url": user_info.get('avatar_url'),
+                "profile_image_url": user_info.get('profile_image_url')
             },
             "tweets": result.get('tweets', []),
             "stats": result.get('stats'),
@@ -458,15 +395,12 @@ async def classify_risk(
     # Obtener tweets
     if request.json_path:
         try:
-            # load_tweets_from_json retorna lista directa o dict con 'tweets'
             tweets_data = load_tweets_from_json(request.json_path)
             
-            # Manejar diferentes formatos
             if isinstance(tweets_data, list):
                 tweets = [t.get("text", "") if isinstance(t, dict) else str(t) 
                          for t in tweets_data if t]
             elif isinstance(tweets_data, dict):
-                # Puede tener 'tweets' o ser directamente el objeto
                 if 'tweets' in tweets_data:
                     tweets = [t.get("text", "") if isinstance(t, dict) else str(t) 
                              for t in tweets_data['tweets'] if t]
@@ -475,7 +409,6 @@ async def classify_risk(
             else:
                 tweets = []
             
-            # Filtrar vacíos
             tweets = [t.strip() for t in tweets if isinstance(t, str) and t.strip()]
             
         except FileNotFoundError:
@@ -491,7 +424,6 @@ async def classify_risk(
     if not tweets:
         raise HTTPException(status_code=400, detail="No se encontraron tweets para clasificar")
     
-    # Aplicar límite si se especificó
     if request.max_tweets:
         tweets = tweets[:request.max_tweets]
     
@@ -500,7 +432,7 @@ async def classify_risk(
     results = []
     stats = {
         "total_analyzed": len(tweets),
-        "risk_distribution": {"low": 0, "mid": 0, "high": 0},
+        "risk_distribution": {"no":0, "low": 0, "mid": 0, "high": 0},
         "label_counts": {},
         "errors": 0,
         "throttle_waits": 0
@@ -525,10 +457,8 @@ async def classify_risk(
     end_time = time.time()
     execution_time = end_time - start_time
     
-    # Preparar archivos de salida (igual que risk_classifier_only_text.py)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
-    # Summary (igual que risk_summary_text_only.json)
     summary = {
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "username": username,
@@ -540,12 +470,10 @@ async def classify_risk(
         "labels": stats["label_counts"]
     }
     
-    # Detailed (igual que risk_detailed_text_only.json)
     detailed = {
         "resultados": results
     }
     
-    # Guardar archivos si se solicita
     saved_files = {}
     if save_files:
         summary_filename = f"risk_summary_{username}_{timestamp}.json"
@@ -594,7 +522,6 @@ async def delete_my_tweets(
     if not session or not session.get('access_token'):
         raise HTTPException(status_code=401, detail="Sesión inválida")
     
-    # Cargar tweets del JSON
     import json
     try:
         with open(request.json_path, 'r', encoding='utf-8') as f:
@@ -605,7 +532,6 @@ async def delete_my_tweets(
     tweets = data.get('tweets', [])
     user_id = session['user']['id']
     
-    # Crear adapter para la sesión
     class SessionAdapter:
         def __init__(self, access_token):
             self.access_token = access_token
@@ -618,7 +544,6 @@ async def delete_my_tweets(
     
     session_adapter = SessionAdapter(session['access_token'])
     
-    # Eliminar tweets
     result = delete_tweets_batch(
         tweets=tweets,
         user_id=user_id,
@@ -630,6 +555,60 @@ async def delete_my_tweets(
     )
     
     return result
+
+# ============================================================================
+# API 5: ESTIMACIÓN DE TIEMPO
+# ============================================================================
+
+@app.get("/api/estimate/time")
+async def estimate_processing_time(
+    session_id: str = Query(..., description="Session ID")
+):
+    """
+    Estima el tiempo total de procesamiento basado en el tweet_count del usuario autenticado
+    Usa las funciones de estimacion_de_tiempo.py
+    """
+    session = get_session(session_id)
+    if not session:
+        raise HTTPException(status_code=401, detail="Sesión inválida")
+    
+    username = session.get('user', {}).get('username', 'unknown')
+    
+    # Obtener automáticamente el tweet_count del usuario
+    max_tweets = session.get('user', {}).get('tweet_count', 0)
+    
+    if max_tweets == 0:
+        raise HTTPException(status_code=400, detail="No se pudo obtener el número de tweets del usuario")
+    
+    try:
+        # Crear un archivo temporal vacío para pasar a quick_estimate_all
+        # (solo se usa para verificar existencia, no se lee)
+        import tempfile
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as tmp:
+            json.dump({"tweets": []}, tmp)
+            tmp_path = tmp.name
+        
+        # Llamar a quick_estimate_all con sample_size=0 para evitar procesamiento real
+        estimacion = quick_estimate_all(
+            username=username,
+            max_tweets=max_tweets,
+            json_path=tmp_path,
+            sample_size=0
+        )
+        
+        # Limpiar archivo temporal
+        Path(tmp_path).unlink(missing_ok=True)
+        
+        # Formatear tiempo estimado con símbolo ≈
+        tiempo_formateado = f"≈{estimacion['tiempo_total_formateado']}"
+        
+        return {
+            "success": True,
+            "tiempo_estimado_total": tiempo_formateado
+        }
+    
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error calculando estimación: {str(e)}")
 
 # ============================================================================
 # UTILIDADES
@@ -648,6 +627,7 @@ async def root():
             "search": "/api/tweets/search",
             "classify": "/api/risk/classify",
             "delete": "/api/tweets/delete",
+            "estimate": "/api/estimate/time",
             "docs": "/docs"
         }
     }
@@ -671,6 +651,7 @@ if __name__ == "__main__":
     print("🚀 TWITTER ANALYSIS API - OAuth 2.0")
     print("="*70)
     print(f"\nREDIRECT_URI configurado: {REDIRECT_URI}")
+    print(f"FRONTEND_CALLBACK_URL: {FRONTEND_CALLBACK_URL}")
     print("\n⚠️  IMPORTANTE: Configura este REDIRECT_URI en tu Twitter App:")
     print("   https://developer.x.com/en/portal/dashboard")
     print("\nDocumentación: http://localhost:8080/docs")

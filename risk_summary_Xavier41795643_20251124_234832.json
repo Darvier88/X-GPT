@@ -1,0 +1,15 @@
+{
+  "timestamp": "2025-11-24 23:48:32",
+  "username": "Xavier41795643",
+  "tiempo_total": "13s",
+  "total_tweets": 5,
+  "exitosos": 5,
+  "errores": 0,
+  "distribucion": {
+    "no": 5,
+    "low": 0,
+    "mid": 0,
+    "high": 0
+  },
+  "labels": {}
+}

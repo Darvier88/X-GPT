@@ -1,0 +1,64 @@
+{
+  "resultados": [
+    {
+      "labels": [],
+      "risk_level": "no",
+      "rationale": "Contenido no ofensivo y sin riesgo evidente",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "sin cambios",
+      "tweet_id": 1,
+      "text": "RT @Kuukimeioo: Natsumi in my dress up darling :D https://t.co/3rSnK5aqDE"
+    },
+    {
+      "labels": [],
+      "risk_level": "no",
+      "rationale": "No contiene contenido ofensivo ni sensible.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "sin cambios",
+      "tweet_id": 2,
+      "text": "RT @jaimesgaby31: Buenas noches https://t.co/W1GE6YgxYY"
+    },
+    {
+      "labels": [],
+      "risk_level": "no",
+      "rationale": "No hay contenido ofensivo o sensible en el tweet.",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "sin cambios",
+      "tweet_id": 3,
+      "text": "RT @Lu_lamup: https://t.co/G7QTQ66Rdi"
+    },
+    {
+      "labels": [],
+      "risk_level": "no",
+      "rationale": "No contiene contenido ofensivo o sensible",
+      "spans": [],
+      "confidence": 0.1,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "sin cambios",
+      "tweet_id": 4,
+      "text": "RT @Pa1mira_Moi01: https://t.co/IL080xy0zE"
+    },
+    {
+      "labels": [],
+      "risk_level": "no",
+      "rationale": "No contiene contenido ofensivo ni sensible.",
+      "spans": [],
+      "confidence": 0.95,
+      "attempt": 1,
+      "finish_reason": "stop",
+      "policy_applied": "sin cambios",
+      "tweet_id": 5,
+      "text": "RT @FateGO_USA: We're close to hitting our GUDAGUDA Super Goryoukaku Social Media Campaign goal! Help us get there!\n\n#FateGOUSA"
+    }
+  ]
+}
