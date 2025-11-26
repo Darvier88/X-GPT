@@ -1,0 +1,841 @@
+{
+  "success": true,
+  "user": {
+    "success": true,
+    "author_id": "1304378475604836353",
+    "username": "TheDarkraimola",
+    "name": "🐎 Darkraimola #100K 🐎",
+    "followers": 50003,
+    "account_created": "2020-09-11T11:17:27.000Z",
+    "profile_image_url": "https://pbs.twimg.com/profile_images/1967754912487325696/4SlUewFK_normal.jpg"
+  },
+  "tweets": [
+    {
+      "author_id": "1304378475604836353",
+      "conversation_id": "1993491240768487824",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1993241790066180428"
+        }
+      ],
+      "text": "RT @president_sn0w: she’s irrelevant literally no one cares",
+      "created_at": "2025-11-26T01:25:23.000Z",
+      "edit_history_tweet_ids": [
+        "1993491240768487824"
+      ],
+      "id": "1993491240768487824",
+      "public_metrics": {
+        "retweet_count": 1860,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "en",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1304378475604836353",
+      "attachments": {
+        "media_source_tweet_id": [
+          "1993422540123873633"
+        ],
+        "media_keys": [
+          "3_1993422530179129344"
+        ]
+      },
+      "conversation_id": "1993490956537258131",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1993422540123873633"
+        }
+      ],
+      "text": "RT @TeteioTeio50271: No more hachimi for Argentina https://t.co/1vlOGnRirl",
+      "created_at": "2025-11-26T01:24:15.000Z",
+      "edit_history_tweet_ids": [
+        "1993490956537258131"
+      ],
+      "id": "1993490956537258131",
+      "public_metrics": {
+        "retweet_count": 27,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "es",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1993422530179129344",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G6oPOsaWYAAMSTQ.png",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 300,
+          "height": 300,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1304378475604836353",
+      "conversation_id": "1993489395463467261",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1993432003451273276"
+        }
+      ],
+      "text": "RT @CuriMusume: 🗣️Que Torena creen que es el mejor?\n\n💫Créditos: Adrián Espiritu (Facebook)\n\n#CuriMusume #UmaMusumePrettyDerby #UmaMusume #J…",
+      "created_at": "2025-11-26T01:18:03.000Z",
+      "edit_history_tweet_ids": [
+        "1993489395463467261"
+      ],
+      "id": "1993489395463467261",
+      "public_metrics": {
+        "retweet_count": 213,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "es",
+      "is_retweet": true,
+      "media": []
+    },
+    {
+      "author_id": "1304378475604836353",
+      "conversation_id": "1993390450615758860",
+      "text": "Objetivamente el roster más jodidamente duro de un fighting game.\n\nMira lo que es esa alineación: Joe, Ippo, Takamura, Yaiba, Devilman, Kenichi, InuYasha, Natsu y Lucy (xd) https://t.co/lLC4vFRsGK",
+      "created_at": "2025-11-25T18:44:53.000Z",
+      "edit_history_tweet_ids": [
+        "1993390450615758860"
+      ],
+      "id": "1993390450615758860",
+      "attachments": {
+        "media_keys": [
+          "3_1993390442579165184",
+          "3_1993390442574934016"
+        ]
+      },
+      "public_metrics": {
+        "retweet_count": 14,
+        "reply_count": 19,
+        "like_count": 253,
+        "quote_count": 2,
+        "bookmark_count": 43,
+        "impression_count": 7903
+      },
+      "lang": "es",
+      "is_retweet": false,
+      "media": [
+        {
+          "media_key": "3_1993390442579165184",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G6nyC8yXAAA7KJU.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 969,
+          "height": 455,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1993390442574934016",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G6nyC8xWcAAFXwz.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1280,
+          "height": 720,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1304378475604836353",
+      "conversation_id": "1991577919693721607",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1992280384776663135"
+        }
+      ],
+      "text": "@PaoloNewfoundl1 @BTKaisen @WarrenValion Where, it's the classic theme of the \"Moon\" being the source of the \"werewolves\".\n\nIn the game, revealing the red moon is what makes everyone in Yarnham to go mad, increasing the plague too. I think we can be sure that Moon Presence amplifies the effects of the old blood.",
+      "created_at": "2025-11-25T17:09:13.000Z",
+      "edit_history_tweet_ids": [
+        "1993366374476136875"
+      ],
+      "id": "1993366374476136875",
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 190
+      },
+      "lang": "en",
+      "is_retweet": false,
+      "media": []
+    },
+    {
+      "author_id": "1304378475604836353",
+      "attachments": {
+        "media_source_tweet_id": [
+          "1993156885969879366"
+        ],
+        "media_keys": [
+          "16_1993156876523995136"
+        ]
+      },
+      "conversation_id": "1993364393363480730",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1993156885969879366"
+        }
+      ],
+      "text": "RT @iamyomas: So like... my parents um... did the... S word.... https://t.co/83KuhUEMzU",
+      "created_at": "2025-11-25T17:01:20.000Z",
+      "edit_history_tweet_ids": [
+        "1993364393363480730"
+      ],
+      "id": "1993364393363480730",
+      "public_metrics": {
+        "retweet_count": 8695,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "en",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "16_1993156876523995136",
+          "type": "animated_gif",
+          "url": "https://pbs.twimg.com/tweet_video_thumb/G6kdnnbXAAA26Ci.jpg",
+          "preview_url": "https://pbs.twimg.com/tweet_video_thumb/G6kdnnbXAAA26Ci.jpg",
+          "video_url": "https://video.twimg.com/tweet_video/G6kdnnbXAAA26Ci.mp4",
+          "alt_text": null,
+          "width": 164,
+          "height": 164,
+          "duration_ms": null,
+          "bitrate": 0
+        }
+      ]
+    },
+    {
+      "author_id": "1304378475604836353",
+      "attachments": {
+        "media_source_tweet_id": [
+          "1992998923955494918"
+        ],
+        "media_keys": [
+          "3_1992998920159469568"
+        ]
+      },
+      "conversation_id": "1993362560674906115",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1992998923955494918"
+        }
+      ],
+      "text": "RT @IvyJinna: #Bloodborne \nOur eyes are yet to open. https://t.co/lMlNxFmepO",
+      "created_at": "2025-11-25T16:54:04.000Z",
+      "edit_history_tweet_ids": [
+        "1993362560674906115"
+      ],
+      "id": "1993362560674906115",
+      "public_metrics": {
+        "retweet_count": 1203,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "en",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1992998920159469568",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G6iN9WHXoAA5p7D.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1336,
+          "height": 2047,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1304378475604836353",
+      "attachments": {
+        "media_source_tweet_id": [
+          "1993331521676296512"
+        ],
+        "media_keys": [
+          "3_1993331518270554112"
+        ]
+      },
+      "conversation_id": "1993361783633875390",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1993331521676296512"
+        }
+      ],
+      "text": "RT @maya_panda94: ◆The Court Of The Crimson King◆⁡\n.\n#ventoaureo #ジョジョの奇妙な冒険 https://t.co/I5nuM0IbXP",
+      "created_at": "2025-11-25T16:50:58.000Z",
+      "edit_history_tweet_ids": [
+        "1993361783633875390"
+      ],
+      "id": "1993361783633875390",
+      "public_metrics": {
+        "retweet_count": 1426,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "en",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1993331518270554112",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G6m8dGobQAAhXtO.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1639,
+          "height": 2048,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1304378475604836353",
+      "attachments": {
+        "media_source_tweet_id": [
+          "1993063051147530371"
+        ],
+        "media_keys": [
+          "3_1993063048446095360"
+        ]
+      },
+      "conversation_id": "1993356472470610227",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1993063051147530371"
+        }
+      ],
+      "text": "RT @Hishi_Akebono_: Please learn the name of the protagonists~!!! https://t.co/ARR4e9N2DL",
+      "created_at": "2025-11-25T16:29:52.000Z",
+      "edit_history_tweet_ids": [
+        "1993356472470610227"
+      ],
+      "id": "1993356472470610227",
+      "public_metrics": {
+        "retweet_count": 1542,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "en",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1993063048446095360",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G6jISGmWMAADzpl.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 2048,
+          "height": 1271,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1304378475604836353",
+      "attachments": {
+        "media_source_tweet_id": [
+          "1993329313744097697"
+        ],
+        "media_keys": [
+          "16_1993329299621859328"
+        ]
+      },
+      "conversation_id": "1993352695780962796",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1993329313744097697"
+        }
+      ],
+      "text": "RT @AlexSubxDelta: Las interacciones son relleno...\n\nDefinitivamente el Jujutsu Kaisen de los gachas. https://t.co/RGdQNJmhSD",
+      "created_at": "2025-11-25T16:14:52.000Z",
+      "edit_history_tweet_ids": [
+        "1993352695780962796"
+      ],
+      "id": "1993352695780962796",
+      "public_metrics": {
+        "retweet_count": 10,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "es",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "16_1993329299621859328",
+          "type": "animated_gif",
+          "url": "https://pbs.twimg.com/tweet_video_thumb/G6m6b9hW0AA5rlk.jpg",
+          "preview_url": "https://pbs.twimg.com/tweet_video_thumb/G6m6b9hW0AA5rlk.jpg",
+          "video_url": "https://video.twimg.com/tweet_video/G6m6b9hW0AA5rlk.mp4",
+          "alt_text": null,
+          "width": 498,
+          "height": 368,
+          "duration_ms": null,
+          "bitrate": 0
+        }
+      ]
+    },
+    {
+      "author_id": "1304378475604836353",
+      "conversation_id": "1993269512204906875",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1993269512204906875"
+        }
+      ],
+      "text": "@Angeel96201797 Hola, me interesa la del domingo. Háblame por MD.",
+      "created_at": "2025-11-25T16:01:33.000Z",
+      "edit_history_tweet_ids": [
+        "1993349346675638718"
+      ],
+      "id": "1993349346675638718",
+      "public_metrics": {
+        "retweet_count": 2,
+        "reply_count": 1,
+        "like_count": 71,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 4599
+      },
+      "lang": "es",
+      "is_retweet": false,
+      "media": []
+    },
+    {
+      "author_id": "1304378475604836353",
+      "attachments": {
+        "media_source_tweet_id": [
+          "1993036579103985688",
+          "1993036579103985688"
+        ],
+        "media_keys": [
+          "3_1993036363197763584",
+          "3_1993036457217318913"
+        ]
+      },
+      "conversation_id": "1993342236256510118",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1993036579103985688"
+        }
+      ],
+      "text": "RT @TimelyOGTM: Cingray Ep. 19 eyecatch https://t.co/tVQS5ZyXem",
+      "created_at": "2025-11-25T15:33:18.000Z",
+      "edit_history_tweet_ids": [
+        "1993342236256510118"
+      ],
+      "id": "1993342236256510118",
+      "public_metrics": {
+        "retweet_count": 225,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "en",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1993036363197763584",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G6iwA0TW0AAhPlg.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1920,
+          "height": 1080,
+          "duration_ms": null
+        },
+        {
+          "media_key": "3_1993036457217318913",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G6iwGSjXYAEZooK.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1920,
+          "height": 1080,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1304378475604836353",
+      "attachments": {
+        "media_source_tweet_id": [
+          "1992978221454020953"
+        ],
+        "media_keys": [
+          "3_1992978218362740736"
+        ]
+      },
+      "conversation_id": "1993316948080226445",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1992978221454020953"
+        }
+      ],
+      "text": "RT @KOITOLOVER_2: https://t.co/jgFidV5QUk",
+      "created_at": "2025-11-25T13:52:49.000Z",
+      "edit_history_tweet_ids": [
+        "1993316948080226445"
+      ],
+      "id": "1993316948080226445",
+      "public_metrics": {
+        "retweet_count": 818,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "zxx",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "3_1992978218362740736",
+          "type": "photo",
+          "url": "https://pbs.twimg.com/media/G6h7IV6aIAA2bvT.jpg",
+          "preview_url": null,
+          "video_url": null,
+          "alt_text": null,
+          "width": 1451,
+          "height": 2048,
+          "duration_ms": null
+        }
+      ]
+    },
+    {
+      "author_id": "1304378475604836353",
+      "attachments": {
+        "media_source_tweet_id": [
+          "1992945211539144872"
+        ],
+        "media_keys": [
+          "13_1992945093737615360"
+        ]
+      },
+      "conversation_id": "1993032384674165167",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1992974779221983459"
+        }
+      ],
+      "text": "RT @DextraG07: Estoy llorando, en ese set hay un tío que ve los lockes de Shinbu a diario jsjsjs\n\n https://t.co/8flFQoRSet",
+      "created_at": "2025-11-24T19:02:03.000Z",
+      "edit_history_tweet_ids": [
+        "1993032384674165167"
+      ],
+      "id": "1993032384674165167",
+      "public_metrics": {
+        "retweet_count": 27,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "es",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "13_1992945093737615360",
+          "type": "video",
+          "url": "https://pbs.twimg.com/amplify_video_thumb/1992945093737615360/img/N-lHnIgLcCoAdwLP.jpg",
+          "preview_url": "https://pbs.twimg.com/amplify_video_thumb/1992945093737615360/img/N-lHnIgLcCoAdwLP.jpg",
+          "video_url": "https://video.twimg.com/amplify_video/1992945093737615360/vid/avc1/1272x714/Acr5j5Op77pZiDu8.mp4",
+          "alt_text": null,
+          "width": 1272,
+          "height": 714,
+          "duration_ms": 59783,
+          "bitrate": 2176000
+        }
+      ]
+    },
+    {
+      "author_id": "1304378475604836353",
+      "conversation_id": "1992700211219800177",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1992922147980034205"
+        }
+      ],
+      "text": "@Sk9_00 @Josh69326651 @DarkNomura @Cornix_s14 @Gogoolplex20 @Juannnrtm @BraianlocoAlt_ @Igris_Shadow @Lostworks2 @AresMercenario @RedX0195 @entelequiap3 @Serker_Misogi @gjoeldiaz @SoutaThePierrot @Dom_San24 @OsmarLael @SrSouka @GustavoDazLeiv1 @Selk_dav @MaxiSenpai_OnK @Ikouze @angelvelat @kaminaporaqui @Wicaba76 @HideRyoki47 @Jecorga_2 @itanmugiwara @AlejandroCZ_J @AlexMro09 @The_Mister_Rot @xGokanzu @wes_spice @Cero_Karma No, pero nada. Que responda, quiero saber que \"no entendí\" de Meruem.",
+      "created_at": "2025-11-24T11:48:55.000Z",
+      "edit_history_tweet_ids": [
+        "1992923380568469698"
+      ],
+      "id": "1992923380568469698",
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 3,
+        "like_count": 8,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 974
+      },
+      "lang": "es",
+      "is_retweet": false,
+      "media": []
+    },
+    {
+      "author_id": "1304378475604836353",
+      "attachments": {
+        "media_source_tweet_id": [
+          "1992642071212265642"
+        ],
+        "media_keys": [
+          "7_1992642035287748609"
+        ]
+      },
+      "conversation_id": "1992922859841499634",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1992642071212265642"
+        }
+      ],
+      "text": "RT @Jecorga_2: https://t.co/6WmyC5ymmo",
+      "created_at": "2025-11-24T11:46:51.000Z",
+      "edit_history_tweet_ids": [
+        "1992922859841499634"
+      ],
+      "id": "1992922859841499634",
+      "public_metrics": {
+        "retweet_count": 11,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "zxx",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "7_1992642035287748609",
+          "type": "video",
+          "url": "https://pbs.twimg.com/ext_tw_video_thumb/1992642035287748609/pu/img/pnIVFdBdh4ZsY4wd.jpg",
+          "preview_url": "https://pbs.twimg.com/ext_tw_video_thumb/1992642035287748609/pu/img/pnIVFdBdh4ZsY4wd.jpg",
+          "video_url": "https://video.twimg.com/ext_tw_video/1992642035287748609/pu/vid/avc1/1280x576/5aUeJ-KoRBTrntWu.mp4?tag=12",
+          "alt_text": null,
+          "width": 1280,
+          "height": 576,
+          "duration_ms": 30895,
+          "bitrate": 2176000
+        }
+      ]
+    },
+    {
+      "author_id": "1304378475604836353",
+      "conversation_id": "1992700211219800177",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1992801701464822227"
+        }
+      ],
+      "text": "@Josh69326651 @DarkNomura @Cornix_s14 @Gogoolplex20 @Juannnrtm @BraianlocoAlt_ @Igris_Shadow @Lostworks2 @AresMercenario @RedX0195 @entelequiap3 @Serker_Misogi @gjoeldiaz @SoutaThePierrot @Dom_San24 @OsmarLael @SrSouka @GustavoDazLeiv1 @Selk_dav @MaxiSenpai_OnK @Sk9_00 @Ikouze @angelvelat @kaminaporaqui @Wicaba76 @HideRyoki47 @Jecorga_2 @itanmugiwara @AlejandroCZ_J @AlexMro09 @The_Mister_Rot @xGokanzu @wes_spice @Cero_Karma ?",
+      "created_at": "2025-11-24T11:43:34.000Z",
+      "edit_history_tweet_ids": [
+        "1992922034788327757"
+      ],
+      "id": "1992922034788327757",
+      "public_metrics": {
+        "retweet_count": 0,
+        "reply_count": 2,
+        "like_count": 6,
+        "quote_count": 0,
+        "bookmark_count": 1,
+        "impression_count": 799
+      },
+      "lang": "qam",
+      "is_retweet": false,
+      "media": []
+    },
+    {
+      "author_id": "1304378475604836353",
+      "conversation_id": "1992913714966864321",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1992919712276361447"
+        }
+      ],
+      "text": "@Puto_Guille Un teclado con teclas lo suficientemente grandes para mis dedos",
+      "created_at": "2025-11-24T11:42:32.000Z",
+      "edit_history_tweet_ids": [
+        "1992921772975644691"
+      ],
+      "id": "1992921772975644691",
+      "public_metrics": {
+        "retweet_count": 2,
+        "reply_count": 2,
+        "like_count": 121,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 3768
+      },
+      "lang": "es",
+      "is_retweet": false,
+      "media": []
+    },
+    {
+      "author_id": "1304378475604836353",
+      "conversation_id": "1992913714966864321",
+      "referenced_tweets": [
+        {
+          "type": "replied_to",
+          "id": "1992916665634636209"
+        }
+      ],
+      "text": "@jhon25gar Deja el móvil, olvidate de todo y aprovecha este tiempo para estudiar al máximo.\n\nSi un día puede ser un año en la habitación del tiempo, \n4 horas bien empleadas pueden ser tan efectivas como días de estudio.",
+      "created_at": "2025-11-24T11:41:36.000Z",
+      "edit_history_tweet_ids": [
+        "1992921542142132516"
+      ],
+      "id": "1992921542142132516",
+      "public_metrics": {
+        "retweet_count": 2,
+        "reply_count": 1,
+        "like_count": 57,
+        "quote_count": 0,
+        "bookmark_count": 2,
+        "impression_count": 2019
+      },
+      "lang": "es",
+      "is_retweet": false,
+      "media": []
+    },
+    {
+      "author_id": "1304378475604836353",
+      "attachments": {
+        "media_source_tweet_id": [
+          "1992889630472229255"
+        ],
+        "media_keys": [
+          "16_1992889622171377664"
+        ]
+      },
+      "conversation_id": "1992914116332445725",
+      "referenced_tweets": [
+        {
+          "type": "retweeted",
+          "id": "1992889630472229255"
+        }
+      ],
+      "text": "RT @robraas: @heinsemb @TheDarkraimola gracias meia, y ya veremos https://t.co/hU9A1JkRIZ",
+      "created_at": "2025-11-24T11:12:06.000Z",
+      "edit_history_tweet_ids": [
+        "1992914116332445725"
+      ],
+      "id": "1992914116332445725",
+      "public_metrics": {
+        "retweet_count": 5,
+        "reply_count": 0,
+        "like_count": 0,
+        "quote_count": 0,
+        "bookmark_count": 0,
+        "impression_count": 0
+      },
+      "lang": "es",
+      "is_retweet": true,
+      "media": [
+        {
+          "media_key": "16_1992889622171377664",
+          "type": "animated_gif",
+          "url": "https://pbs.twimg.com/tweet_video_thumb/G6gqjXYWYAATAlr.jpg",
+          "preview_url": "https://pbs.twimg.com/tweet_video_thumb/G6gqjXYWYAATAlr.jpg",
+          "video_url": "https://video.twimg.com/tweet_video/G6gqjXYWYAATAlr.mp4",
+          "alt_text": null,
+          "width": 498,
+          "height": 280,
+          "duration_ms": null,
+          "bitrate": 0
+        }
+      ]
+    }
+  ],
+  "stats": {
+    "total_tweets": 20,
+    "retweet_count": 13,
+    "original_count": 7,
+    "tweets_with_media": 12,
+    "total_media_count": 14,
+    "media_types": {
+      "photo": 9,
+      "animated_gif": 3,
+      "video": 2
+    },
+    "date_range": {
+      "start": "2025-11-24T11:12:06+00:00",
+      "end": "2025-11-26T01:25:23+00:00"
+    },
+    "languages": {
+      "en": 7,
+      "es": 10,
+      "zxx": 2,
+      "qam": 1
+    }
+  },
+  "pages_fetched": 2,
+  "fetched_at": "2025-11-25T20:37:56.003302",
+  "execution_time": "00:00:02",
+  "execution_time_seconds": 2.2
+}

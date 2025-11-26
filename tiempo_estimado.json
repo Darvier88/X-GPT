@@ -1,7 +1,7 @@
 {
-  "num_tweets": 100,
+  "num_tweets": 20,
   "tweets_procesados": 10,
-  "tiempo_transcurrido": "41s",
-  "tiempo_estimado_total": "≈6m49s",
-  "velocidad_promedio": "4.10s/tweet"
+  "tiempo_transcurrido": "29s",
+  "tiempo_estimado_total": "≈59s",
+  "velocidad_promedio": "2.96s/tweet"
 }

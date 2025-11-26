@@ -3,6 +3,7 @@
 - Prompts simplificados para velocidad
 - Modelo más rápido: gpt-4o-mini
 - Token Budget Tracker mejorado
+- FIX: tweet_id ahora corresponde al ID real del tweet
 """
 
 import time
@@ -201,20 +202,25 @@ Responde SOLO JSON:
 
 
 # ========================================================================
-# CLASIFICACIÓN (SOLO TEXTO)
+# CLASIFICACIÓN (SOLO TEXTO) - AHORA RECIBE tweet_id COMO PARÁMETRO
 # ========================================================================
 
-def classify_risk_text_only(tweet_text: str) -> Dict[str, Any]:
+def classify_risk_text_only(tweet_text: str, tweet_id: str = None) -> Dict[str, Any]:
     """
     Analiza SOLO texto (sin media).
     Más rápido y eficiente.
+    
+    Args:
+        tweet_text: Texto del tweet a clasificar
+        tweet_id: ID real del tweet (opcional)
     """
     start_time = time.monotonic()
 
     if circuit_with_policy.is_open():
         return {
             "error_code": ERROR_CODES['circuit_open'],
-            "error": "Circuit breaker abierto"
+            "error": "Circuit breaker abierto",
+            "tweet_id": tweet_id
         }
 
     # Estimar tokens
@@ -230,7 +236,11 @@ def classify_risk_text_only(tweet_text: str) -> Dict[str, Any]:
         client = OpenAI(api_key=get_openai_api_key())
     except Exception as e:
         circuit_with_policy.record_failure()
-        return {"error_code": ERROR_CODES['auth_error'], "error": str(e)}
+        return {
+            "error_code": ERROR_CODES['auth_error'], 
+            "error": str(e),
+            "tweet_id": tweet_id
+        }
 
     prompt = build_text_prompt(tweet_text)
     
@@ -244,7 +254,12 @@ def classify_risk_text_only(tweet_text: str) -> Dict[str, Any]:
     for attempt in range(1, attempts_allowed + 1):
         if time.monotonic() - start_time >= TIMEOUT_PER_TWEET:
             circuit_with_policy.record_failure()
-            return {"error_code": ERROR_CODES['tweet_timeout'], "error": "Timeout", "attempt": attempt}
+            return {
+                "error_code": ERROR_CODES['tweet_timeout'], 
+                "error": "Timeout", 
+                "attempt": attempt,
+                "tweet_id": tweet_id
+            }
 
         try:
             response = client.chat.completions.create(
@@ -270,7 +285,12 @@ def classify_risk_text_only(tweet_text: str) -> Dict[str, Any]:
 
             if finish_reason in ("content_filter", "content_filtered"):
                 circuit_with_policy.record_failure()
-                return {"error_code": ERROR_CODES['content_filtered'], "error": "Filtrado", "attempt": attempt}
+                return {
+                    "error_code": ERROR_CODES['content_filtered'], 
+                    "error": "Filtrado", 
+                    "attempt": attempt,
+                    "tweet_id": tweet_id
+                }
 
             if not content:
                 print(f" E{attempt}", end="", flush=True)
@@ -285,7 +305,8 @@ def classify_risk_text_only(tweet_text: str) -> Dict[str, Any]:
                 if attempt >= attempts_allowed:
                     return {
                         "labels": [], "risk_level": "no", "rationale": "Error parseando",
-                        "spans": [], "attempt": attempt, "parse_error": str(e)
+                        "spans": [], "attempt": attempt, "parse_error": str(e),
+                        "tweet_id": tweet_id
                     }
                 time.sleep(0.3)
                 continue
@@ -316,6 +337,7 @@ def classify_risk_text_only(tweet_text: str) -> Dict[str, Any]:
             circuit_with_policy.record_success()
             
             result = {
+                "tweet_id": tweet_id,  # ✅ AHORA INCLUYE EL ID REAL
                 "labels": labels,
                 "risk_level": risk_level,
                 "rationale": rationale,
@@ -351,7 +373,12 @@ def classify_risk_text_only(tweet_text: str) -> Dict[str, Any]:
             time.sleep(wait_time)
             
             if attempt >= attempts_allowed:
-                return {"error_code": ERROR_CODES['rate_limit'], "error": "Rate limit", "attempt": attempt}
+                return {
+                    "error_code": ERROR_CODES['rate_limit'], 
+                    "error": "Rate limit", 
+                    "attempt": attempt,
+                    "tweet_id": tweet_id
+                }
             continue
 
         except (APITimeoutError, APIError) as e:
@@ -359,11 +386,21 @@ def classify_risk_text_only(tweet_text: str) -> Dict[str, Any]:
             print(f" E{attempt}", end="", flush=True)
             
             if isinstance(e, APITimeoutError) and time.monotonic() - start_time >= TIMEOUT_PER_TWEET:
-                return {"error_code": ERROR_CODES['timeout'], "error": "Timeout", "attempt": attempt}
+                return {
+                    "error_code": ERROR_CODES['timeout'], 
+                    "error": "Timeout", 
+                    "attempt": attempt,
+                    "tweet_id": tweet_id
+                }
             
             time.sleep(0.5)
             if attempt >= attempts_allowed:
-                return {"error_code": ERROR_CODES['api_error'], "error": str(e), "attempt": attempt}
+                return {
+                    "error_code": ERROR_CODES['api_error'], 
+                    "error": str(e), 
+                    "attempt": attempt,
+                    "tweet_id": tweet_id
+                }
             continue
 
         except Exception as e:
@@ -371,10 +408,20 @@ def classify_risk_text_only(tweet_text: str) -> Dict[str, Any]:
             print(f" X{attempt}", end="", flush=True)
             time.sleep(0.5)
             if attempt >= attempts_allowed:
-                return {"error_code": ERROR_CODES['unknown'], "error": str(e), "attempt": attempt}
+                return {
+                    "error_code": ERROR_CODES['unknown'], 
+                    "error": str(e), 
+                    "attempt": attempt,
+                    "tweet_id": tweet_id
+                }
             continue
 
-    return {"error_code": ERROR_CODES['unknown'], "error": "Fallos múltiples", "attempts": attempts_allowed}
+    return {
+        "error_code": ERROR_CODES['unknown'], 
+        "error": "Fallos múltiples", 
+        "attempts": attempts_allowed,
+        "tweet_id": tweet_id
+    }
 
 
 # ========================================================================
@@ -453,7 +500,7 @@ BATCH_SIZE = 50
 
 
 # ========================================================================
-# MAIN OPTIMIZADO
+# MAIN OPTIMIZADO - AHORA PASA EL tweet_id REAL
 # ========================================================================
 
 if __name__ == "__main__":
@@ -462,30 +509,45 @@ if __name__ == "__main__":
     print("   ⚡ Prompts compactos | Modelo rápido | Sin análisis de media")
     print("="*70)
 
-    default_json = Path(__file__).resolve().parents[1] / "tweets_TheDarkraimola_20251120_180501.json"
+    default_json = Path(__file__).resolve().parents[1] / "tweets_TheDarkraimola_20251125_203756.json"
     try:
         result_data = load_tweets_from_json(str(default_json))
         
-        if isinstance(result_data, dict) and "tweets" in result_data:
-            tweets_data = result_data["tweets"]
+        # ✅ MANEJAR LA ESTRUCTURA CORRECTA DEL JSON
+        if isinstance(result_data, dict):
+            # Si es el formato de search_tweets.py con "success" y "tweets"
+            if "tweets" in result_data:
+                tweets_data = result_data["tweets"]
+            # Si es solo un dict con los tweets directamente
+            else:
+                tweets_data = [result_data]
         elif isinstance(result_data, list):
             tweets_data = result_data
         else:
             tweets_data = []
         
+        # ✅ AHORA EXTRAE TANTO EL TEXTO COMO EL ID
         test_tweets = []
         for t in tweets_data:
             if isinstance(t, dict):
                 tweet_text = t.get("text", "")
-                if tweet_text.strip():
-                    test_tweets.append(tweet_text)
+                tweet_id = t.get("id")  # ✅ OBTENER EL ID REAL (ej: "1993491240768487824")
+                
+                if tweet_text.strip() and tweet_id:
+                    test_tweets.append({
+                        "id": tweet_id,
+                        "text": tweet_text
+                    })
         
         print(f"📥 {len(test_tweets)} tweets cargados")
+        if test_tweets:
+            print(f"   Ejemplo ID: {test_tweets[0]['id']}")
+            print(f"   Ejemplo texto: {test_tweets[0]['text'][:50]}...")
     except Exception as e:
         print(f"⚠️ Error: {e}")
         test_tweets = [
-            "¡Hermoso día! 🌞",
-            "Este político es un idiota corrupto",
+            {"id": "test_1", "text": "¡Hermoso día! 🌞"},
+            {"id": "test_2", "text": "Este político es un idiota corrupto"},
         ]
 
     total = len(test_tweets)
@@ -511,7 +573,10 @@ if __name__ == "__main__":
         print(f"🔁 Lote {batch_idx}/{total_batches} — {batch_start+1}-{batch_start+len(batch)}")
         print(f"{'='*60}\n")
 
-        for idx, tweet_text in enumerate(batch, start=batch_start+1):
+        for idx, tweet_obj in enumerate(batch, start=batch_start+1):
+            tweet_text = tweet_obj["text"]
+            tweet_id = tweet_obj["id"]  # ✅ OBTENER ID REAL
+            
             # Mostrar progreso compacto
             usage_pct = token_tracker.get_usage_percentage()
             print(f"🐦 {idx:3d}/{total} [{usage_pct:3.0f}%] ", end="", flush=True)
@@ -524,7 +589,8 @@ if __name__ == "__main__":
                 stats["throttle_waits"] += 1
 
             start = time.monotonic()
-            result = classify_risk_text_only(tweet_text)
+            # ✅ PASAR EL tweet_id REAL A LA FUNCIÓN
+            result = classify_risk_text_only(tweet_text, tweet_id=tweet_id)
             elapsed = time.monotonic() - start
             stats["times"].append(elapsed)
             
@@ -536,9 +602,7 @@ if __name__ == "__main__":
             else:
                 stats["errors"] += 1
             
-            tweet_id = t.get("id", idx)  
-            result["tweet_id"] = tweet_id
-            result["text"] = tweet_text
+            result["text"] = tweet_text  # También guardar el texto
             results.append(result)
             
             # Mostrar resultado compacto

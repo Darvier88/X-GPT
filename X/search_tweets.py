@@ -208,7 +208,7 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
         
         # Hacer primera request para estimar (AHORA CON EXPANSIONES DE MEDIA + USUARIO)
         test_params = {
-            "max_results": 100,
+            "max_results": min(max_tweets, 100) if max_tweets else 100,
             "tweet.fields": "id,text,created_at,public_metrics,author_id,lang,conversation_id,referenced_tweets,attachments",
             "user.fields": "id,username,name,profile_image_url",
             "media.fields": "media_key,type,url,preview_image_url,alt_text,width,height,duration_ms,variants",
@@ -746,7 +746,7 @@ if __name__ == "__main__":
     
     result1 = fetch_user_tweets(
         username="@TheDarkraimola",
-        max_tweets=100
+        max_tweets=20
     )
     
     if result1['success']:

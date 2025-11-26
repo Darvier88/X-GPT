@@ -392,24 +392,37 @@ async def classify_risk(
     
     username = session.get('user', {}).get('username', 'unknown')
     
+    # ✅ NUEVA VARIABLE: Guardar tweets originales COMPLETOS
+    original_tweets = []
+    
     # Obtener tweets
     if request.json_path:
         try:
             tweets_data = load_tweets_from_json(request.json_path)
             
-            if isinstance(tweets_data, list):
-                tweets = [t.get("text", "") if isinstance(t, dict) else str(t) 
-                         for t in tweets_data if t]
-            elif isinstance(tweets_data, dict):
+            # ✅ MANEJAR LA ESTRUCTURA CORRECTA DEL JSON
+            if isinstance(tweets_data, dict):
+                # Si es el formato de search_tweets.py con "success" y "tweets"
                 if 'tweets' in tweets_data:
-                    tweets = [t.get("text", "") if isinstance(t, dict) else str(t) 
-                             for t in tweets_data['tweets'] if t]
+                    original_tweets = tweets_data['tweets']
+                # Si es solo un dict con los tweets directamente
                 else:
-                    tweets = []
+                    original_tweets = [tweets_data]
+            elif isinstance(tweets_data, list):
+                original_tweets = tweets_data
             else:
-                tweets = []
+                original_tweets = []
             
-            tweets = [t.strip() for t in tweets if isinstance(t, str) and t.strip()]
+            # ✅ EXTRAER SOLO EL TEXTO para clasificación
+            tweets = []
+            for t in original_tweets:
+                if isinstance(t, dict):
+                    tweet_text = t.get("text", "")
+                    if tweet_text.strip():
+                        tweets.append(tweet_text.strip())
+                elif isinstance(t, str):
+                    if t.strip():
+                        tweets.append(t.strip())
             
         except FileNotFoundError:
             raise HTTPException(status_code=404, detail=f"Archivo no encontrado: {request.json_path}")
@@ -417,7 +430,10 @@ async def classify_risk(
             raise HTTPException(status_code=400, detail=f"Error leyendo JSON: {str(e)}")
     
     elif request.tweets:
+        # Si se pasan tweets como lista de strings
         tweets = [str(t).strip() for t in request.tweets if t]
+        # Crear objetos simulados sin ID
+        original_tweets = [{"text": t, "id": None} for t in tweets]
     else:
         raise HTTPException(status_code=400, detail="Proporciona 'tweets' o 'json_path'")
     
@@ -426,13 +442,22 @@ async def classify_risk(
     
     if request.max_tweets:
         tweets = tweets[:request.max_tweets]
+        original_tweets = original_tweets[:request.max_tweets]
+    
+    # ✅ VERIFICAR QUE AMBAS LISTAS TENGAN LA MISMA LONGITUD
+    if len(tweets) != len(original_tweets):
+        print(f"⚠️ WARNING: tweets={len(tweets)}, original_tweets={len(original_tweets)}")
+        # Ajustar si es necesario
+        min_len = min(len(tweets), len(original_tweets))
+        tweets = tweets[:min_len]
+        original_tweets = original_tweets[:min_len]
     
     # Clasificar
     start_time = time.time()
     results = []
     stats = {
         "total_analyzed": len(tweets),
-        "risk_distribution": {"no":0, "low": 0, "mid": 0, "high": 0},
+        "risk_distribution": {"no": 0, "low": 0, "mid": 0, "high": 0},
         "label_counts": {},
         "errors": 0,
         "throttle_waits": 0
@@ -440,10 +465,21 @@ async def classify_risk(
     
     print(f"\n🛡️  Clasificando {len(tweets)} tweets para @{username}...")
     
+    # ✅ ITERAR SOBRE AMBAS LISTAS EN PARALELO
     for i, (tweet_obj, tweet_text) in enumerate(zip(original_tweets, tweets), 1):
         result = classify_risk_text_only(tweet_text)
-        result["tweet_id"] = tweet_obj.get("id")
+        
+        # ✅ AGREGAR tweet_id Y text AL RESULTADO
+        result["tweet_id"] = tweet_obj.get("id") if isinstance(tweet_obj, dict) else None
         result["text"] = tweet_text
+        
+        # ✅ AGREGAR is_retweet SI EXISTE EN EL OBJETO ORIGINAL
+        if isinstance(tweet_obj, dict):
+            result["is_retweet"] = tweet_obj.get("is_retweet", False)
+            # También agregar post_type si existe
+            if "post_type" in tweet_obj:
+                result["post_type"] = tweet_obj["post_type"]
+        
         results.append(result)
         
         if "error_code" not in result:
@@ -453,6 +489,10 @@ async def classify_risk(
                 stats["label_counts"][label] = stats["label_counts"].get(label, 0) + 1
         else:
             stats["errors"] += 1
+        
+        # ✅ LOGGING cada 10 tweets
+        if i % 10 == 0 or i == len(tweets):
+            print(f"   Procesados: {i}/{len(tweets)}")
     
     end_time = time.time()
     execution_time = end_time - start_time
@@ -505,7 +545,6 @@ async def classify_risk(
         "execution_time": f"{execution_time:.2f}s",
         "files": saved_files
     }
-
 # ============================================================================
 # API 4: ELIMINACIÓN DE TWEETS
 # ============================================================================
