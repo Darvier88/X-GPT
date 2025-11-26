@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks, Query
 from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict, Any, Union
 from datetime import datetime, timedelta
 from urllib.parse import urlencode
 import uuid
@@ -113,6 +113,18 @@ class DeleteRequest(BaseModel):
     delete_originals: bool = True
     delay_seconds: float = 1.0
 
+class TweetObject(BaseModel):
+    id: str
+    text: str
+    is_retweet: Optional[bool] = False
+    author_id: Optional[str] = None
+    created_at: Optional[str] = None
+    referenced_tweets: Optional[List[Dict[str, Any]]] = None
+
+class ClassifyRequest(BaseModel):
+    tweets: List[Union[str, TweetObject, Dict[str, Any]]] = Field(..., description="Lista de tweets (objetos completos)")
+    max_tweets: Optional[int] = Field(None, description="Límite de tweets a clasificar")
+    # Eliminar json_path completamente
 class EstimateRequest(BaseModel):
     max_tweets: Optional[int] = Field(None, description="Número de tweets a analizar")
 
@@ -385,103 +397,102 @@ async def classify_risk(
     session_id: str = Query(..., description="Session ID"),
     save_files: bool = Query(True, description="Guardar archivos JSON de resultados")
 ):
-    """Clasifica riesgos de tweets"""
+    """Clasifica riesgos de tweets - Trabaja con datos en memoria"""
     session = get_session(session_id)
     if not session:
         raise HTTPException(status_code=401, detail="Sesión inválida")
     
     username = session.get('user', {}).get('username', 'unknown')
     
-    # ✅ NUEVA VARIABLE: Guardar tweets originales COMPLETOS
+    print("\n" + "="*70)
+    print("🔍 DEBUG: CLASIFICACIÓN DE TWEETS")
+    print("="*70)
+    print(f"👤 Username: {username}")
+    print(f"📊 Total tweets recibidos: {len(request.tweets)}")
+    
+    # ✅ PROCESAR TWEETS (pueden venir como strings o como objetos)
     original_tweets = []
     
-    # Obtener tweets
-    if request.json_path:
-        try:
-            tweets_data = load_tweets_from_json(request.json_path)
+    for idx, tweet_item in enumerate(request.tweets):
+        if isinstance(tweet_item, dict):
+            # Ya es un objeto, usarlo directamente
+            original_tweets.append(tweet_item)
             
-            # ✅ MANEJAR LA ESTRUCTURA CORRECTA DEL JSON
-            if isinstance(tweets_data, dict):
-                # Si es el formato de search_tweets.py con "success" y "tweets"
-                if 'tweets' in tweets_data:
-                    original_tweets = tweets_data['tweets']
-                # Si es solo un dict con los tweets directamente
-                else:
-                    original_tweets = [tweets_data]
-            elif isinstance(tweets_data, list):
-                original_tweets = tweets_data
-            else:
-                original_tweets = []
+            if idx < 3:  # Debug primeros 3
+                print(f"\n🔍 Tweet {idx} (dict):")
+                print(f"   id: {tweet_item.get('id')}")
+                print(f"   text: {tweet_item.get('text', '')[:50]}...")
+                print(f"   is_retweet: {tweet_item.get('is_retweet')}")
+                
+        elif isinstance(tweet_item, str):
+            # Es solo texto, crear objeto mínimo
+            original_tweets.append({
+                "id": None,
+                "text": tweet_item,
+                "is_retweet": False
+            })
             
-            # ✅ EXTRAER SOLO EL TEXTO para clasificación
-            tweets = []
-            for t in original_tweets:
-                if isinstance(t, dict):
-                    tweet_text = t.get("text", "")
-                    if tweet_text.strip():
-                        tweets.append(tweet_text.strip())
-                elif isinstance(t, str):
-                    if t.strip():
-                        tweets.append(t.strip())
-            
-        except FileNotFoundError:
-            raise HTTPException(status_code=404, detail=f"Archivo no encontrado: {request.json_path}")
-        except Exception as e:
-            raise HTTPException(status_code=400, detail=f"Error leyendo JSON: {str(e)}")
+            if idx < 3:
+                print(f"\n⚠️ Tweet {idx} (string): {tweet_item[:50]}...")
+        else:
+            print(f"❌ Tweet {idx}: Tipo desconocido {type(tweet_item)}")
     
-    elif request.tweets:
-        # Si se pasan tweets como lista de strings
-        tweets = [str(t).strip() for t in request.tweets if t]
-        # Crear objetos simulados sin ID
-        original_tweets = [{"text": t, "id": None} for t in tweets]
-    else:
-        raise HTTPException(status_code=400, detail="Proporciona 'tweets' o 'json_path'")
+    print(f"\n✅ Total tweets procesados: {len(original_tweets)}")
+    print("="*70 + "\n")
     
-    if not tweets:
+    if not original_tweets:
         raise HTTPException(status_code=400, detail="No se encontraron tweets para clasificar")
     
+    # Limitar si se especifica
     if request.max_tweets:
-        tweets = tweets[:request.max_tweets]
         original_tweets = original_tweets[:request.max_tweets]
+        print(f"⚠️ Limitado a {request.max_tweets} tweets")
     
-    # ✅ VERIFICAR QUE AMBAS LISTAS TENGAN LA MISMA LONGITUD
-    if len(tweets) != len(original_tweets):
-        print(f"⚠️ WARNING: tweets={len(tweets)}, original_tweets={len(original_tweets)}")
-        # Ajustar si es necesario
-        min_len = min(len(tweets), len(original_tweets))
-        tweets = tweets[:min_len]
-        original_tweets = original_tweets[:min_len]
-    
-    # Clasificar
+    # ✅ CLASIFICAR
     start_time = time.time()
     results = []
     stats = {
-        "total_analyzed": len(tweets),
+        "total_analyzed": len(original_tweets),
         "risk_distribution": {"no": 0, "low": 0, "mid": 0, "high": 0},
         "label_counts": {},
         "errors": 0,
         "throttle_waits": 0
     }
     
-    print(f"\n🛡️  Clasificando {len(tweets)} tweets para @{username}...")
+    print(f"\n🛡️  Clasificando {len(original_tweets)} tweets para @{username}...\n")
     
-    # ✅ ITERAR SOBRE AMBAS LISTAS EN PARALELO
-    for i, (tweet_obj, tweet_text) in enumerate(zip(original_tweets, tweets), 1):
-        result = classify_risk_text_only(tweet_text)
+    for i, tweet_obj in enumerate(original_tweets, 1):
+        # Extraer datos del tweet
+        tweet_text = tweet_obj.get("text", "") if isinstance(tweet_obj, dict) else str(tweet_obj)
+        tweet_id = tweet_obj.get("id") if isinstance(tweet_obj, dict) else None
+        is_retweet = tweet_obj.get("is_retweet", False) if isinstance(tweet_obj, dict) else False
         
-        # ✅ AGREGAR tweet_id Y text AL RESULTADO
-        result["tweet_id"] = tweet_obj.get("id") if isinstance(tweet_obj, dict) else None
-        result["text"] = tweet_text
+        if not tweet_text.strip():
+            print(f"⚠️ Tweet #{i}: Texto vacío, saltando...")
+            continue
         
-        # ✅ AGREGAR is_retweet SI EXISTE EN EL OBJETO ORIGINAL
+        # Debug primeros 3
+        if i <= 3:
+            print(f"📤 Tweet #{i}:")
+            print(f"   ID: {tweet_id}")
+            print(f"   Text: {tweet_text[:50]}...")
+            print(f"   is_retweet: {is_retweet}")
+        
+        # ✅ CLASIFICAR
+        result = classify_risk_text_only(tweet_text, tweet_id=str(tweet_id) if tweet_id else None)
+        
+        # Agregar metadata
+        result["is_retweet"] = is_retweet
+        
+        # Copiar otros campos útiles del tweet original
         if isinstance(tweet_obj, dict):
-            result["is_retweet"] = tweet_obj.get("is_retweet", False)
-            # También agregar post_type si existe
-            if "post_type" in tweet_obj:
-                result["post_type"] = tweet_obj["post_type"]
+            for key in ['author_id', 'created_at', 'referenced_tweets']:
+                if key in tweet_obj:
+                    result[key] = tweet_obj[key]
         
         results.append(result)
         
+        # Stats
         if "error_code" not in result:
             level = result.get("risk_level", "low")
             stats["risk_distribution"][level] += 1
@@ -490,21 +501,22 @@ async def classify_risk(
         else:
             stats["errors"] += 1
         
-        # ✅ LOGGING cada 10 tweets
-        if i % 10 == 0 or i == len(tweets):
-            print(f"   Procesados: {i}/{len(tweets)}")
+        # Logging cada 10 tweets
+        if i % 10 == 0 or i == len(original_tweets):
+            print(f"   ✅ Procesados: {i}/{len(original_tweets)}")
     
     end_time = time.time()
     execution_time = end_time - start_time
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
+    # ✅ PREPARAR RESPUESTA
     summary = {
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "username": username,
         "tiempo_total": f"{int(execution_time//60)}m{int(execution_time%60)}s" if execution_time >= 60 else f"{int(execution_time)}s",
-        "total_tweets": len(tweets),
-        "exitosos": len(tweets) - stats["errors"],
+        "total_tweets": len(original_tweets),
+        "exitosos": len(original_tweets) - stats["errors"],
         "errores": stats["errors"],
         "distribucion": stats["risk_distribution"],
         "labels": stats["label_counts"]
@@ -533,68 +545,18 @@ async def classify_risk(
             "detailed_file": detailed_filename
         }
         
-        print(f"✅ Archivos guardados:")
+        print(f"\n✅ Archivos guardados:")
         print(f"   📄 {summary_filename}")
         print(f"   📄 {detailed_filename}")
     
     return {
         "success": True,
-        "total_tweets": len(tweets),
+        "total_tweets": len(original_tweets),
         "results": results,
         "summary": stats,
         "execution_time": f"{execution_time:.2f}s",
         "files": saved_files
     }
-# ============================================================================
-# API 4: ELIMINACIÓN DE TWEETS
-# ============================================================================
-
-@app.post("/api/tweets/delete")
-async def delete_my_tweets(
-    request: DeleteRequest,
-    session_id: str = Query(..., description="Session ID")
-):
-    """
-    Elimina tweets del usuario autenticado
-    """
-    session = get_session(session_id)
-    if not session or not session.get('access_token'):
-        raise HTTPException(status_code=401, detail="Sesión inválida")
-    
-    import json
-    try:
-        with open(request.json_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-    except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="Archivo JSON no encontrado")
-    
-    tweets = data.get('tweets', [])
-    user_id = session['user']['id']
-    
-    class SessionAdapter:
-        def __init__(self, access_token):
-            self.access_token = access_token
-        
-        def get_headers(self):
-            return {
-                'Authorization': f'Bearer {self.access_token}',
-                'Content-Type': 'application/json'
-            }
-    
-    session_adapter = SessionAdapter(session['access_token'])
-    
-    result = delete_tweets_batch(
-        tweets=tweets,
-        user_id=user_id,
-        session=session_adapter,
-        delete_retweets=request.delete_retweets,
-        delete_originals=request.delete_originals,
-        delay_seconds=request.delay_seconds,
-        verbose=True
-    )
-    
-    return result
-
 # ============================================================================
 # API 5: ESTIMACIÓN DE TIEMPO
 # ============================================================================
