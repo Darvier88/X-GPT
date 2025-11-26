@@ -1,7 +1,7 @@
-# main.py - API con FastAPI (FLUJO OAUTH CORRECTO + JSONs ALINEADOS)
+# main.py - API con FastAPI + Firebase (sin almacenamiento JSON local)
 """
-API REST para análisis de tweets con autenticación OAuth 2.0
-Flujo: Login → Obtener userName del usuario autenticado → Operar con sus tweets
+API REST para análisis de tweets con autenticación OAuth 2.0 y Firebase
+Flujo: Login → Obtener userName del usuario autenticado → Operar con sus tweets → Guardar en Firebase
 """
 
 from fastapi import FastAPI, HTTPException, BackgroundTasks, Query
@@ -16,8 +16,13 @@ import time
 import requests
 import base64
 import json
+import asyncio
 from pathlib import Path
 import sys
+
+# Firebase imports
+import firebase_admin
+from firebase_admin import credentials, firestore
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -32,17 +37,72 @@ from X.X_login import (
 )
 
 from config import get_oauth2_credentials
-from X.search_tweets import fetch_user_tweets, save_tweets_to_file
-from GPT.risk_classifier_only_text import classify_risk_text_only, load_tweets_from_json
+from X.search_tweets import fetch_user_tweets
+from GPT.risk_classifier_only_text import classify_risk_text_only
 from X.deleate_tweets_rts import delete_tweets_batch
 from estimacion_de_tiempo import quick_estimate_all, format_time
+
+# ============================================================================
+# Firebase Setup
+# ============================================================================
+
+# Inicializar Firebase (evitar reinicialización en reload)
+db = None
+
+def initialize_firebase():
+    """Inicializa Firebase de forma segura"""
+    global db
+    
+    try:
+        # Verificar si ya está inicializado
+        try:
+            # Intentar obtener la app existente
+            firebase_admin.get_app()
+            # Si llegamos aquí, ya existe
+            db = firestore.client()
+            return True
+        except ValueError:
+            # No existe, proceder a inicializar
+            pass
+        
+        # Buscar archivo de credenciales
+        firebase_cred_files = [
+            'background-checker-a0de1-firebase-adminsdk-fbsvc-5fd2e55d11.json',
+            'firebase-credentials.json',
+            'serviceAccountKey.json'
+        ]
+        
+        cred_path = None
+        for file in firebase_cred_files:
+            if Path(file).exists():
+                cred_path = file
+                break
+        
+        if not cred_path:
+            print(f"⚠️ No se encontró archivo de credenciales de Firebase")
+            print(f"   Buscado: {firebase_cred_files}")
+            return False
+        
+        # Inicializar Firebase
+        cred = credentials.Certificate(cred_path)
+        firebase_admin.initialize_app(cred)
+        db = firestore.client()
+        print(f"✅ Firebase inicializado correctamente usando: {cred_path}")
+        return True
+        
+    except Exception as e:
+        print(f"⚠️ Error inicializando Firebase: {e}")
+        return False
+
+# Inicializar Firebase al cargar el módulo
+initialize_firebase()
 
 # Credenciales OAuth
 oauth_creds = get_oauth2_credentials()
 CLIENT_ID = oauth_creds['client_id']
 CLIENT_SECRET = oauth_creds['client_secret']
 REDIRECT_URI = oauth_creds['redirect_uri']
-FRONTEND_CALLBACK_URL = "http://localhost:5173/callback"  # URL del frontend para callback
+FRONTEND_CALLBACK_URL = "http://localhost:5173/callback"
 print(f"REDIRECT_URI cargado: {REDIRECT_URI}")
 print(f"FRONTEND_CALLBACK_URL: {FRONTEND_CALLBACK_URL}")
 
@@ -52,8 +112,8 @@ print(f"FRONTEND_CALLBACK_URL: {FRONTEND_CALLBACK_URL}")
 
 app = FastAPI(
     title="Twitter Analysis API",
-    description="API con OAuth 2.0 para analizar tweets del usuario autenticado",
-    version="2.0.0"
+    description="API con OAuth 2.0 y Firebase para analizar tweets del usuario autenticado",
+    version="3.0.0"
 )
 
 app.add_middleware(
@@ -65,11 +125,12 @@ app.add_middleware(
 )
 
 # ============================================================================
-# Almacenamiento en memoria
+# Almacenamiento en memoria (solo para sesiones OAuth)
 # ============================================================================
 
 oauth_sessions: Dict[str, Dict[str, Any]] = {}
 background_jobs: Dict[str, Dict[str, Any]] = {}
+request_cache: Dict[str, Any] = {}  # Cache para prevenir requests duplicadas
 
 # ============================================================================
 # Modelos Pydantic
@@ -100,15 +161,14 @@ class UserInfoResponse(BaseModel):
 
 class SearchRequest(BaseModel):
     max_tweets: Optional[int] = Field(None, description="Límite de tweets (None = todos)")
-    save_to_file: bool = Field(True, description="Guardar en JSON")
+    save_to_firebase: bool = Field(True, description="Guardar en Firebase")
 
 class ClassifyRequest(BaseModel):
-    tweets: Optional[List[str]] = Field(None, description="Lista de tweets directa")
-    json_path: Optional[str] = Field(None, description="Path a JSON de tweets")
+    tweets: List[Union[str, Dict[str, Any]]] = Field(..., description="Lista de tweets (objetos completos)")
     max_tweets: Optional[int] = Field(None, description="Límite de tweets a clasificar")
 
 class DeleteRequest(BaseModel):
-    json_path: str
+    collection_id: str = Field(..., description="ID de la colección en Firebase")
     delete_retweets: bool = True
     delete_originals: bool = True
     delay_seconds: float = 1.0
@@ -121,15 +181,97 @@ class TweetObject(BaseModel):
     created_at: Optional[str] = None
     referenced_tweets: Optional[List[Dict[str, Any]]] = None
 
-class ClassifyRequest(BaseModel):
-    tweets: List[Union[str, TweetObject, Dict[str, Any]]] = Field(..., description="Lista de tweets (objetos completos)")
-    max_tweets: Optional[int] = Field(None, description="Límite de tweets a clasificar")
-    # Eliminar json_path completamente
 class EstimateRequest(BaseModel):
     max_tweets: Optional[int] = Field(None, description="Número de tweets a analizar")
 
 # ============================================================================
-# Funciones Helper OAuth
+# Firebase Helper Functions
+# ============================================================================
+
+def save_tweets_to_firebase(username: str, tweets_data: Dict[str, Any]) -> str:
+    """
+    Guarda los tweets en Firebase Firestore
+    Returns: document_id
+    """
+    if not db:
+        raise Exception("Firebase no está inicializado")
+    
+    timestamp = datetime.now()
+    doc_id = f"{username}_{timestamp.strftime('%Y%m%d_%H%M%S')}"
+    
+    # Estructura del documento
+    doc_data = {
+        "username": username,
+        "user_info": tweets_data.get("user", {}),
+        "tweets": tweets_data.get("tweets", []),
+        "stats": tweets_data.get("stats", {}),
+        "fetched_at": timestamp,
+        "pages_fetched": tweets_data.get("pages_fetched", 0),
+        "execution_time": tweets_data.get("execution_time_seconds", 0)
+    }
+    
+    # Guardar en colección 'user_tweets'
+    db.collection('user_tweets').document(doc_id).set(doc_data)
+    
+    print(f"✅ Tweets guardados en Firebase: {doc_id}")
+    return doc_id
+
+def save_classification_to_firebase(username: str, classification_data: Dict[str, Any]) -> str:
+    """
+    Guarda los resultados de clasificación en Firebase
+    Returns: document_id
+    """
+    if not db:
+        raise Exception("Firebase no está inicializado")
+    
+    timestamp = datetime.now()
+    doc_id = f"{username}_classification_{timestamp.strftime('%Y%m%d_%H%M%S')}"
+    
+    doc_data = {
+        "username": username,
+        "timestamp": timestamp,
+        "results": classification_data.get("results", []),
+        "summary": classification_data.get("summary", {}),
+        "total_tweets": classification_data.get("total_tweets", 0),
+        "execution_time": classification_data.get("execution_time", "0s")
+    }
+    
+    # Guardar en colección 'risk_classifications'
+    db.collection('risk_classifications').document(doc_id).set(doc_data)
+    
+    print(f"✅ Clasificación guardada en Firebase: {doc_id}")
+    return doc_id
+
+def get_tweets_from_firebase(doc_id: str) -> Optional[Dict[str, Any]]:
+    """
+    Recupera tweets desde Firebase
+    """
+    if not db:
+        raise Exception("Firebase no está inicializado")
+    
+    doc_ref = db.collection('user_tweets').document(doc_id)
+    doc = doc_ref.get()
+    
+    if doc.exists:
+        return doc.to_dict()
+    return None
+
+def get_classification_from_firebase(doc_id: str) -> Optional[Dict[str, Any]]:
+    """
+    Recupera clasificación desde Firebase
+    """
+    if not db:
+        raise Exception("Firebase no está inicializado")
+    
+    doc_ref = db.collection('risk_classifications').document(doc_id)
+    doc = doc_ref.get()
+    
+    if doc.exists:
+        return doc.to_dict()
+    return None
+
+# ============================================================================
+# Funciones Helper OAuth (sin cambios)
 # ============================================================================
 
 def create_oauth_session() -> tuple:
@@ -184,13 +326,11 @@ def exchange_code_for_token(session_id: str, code: str) -> Dict[str, Any]:
         
         tokens = response.json()
         
-        # Guardar tokens en sesión
         session['access_token'] = tokens['access_token']
         session['refresh_token'] = tokens.get('refresh_token')
         session['expires_in'] = tokens.get('expires_in', 7200)
         session['expires_at'] = datetime.now() + timedelta(seconds=tokens.get('expires_in', 7200))
         
-        # Obtener info del usuario
         user_info = get_user_info(tokens['access_token'])
         if user_info['success']:
             session['user'] = user_info['user']
@@ -241,7 +381,6 @@ def get_session(session_id: str) -> Optional[Dict[str, Any]]:
     if not session:
         return None
     
-    # Verificar expiración
     if session.get('expires_at'):
         if datetime.now() >= session['expires_at']:
             return None
@@ -249,7 +388,7 @@ def get_session(session_id: str) -> Optional[Dict[str, Any]]:
     return session
 
 # ============================================================================
-# API 1: AUTENTICACIÓN OAUTH
+# API 1: AUTENTICACIÓN OAUTH (sin cambios)
 # ============================================================================
 
 @app.get("/api/auth/login", response_model=LoginResponse)
@@ -257,7 +396,6 @@ async def login():
     """Paso 1: Inicia el proceso de login OAuth 2.0"""
     session_id, code_challenge, state = create_oauth_session()
     
-    # Construir URL de autorización
     auth_params = {
         'response_type': 'code',
         'client_id': CLIENT_ID,
@@ -280,13 +418,7 @@ async def login():
 
 @app.get("/api/auth/callback")
 async def auth_callback(code: str, state: str):
-    """
-    Paso 2: Callback de Twitter después de autorización
-    
-    Twitter redirige aquí con el authorization_code.
-    Este endpoint intercambia el code por access_token y redirige al frontend.
-    """
-    # Buscar sesión por state
+    """Paso 2: Callback de Twitter después de autorización"""
     session_id = None
     for sid, session in oauth_sessions.items():
         if session.get('state') == state:
@@ -294,19 +426,15 @@ async def auth_callback(code: str, state: str):
             break
     
     if not session_id:
-        # Redirigir al frontend con error
         error_url = f"{FRONTEND_CALLBACK_URL}?error=invalid_state"
         return RedirectResponse(url=error_url)
     
-    # Intercambiar code por token
     result = exchange_code_for_token(session_id, code)
     
     if not result['success']:
-        # Redirigir al frontend con error
         error_url = f"{FRONTEND_CALLBACK_URL}?error={result['error']}"
         return RedirectResponse(url=error_url)
     
-    # Redirigir al frontend con session_id y username
     username = result['user']['username']
     callback_url = f"{FRONTEND_CALLBACK_URL}?session_id={session_id}&username={username}"
     
@@ -314,9 +442,7 @@ async def auth_callback(code: str, state: str):
 
 @app.get("/api/auth/me")
 async def get_current_user(session_id: str = Query(..., description="Session ID obtenido del login")):
-    """
-    Obtiene información del usuario autenticado
-    """
+    """Obtiene información del usuario autenticado"""
     session = get_session(session_id)
     if not session or not session.get('user'):
         raise HTTPException(status_code=401, detail="Sesión inválida o expirada")
@@ -328,7 +454,7 @@ async def get_current_user(session_id: str = Query(..., description="Session ID 
     }
 
 # ============================================================================
-# API 2: BÚSQUEDA DE TWEETS (del usuario autenticado)
+# API 2: BÚSQUEDA DE TWEETS (con Firebase)
 # ============================================================================
 
 @app.post("/api/tweets/search")
@@ -337,33 +463,70 @@ async def search_my_tweets(
     session_id: str = Query(..., description="Session ID")
 ):
     """
-    Busca tweets del usuario autenticado
-    Incluye avatar_url del usuario en la respuesta
+    Busca tweets del usuario autenticado y los guarda en Firebase
     """
-    session = get_session(session_id)
-    if not session or not session.get('user'):
-        raise HTTPException(status_code=401, detail="Sesión inválida")
+    # Generar cache key para prevenir requests duplicadas
+    cache_key = f"search_{session_id}_{request.max_tweets}"
     
-    username = session['user']['username']
+    # Si ya hay una request en progreso, esperar o retornar error
+    if cache_key in request_cache:
+        cache_entry = request_cache[cache_key]
+        if time.time() - cache_entry['timestamp'] < 5:  # 5 segundos
+            print(f"⚠️ Request duplicada detectada, ignorando...")
+            raise HTTPException(
+                status_code=429, 
+                detail="Request en progreso, espera unos segundos"
+            )
+    
+    # Marcar request como en progreso
+    request_cache[cache_key] = {'timestamp': time.time()}
     
     try:
+        session = get_session(session_id)
+        if not session or not session.get('user'):
+            raise HTTPException(status_code=401, detail="Sesión inválida")
+        
+        username = session['user']['username']
+        
+        print(f"\n{'='*70}")
+        print(f"🔍 BÚSQUEDA DE TWEETS")
+        print(f"{'='*70}")
+        print(f"   Usuario: @{username}")
+        print(f"   Max tweets: {request.max_tweets or 'Todos'}")
+        print(f"   Guardar en Firebase: {request.save_to_firebase}")
+        print(f"   Session ID: {session_id[:30]}...")
+        print(f"{'='*70}\n")
+        
         result = fetch_user_tweets(
             username=username,
             max_tweets=request.max_tweets
         )
         
-        if not result['success']:
-            raise HTTPException(status_code=400, detail=result.get('error'))
+        if not result.get('success'):
+            error_msg = result.get('error', 'Error desconocido')
+            print(f"❌ Error en fetch_user_tweets: {error_msg}")
+            raise HTTPException(status_code=400, detail=error_msg)
         
-        file_path = None
-        if request.save_to_file:
-            file_path = save_tweets_to_file(result)
+        print(f"✅ Tweets obtenidos: {len(result.get('tweets', []))}")
         
-        # Extraer info del usuario (incluye avatar_url desde search_tweets.py)
+        firebase_doc_id = None
+        if request.save_to_firebase:
+            if db:
+                try:
+                    print(f"💾 Guardando en Firebase...")
+                    firebase_doc_id = save_tweets_to_firebase(username, result)
+                    print(f"✅ Guardado en Firebase: {firebase_doc_id}")
+                except Exception as fb_error:
+                    print(f"⚠️ Error guardando en Firebase: {str(fb_error)}")
+                    import traceback
+                    traceback.print_exc()
+                    # No fallar si Firebase falla, continuar sin guardar
+            else:
+                print(f"⚠️ Firebase no conectado, no se guardará")
+        
         user_info = result.get('user', {})
         
-        # RETORNAR ESTRUCTURA COMPLETA incluyendo tweets + avatar_url
-        return {
+        response_data = {
             "success": True,
             "username": username,
             "user": {
@@ -381,23 +544,53 @@ async def search_my_tweets(
             "fetched_at": result.get('fetched_at'),
             "execution_time": result.get('execution_time'),
             "execution_time_seconds": result.get('execution_time_seconds'),
-            "file_path": file_path
+            "firebase_doc_id": firebase_doc_id
         }
+        
+        print(f"\n✅ Request completada exitosamente\n")
+        
+        # Limpiar cache después de 30 segundos
+        import asyncio
+        asyncio.create_task(clear_cache_after_delay(cache_key, 30))
+        
+        return response_data
     
+    except HTTPException:
+        # Limpiar cache inmediatamente en caso de error HTTP
+        request_cache.pop(cache_key, None)
+        raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        # Limpiar cache inmediatamente en caso de error
+        request_cache.pop(cache_key, None)
+        
+        print(f"\n{'='*70}")
+        print(f"❌ ERROR CRÍTICO EN SEARCH_MY_TWEETS")
+        print(f"{'='*70}")
+        print(f"Error: {str(e)}")
+        print(f"Tipo: {type(e).__name__}")
+        print(f"{'='*70}\n")
+        
+        import traceback
+        traceback.print_exc()
+        
+        raise HTTPException(status_code=500, detail=f"Error interno: {str(e)}")
+
+async def clear_cache_after_delay(cache_key: str, delay: int):
+    """Limpia una entrada del cache después de un delay"""
+    await asyncio.sleep(delay)
+    request_cache.pop(cache_key, None)
 
 # ============================================================================
-# API 3: CLASIFICACIÓN DE RIESGOS
+# API 3: CLASIFICACIÓN DE RIESGOS (con Firebase)
 # ============================================================================
 
 @app.post("/api/risk/classify")
 async def classify_risk(
     request: ClassifyRequest,
     session_id: str = Query(..., description="Session ID"),
-    save_files: bool = Query(True, description="Guardar archivos JSON de resultados")
+    save_to_firebase: bool = Query(True, description="Guardar en Firebase")
 ):
-    """Clasifica riesgos de tweets - Trabaja con datos en memoria"""
+    """Clasifica riesgos de tweets y guarda en Firebase"""
     session = get_session(session_id)
     if not session:
         raise HTTPException(status_code=401, detail="Sesión inválida")
@@ -410,32 +603,17 @@ async def classify_risk(
     print(f"👤 Username: {username}")
     print(f"📊 Total tweets recibidos: {len(request.tweets)}")
     
-    # ✅ PROCESAR TWEETS (pueden venir como strings o como objetos)
     original_tweets = []
     
     for idx, tweet_item in enumerate(request.tweets):
         if isinstance(tweet_item, dict):
-            # Ya es un objeto, usarlo directamente
             original_tweets.append(tweet_item)
-            
-            if idx < 3:  # Debug primeros 3
-                print(f"\n🔍 Tweet {idx} (dict):")
-                print(f"   id: {tweet_item.get('id')}")
-                print(f"   text: {tweet_item.get('text', '')[:50]}...")
-                print(f"   is_retweet: {tweet_item.get('is_retweet')}")
-                
         elif isinstance(tweet_item, str):
-            # Es solo texto, crear objeto mínimo
             original_tweets.append({
                 "id": None,
                 "text": tweet_item,
                 "is_retweet": False
             })
-            
-            if idx < 3:
-                print(f"\n⚠️ Tweet {idx} (string): {tweet_item[:50]}...")
-        else:
-            print(f"❌ Tweet {idx}: Tipo desconocido {type(tweet_item)}")
     
     print(f"\n✅ Total tweets procesados: {len(original_tweets)}")
     print("="*70 + "\n")
@@ -443,48 +621,31 @@ async def classify_risk(
     if not original_tweets:
         raise HTTPException(status_code=400, detail="No se encontraron tweets para clasificar")
     
-    # Limitar si se especifica
     if request.max_tweets:
         original_tweets = original_tweets[:request.max_tweets]
-        print(f"⚠️ Limitado a {request.max_tweets} tweets")
     
-    # ✅ CLASIFICAR
     start_time = time.time()
     results = []
     stats = {
         "total_analyzed": len(original_tweets),
         "risk_distribution": {"no": 0, "low": 0, "mid": 0, "high": 0},
         "label_counts": {},
-        "errors": 0,
-        "throttle_waits": 0
+        "errors": 0
     }
     
     print(f"\n🛡️  Clasificando {len(original_tweets)} tweets para @{username}...\n")
     
     for i, tweet_obj in enumerate(original_tweets, 1):
-        # Extraer datos del tweet
         tweet_text = tweet_obj.get("text", "") if isinstance(tweet_obj, dict) else str(tweet_obj)
         tweet_id = tweet_obj.get("id") if isinstance(tweet_obj, dict) else None
         is_retweet = tweet_obj.get("is_retweet", False) if isinstance(tweet_obj, dict) else False
         
         if not tweet_text.strip():
-            print(f"⚠️ Tweet #{i}: Texto vacío, saltando...")
             continue
         
-        # Debug primeros 3
-        if i <= 3:
-            print(f"📤 Tweet #{i}:")
-            print(f"   ID: {tweet_id}")
-            print(f"   Text: {tweet_text[:50]}...")
-            print(f"   is_retweet: {is_retweet}")
-        
-        # ✅ CLASIFICAR
         result = classify_risk_text_only(tweet_text, tweet_id=str(tweet_id) if tweet_id else None)
-        
-        # Agregar metadata
         result["is_retweet"] = is_retweet
         
-        # Copiar otros campos útiles del tweet original
         if isinstance(tweet_obj, dict):
             for key in ['author_id', 'created_at', 'referenced_tweets']:
                 if key in tweet_obj:
@@ -492,7 +653,6 @@ async def classify_risk(
         
         results.append(result)
         
-        # Stats
         if "error_code" not in result:
             level = result.get("risk_level", "low")
             stats["risk_distribution"][level] += 1
@@ -501,53 +661,22 @@ async def classify_risk(
         else:
             stats["errors"] += 1
         
-        # Logging cada 10 tweets
         if i % 10 == 0 or i == len(original_tweets):
             print(f"   ✅ Procesados: {i}/{len(original_tweets)}")
     
     end_time = time.time()
     execution_time = end_time - start_time
     
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    
-    # ✅ PREPARAR RESPUESTA
-    summary = {
-        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "username": username,
-        "tiempo_total": f"{int(execution_time//60)}m{int(execution_time%60)}s" if execution_time >= 60 else f"{int(execution_time)}s",
+    classification_data = {
+        "results": results,
+        "summary": stats,
         "total_tweets": len(original_tweets),
-        "exitosos": len(original_tweets) - stats["errors"],
-        "errores": stats["errors"],
-        "distribucion": stats["risk_distribution"],
-        "labels": stats["label_counts"]
+        "execution_time": f"{execution_time:.2f}s"
     }
     
-    detailed = {
-        "resultados": results
-    }
-    
-    saved_files = {}
-    if save_files:
-        summary_filename = f"risk_summary_{username}_{timestamp}.json"
-        detailed_filename = f"risk_detailed_{username}_{timestamp}.json"
-        
-        Path(summary_filename).write_text(
-            json.dumps(summary, ensure_ascii=False, indent=2), 
-            encoding="utf-8"
-        )
-        Path(detailed_filename).write_text(
-            json.dumps(detailed, ensure_ascii=False, indent=2), 
-            encoding="utf-8"
-        )
-        
-        saved_files = {
-            "summary_file": summary_filename,
-            "detailed_file": detailed_filename
-        }
-        
-        print(f"\n✅ Archivos guardados:")
-        print(f"   📄 {summary_filename}")
-        print(f"   📄 {detailed_filename}")
+    firebase_doc_id = None
+    if save_to_firebase:
+        firebase_doc_id = save_classification_to_firebase(username, classification_data)
     
     return {
         "success": True,
@@ -555,41 +684,34 @@ async def classify_risk(
         "results": results,
         "summary": stats,
         "execution_time": f"{execution_time:.2f}s",
-        "files": saved_files
+        "firebase_doc_id": firebase_doc_id
     }
+
 # ============================================================================
-# API 5: ESTIMACIÓN DE TIEMPO
+# API 5: ESTIMACIÓN DE TIEMPO (sin cambios)
 # ============================================================================
 
 @app.get("/api/estimate/time")
 async def estimate_processing_time(
     session_id: str = Query(..., description="Session ID")
 ):
-    """
-    Estima el tiempo total de procesamiento basado en el tweet_count del usuario autenticado
-    Usa las funciones de estimacion_de_tiempo.py
-    """
+    """Estima el tiempo total de procesamiento"""
     session = get_session(session_id)
     if not session:
         raise HTTPException(status_code=401, detail="Sesión inválida")
     
     username = session.get('user', {}).get('username', 'unknown')
-    
-    # Obtener automáticamente el tweet_count del usuario
     max_tweets = session.get('user', {}).get('tweet_count', 0)
     
     if max_tweets == 0:
         raise HTTPException(status_code=400, detail="No se pudo obtener el número de tweets del usuario")
     
     try:
-        # Crear un archivo temporal vacío para pasar a quick_estimate_all
-        # (solo se usa para verificar existencia, no se lee)
         import tempfile
         with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as tmp:
             json.dump({"tweets": []}, tmp)
             tmp_path = tmp.name
         
-        # Llamar a quick_estimate_all con sample_size=0 para evitar procesamiento real
         estimacion = quick_estimate_all(
             username=username,
             max_tweets=max_tweets,
@@ -597,10 +719,8 @@ async def estimate_processing_time(
             sample_size=0
         )
         
-        # Limpiar archivo temporal
         Path(tmp_path).unlink(missing_ok=True)
         
-        # Formatear tiempo estimado con símbolo ≈
         tiempo_formateado = f"≈{estimacion['tiempo_total_formateado']}"
         
         return {
@@ -619,15 +739,15 @@ async def estimate_processing_time(
 async def root():
     return {
         "name": "Twitter Analysis API",
-        "version": "2.0.0",
-        "flow": "OAuth Login → Get User → Search/Classify/Delete Tweets",
+        "version": "3.0.0",
+        "storage": "Firebase Firestore",
+        "flow": "OAuth Login → Get User → Search/Classify Tweets → Save to Firebase",
         "endpoints": {
             "login": "/api/auth/login",
             "callback": "/api/auth/callback",
             "me": "/api/auth/me",
             "search": "/api/tweets/search",
             "classify": "/api/risk/classify",
-            "delete": "/api/tweets/delete",
             "estimate": "/api/estimate/time",
             "docs": "/docs"
         }
@@ -638,6 +758,7 @@ async def health():
     return {
         "status": "healthy",
         "active_sessions": len(oauth_sessions),
+        "firebase_connected": db is not None,
         "timestamp": datetime.now().isoformat()
     }
 
@@ -649,10 +770,11 @@ if __name__ == "__main__":
     import uvicorn
     
     print("\n" + "="*70)
-    print("🚀 TWITTER ANALYSIS API - OAuth 2.0")
+    print("🚀 TWITTER ANALYSIS API - OAuth 2.0 + Firebase")
     print("="*70)
     print(f"\nREDIRECT_URI configurado: {REDIRECT_URI}")
     print(f"FRONTEND_CALLBACK_URL: {FRONTEND_CALLBACK_URL}")
+    print(f"Firebase Status: {'✅ Conectado' if db else '❌ No conectado'}")
     print("\n⚠️  IMPORTANTE: Configura este REDIRECT_URI en tu Twitter App:")
     print("   https://developer.x.com/en/portal/dashboard")
     print("\nDocumentación: http://localhost:8080/docs")
