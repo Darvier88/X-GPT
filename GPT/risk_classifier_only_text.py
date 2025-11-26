@@ -536,7 +536,8 @@ if __name__ == "__main__":
             else:
                 stats["errors"] += 1
             
-            result["tweet_id"] = idx
+            tweet_id = t.get("id", idx)  
+            result["tweet_id"] = tweet_id
             result["text"] = tweet_text
             results.append(result)
             

@@ -440,9 +440,9 @@ async def classify_risk(
     
     print(f"\n🛡️  Clasificando {len(tweets)} tweets para @{username}...")
     
-    for i, tweet_text in enumerate(tweets, 1):
+    for i, (tweet_obj, tweet_text) in enumerate(zip(original_tweets, tweets), 1):
         result = classify_risk_text_only(tweet_text)
-        result["tweet_id"] = i
+        result["tweet_id"] = tweet_obj.get("id")
         result["text"] = tweet_text
         results.append(result)
         
