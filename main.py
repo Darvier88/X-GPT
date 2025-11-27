@@ -1022,15 +1022,41 @@ async def delete_user_tweets(
                         original_results = classification_data.get('results', [])
                         
                         print(f"      Clasificaciones originales: {len(original_results)}")
-                        print(f"      IDs a eliminar: {deleted_ids}")
+                        print(f"      IDs a eliminar (deleted_ids): {deleted_ids}")
+                        
+                        # 🔍 DEBUG: Normalizar AMBOS lados de la comparación
+                        deleted_ids_normalized = {str(id).strip() for id in deleted_ids}
+                        print(f"      IDs normalizados: {deleted_ids_normalized}")
+                        
+                        # Mostrar samples de lo que tenemos en results
+                        if original_results:
+                            sample_result = original_results[0]
+                            print(f"      DEBUG - Sample result tweet_id: {sample_result.get('tweet_id')}")
+                            print(f"      DEBUG - Sample tweet_id type: {type(sample_result.get('tweet_id'))}")
+                            print(f"      DEBUG - Sample tweet_id as string: '{str(sample_result.get('tweet_id')).strip()}'")
+                        
+                        # 🔍 DEBUG: Verificar qué IDs se están comparando ANTES de filtrar
+                        eliminated_count = 0
+                        print(f"      🔍 Verificando coincidencias de IDs...")
+                        for r in original_results:
+                            r_id_normalized = str(r.get('tweet_id')).strip()
+                            if r_id_normalized in deleted_ids_normalized:
+                                eliminated_count += 1
+                                print(f"         ✅ Coincidencia encontrada: {r_id_normalized}")
+                        
+                        if eliminated_count == 0:
+                            print(f"      ⚠️ WARNING: Ningún tweet coincidió para eliminación!")
+                            print(f"         Los IDs no están coincidiendo entre deleted_ids y risk_classifications")
+                        else:
+                            print(f"      ✅ Total de coincidencias: {eliminated_count}")
                         
                         # Filtrar resultados: mantener solo los que NO se eliminaron
                         remaining_results = [
                             r for r in original_results 
-                            if str(r.get('tweet_id')) not in deleted_ids
+                            if str(r.get('tweet_id')).strip() not in deleted_ids_normalized
                         ]
                         
-                        print(f"      Clasificaciones restantes: {len(remaining_results)}")
+                        print(f"      Clasificaciones restantes después del filtro: {len(remaining_results)}")
                         print(f"      Clasificaciones eliminadas: {len(original_results) - len(remaining_results)}")
                         
                         # Recalcular estadísticas del summary desde cero
@@ -1084,7 +1110,6 @@ async def delete_user_tweets(
                     traceback.print_exc()
                     result['firebase_classification_updated'] = False
                     result['firebase_classification_error'] = str(query_error)
-            
             except Exception as fb_error:
                 print(f"\n⚠️ Error actualizando Firebase: {str(fb_error)}")
                 import traceback
