@@ -215,104 +215,6 @@ Background Checker
     except Exception as e:
         print(f"❌ Error enviando email: {str(e)}")
         return {'success': False, 'error': str(e)}
-def generate_access_token(
-    username: str,
-    tweets_firebase_id: str,
-    classification_firebase_id: str,
-    expiration_hours: int = TOKEN_EXPIRATION_HOURS
-) -> str:
-    """
-    Genera un token de acceso temporal y lo guarda en Firebase
-    
-    Args:
-        username: Usuario de Twitter
-        tweets_firebase_id: ID del documento de tweets en Firebase
-        classification_firebase_id: ID del documento de clasificación
-        expiration_hours: Horas de validez del token
-    
-    Returns:
-        Token generado (string único)
-    """
-    try:
-        # Generar token único y seguro
-        token = secrets.token_urlsafe(32)  # 43 caracteres aprox
-        
-        # Calcular expiración
-        expires_at = datetime.now() + timedelta(hours=expiration_hours)
-        
-        # Datos del token
-        token_data = {
-            'token': token,
-            'username': username,
-            'tweets_firebase_id': tweets_firebase_id,
-            'classification_firebase_id': classification_firebase_id,
-            'created_at': datetime.now(),
-            'expires_at': expires_at,
-            'used': False,
-            'used_at': None,
-            'ip_address': None  # Opcional: agregar IP del request
-        }
-        
-        # Guardar en Firebase colección 'access_tokens'
-        if db:
-            db.collection('access_tokens').document(token).set(token_data)
-            print(f"✅ Token generado y guardado: {token[:20]}...")
-        
-        return token
-        
-    except Exception as e:
-        print(f"❌ Error generando token: {str(e)}")
-        raise
-
-def validate_access_token(token: str) -> Optional[Dict[str, Any]]:
-    """
-    Valida un token de acceso y retorna los datos asociados
-    
-    Args:
-        token: Token a validar
-    
-    Returns:
-        Dict con datos del token si es válido, None si no
-    """
-    try:
-        if not db:
-            raise Exception("Firebase no está inicializado")
-        
-        # Buscar token en Firebase
-        token_ref = db.collection('access_tokens').document(token)
-        token_doc = token_ref.get()
-        
-        if not token_doc.exists:
-            print(f"❌ Token no encontrado: {token[:20]}...")
-            return None
-        
-        token_data = token_doc.to_dict()
-        
-        # Verificar si expiró
-        expires_at = token_data.get('expires_at')
-        if expires_at and datetime.now() > expires_at:
-            print(f"⏰ Token expirado: {token[:20]}...")
-            return None
-        
-        # Marcar como usado (opcional, si quieres tokens de un solo uso)
-        # token_ref.update({
-        #     'used': True,
-        #     'used_at': datetime.now()
-        # })
-        
-        print(f"✅ Token válido: {token[:20]}...")
-        
-        return {
-            'username': token_data.get('username'),
-            'tweets_firebase_id': token_data.get('tweets_firebase_id'),
-            'classification_firebase_id': token_data.get('classification_firebase_id'),
-            'expires_at': token_data.get('expires_at')
-        }
-        
-    except Exception as e:
-        print(f"❌ Error validando token: {str(e)}")
-        return None
-
 
 
 # Credenciales OAuth
@@ -1106,67 +1008,82 @@ async def delete_user_tweets(
                 # 2B: Actualizar colección 'risk_classifications' (NUEVO) ⭐
                 # ═══════════════════════════════════════════════════════════════════
                 print(f"\n   🛡️  Actualizando 'risk_classifications'...")
-                
+
                 # Buscar el documento más reciente de clasificación para este usuario
                 classifications_ref = db.collection('risk_classifications')
                 query = classifications_ref.where('username', '==', username).order_by('timestamp', direction=firestore.Query.DESCENDING).limit(1)
-                classification_docs = query.stream()
-                
-                classification_doc = None
-                for doc in classification_docs:
-                    classification_doc = doc
-                    break
-                
-                if classification_doc:
-                    classification_data = classification_doc.to_dict()
-                    original_results = classification_data.get('results', [])
+
+                try:
+                    classification_docs = list(query.stream())
                     
-                    print(f"      Clasificaciones originales: {len(original_results)}")
-                    
-                    # Filtrar resultados: mantener solo los que NO se eliminaron
-                    remaining_results = [
-                        r for r in original_results 
-                        if str(r.get('tweet_id')) not in deleted_ids
-                    ]
-                    
-                    print(f"      Clasificaciones restantes: {len(remaining_results)}")
-                    
-                    # Recalcular estadísticas del summary desde cero
-                    new_summary = {
-                        "total_analyzed": len(remaining_results),
-                        "risk_distribution": {"no": 0, "low": 0, "mid": 0, "high": 0},
-                        "label_counts": {},
-                        "errors": 0
-                    }
-                    
-                    for r in remaining_results:
-                        if "error_code" not in r:
-                            level = r.get("risk_level", "low")
-                            new_summary["risk_distribution"][level] += 1
-                            for label in r.get("labels", []):
-                                new_summary["label_counts"][label] = new_summary["label_counts"].get(label, 0) + 1
-                        else:
-                            new_summary["errors"] += 1
-                    
-                    # Actualizar documento de clasificación
-                    classification_doc.reference.update({
-                        'results': remaining_results,
-                        'summary': new_summary,
-                        'total_tweets': len(remaining_results),
-                        'last_cleanup': datetime.now(),
-                        'cleanup_info': {
-                            'deleted_count': len(deleted_ids),
-                            'remaining_count': len(remaining_results),
-                            'timestamp': datetime.now().isoformat()
+                    if classification_docs:
+                        classification_doc = classification_docs[0]
+                        classification_data = classification_doc.to_dict()
+                        original_results = classification_data.get('results', [])
+                        
+                        print(f"      Clasificaciones originales: {len(original_results)}")
+                        print(f"      IDs a eliminar: {deleted_ids}")
+                        
+                        # Filtrar resultados: mantener solo los que NO se eliminaron
+                        remaining_results = [
+                            r for r in original_results 
+                            if str(r.get('tweet_id')) not in deleted_ids
+                        ]
+                        
+                        print(f"      Clasificaciones restantes: {len(remaining_results)}")
+                        print(f"      Clasificaciones eliminadas: {len(original_results) - len(remaining_results)}")
+                        
+                        # Recalcular estadísticas del summary desde cero
+                        new_summary = {
+                            "total_analyzed": len(remaining_results),
+                            "risk_distribution": {"no": 0, "low": 0, "mid": 0, "high": 0},
+                            "label_counts": {},
+                            "errors": 0
                         }
-                    })
-                    
-                    print(f"      ✅ 'risk_classifications' actualizado")
-                    result['firebase_classification_updated'] = True
-                    result['firebase_remaining_classifications'] = len(remaining_results)
-                else:
-                    print(f"      ℹ️  No se encontró documento de clasificación para actualizar")
+                        
+                        for r in remaining_results:
+                            if "error_code" not in r:
+                                level = r.get("risk_level", "low")
+                                if level in new_summary["risk_distribution"]:
+                                    new_summary["risk_distribution"][level] += 1
+                                for label in r.get("labels", []):
+                                    new_summary["label_counts"][label] = new_summary["label_counts"].get(label, 0) + 1
+                            else:
+                                new_summary["errors"] += 1
+                        
+                        print(f"      Nuevo summary calculado:")
+                        print(f"         Total: {new_summary['total_analyzed']}")
+                        print(f"         High: {new_summary['risk_distribution']['high']}")
+                        print(f"         Mid: {new_summary['risk_distribution']['mid']}")
+                        print(f"         Low: {new_summary['risk_distribution']['low']}")
+                        print(f"         No: {new_summary['risk_distribution']['no']}")
+                        
+                        # Actualizar documento de clasificación
+                        classification_doc.reference.update({
+                            'results': remaining_results,
+                            'summary': new_summary,
+                            'total_tweets': len(remaining_results),
+                            'last_cleanup': datetime.now(),
+                            'cleanup_info': {
+                                'deleted_count': len(deleted_ids),
+                                'remaining_count': len(remaining_results),
+                                'timestamp': datetime.now().isoformat()
+                            }
+                        })
+                        
+                        print(f"      ✅ 'risk_classifications' actualizado correctamente")
+                        result['firebase_classification_updated'] = True
+                        result['firebase_remaining_classifications'] = len(remaining_results)
+                    else:
+                        print(f"      ℹ️  No se encontró documento de clasificación para actualizar")
+                        result['firebase_classification_updated'] = False
+
+                except Exception as query_error:
+                    print(f"      ⚠️ Error en query de clasificación: {str(query_error)}")
+                    import traceback
+                    traceback.print_exc()
                     result['firebase_classification_updated'] = False
+                    result['firebase_classification_error'] = str(query_error)
             
             except Exception as fb_error:
                 print(f"\n⚠️ Error actualizando Firebase: {str(fb_error)}")
@@ -1264,56 +1181,7 @@ async def estimate_processing_time(
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error calculando estimación: {str(e)}")
-# ============================================================================
-# NUEVO ENDPOINT: Validar Token de Acceso
-# ============================================================================
 
-@app.get("/api/auth/validate-token")
-async def validate_token(
-    token: str = Query(..., description="Access token from email")
-):
-    """
-    Valida un token de acceso y retorna los Firebase IDs necesarios
-    para cargar el Dashboard
-    """
-    try:
-        print(f"\n{'='*70}")
-        print(f"🔐 VALIDANDO TOKEN DE ACCESO")
-        print(f"{'='*70}")
-        print(f"   Token: {token[:20]}...")
-        print(f"{'='*70}\n")
-        
-        # Validar token
-        token_data = validate_access_token(token)
-        
-        if not token_data:
-            raise HTTPException(
-                status_code=401,
-                detail="Invalid or expired token. Please request a new analysis."
-            )
-        
-        print(f"✅ Token válido para usuario: @{token_data['username']}")
-        
-        # Retornar datos necesarios para el Dashboard
-        return {
-            'success': True,
-            'username': token_data['username'],
-            'tweets_firebase_id': token_data['tweets_firebase_id'],
-            'classification_firebase_id': token_data['classification_firebase_id'],
-            'expires_at': token_data['expires_at'].isoformat() if token_data['expires_at'] else None,
-            'message': 'Token validated successfully'
-        }
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        print(f"❌ Error validando token: {str(e)}")
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(
-            status_code=500,
-            detail=f"Error validating token: {str(e)}"
-        )
 # ============================================================================
 # MODIFICAR: Endpoint de Notificación por Email
 # ============================================================================
