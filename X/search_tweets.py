@@ -143,6 +143,10 @@ def extract_media_info(tweet: Dict[str, Any], media_objects: List[Dict[str, Any]
     return media_list
 
 
+import time
+import requests
+from datetime import datetime
+
 def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[str, Any]:
     """
     Obtiene tweets de un usuario (versión simplificada con temporizadores)
@@ -178,11 +182,7 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
             print(f"   Avatar: {avatar_url}")
         
         print(f"\nObteniendo tweets CON MEDIOS...")
-        if max_tweets:
-            print(f"   Límite: {max_tweets} tweets")
-        else:
-            print(f"   Límite: Sin límite (todos los disponibles)")
-        
+
         # 2. Obtener tweets
         token = get_x_api_key()
         headers = {"Authorization": f"Bearer {token}"}
@@ -236,63 +236,21 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
             print(f"   No hay requests disponibles en este momento")
             print(f"   El rate limit se reiniciará en: {format_time(time_until_reset)}")
             print(f"   Hora de reset: {datetime.fromtimestamp(rate_limit_reset).strftime('%H:%M:%S')}")
-            print(f"\nOpciones:")
-            print(f"   1. Esperar {format_time(time_until_reset)} para que se reinicie")
-            print(f"   2. Intentar más tarde")
-            print(f"   3. Usar otra API key si tienes disponible")
-            print(f"{'='*70}")
+            print(f"\nEsperando {format_time(time_until_reset)}...")
+
+            for remaining in range(time_until_reset, 0, -1):
+                mins, secs = divmod(remaining, 60)
+                print(f"\r   Tiempo restante: {mins:02d}:{secs:02d}", end='', flush=True)
+                time.sleep(1)
             
-            user_input = input(f"\nDeseas esperar {format_time(time_until_reset)} para continuar? (s/n): ").strip().lower()
-            
-            if user_input == 's':
-                print(f"\nEsperando {format_time(time_until_reset)}...")
-                print(f"   Se reanudará a las {datetime.fromtimestamp(rate_limit_reset).strftime('%H:%M:%S')}")
-                
-                for remaining in range(time_until_reset, 0, -1):
-                    mins, secs = divmod(remaining, 60)
-                    print(f"\r   Tiempo restante: {mins:02d}:{secs:02d}", end='', flush=True)
-                    time.sleep(1)
-                
-                print(f"\n   Esperado completado. Reiniciando...")
-                
-                estimation_start = time.time()
-                test_response = requests.get(url, headers=headers, params=test_params, timeout=30)
-                estimation_time = time.time() - estimation_start
-                
-                rate_limit_remaining = int(test_response.headers.get('x-rate-limit-remaining', 0))
-                rate_limit_reset = int(test_response.headers.get('x-rate-limit-reset', 0))
-                
-                if rate_limit_remaining == 0:
-                    end_time = time.time()
-                    total_time = end_time - start_time
-                    return {
-                        'success': False,
-                        'error': 'Rate limit aún agotado después de esperar',
-                        'execution_time': format_time(total_time)
-                    }
-            else:
-                end_time = time.time()
-                total_time = end_time - start_time
-                return {
-                    'success': False,
-                    'error': 'Operación cancelada por el usuario - Rate limit agotado',
-                    'rate_limit_info': {
-                        'remaining': rate_limit_remaining,
-                        'total': rate_limit_total,
-                        'reset_time': datetime.fromtimestamp(rate_limit_reset).isoformat(),
-                        'wait_time_seconds': time_until_reset
-                    },
-                    'execution_time': format_time(total_time)
-                }
+            print(f"\n   Esperado completado. Reiniciando...")
+
+            # Reintentar la petición tras esperar
+            test_response = requests.get(url, headers=headers, params=test_params, timeout=30)
+            rate_limit_remaining = int(test_response.headers.get('x-rate-limit-remaining', 0))
+            rate_limit_reset = int(test_response.headers.get('x-rate-limit-reset', 0))
         
-        # CASO 2: Rate limit muy bajo (menos de 10 requests)
-        if rate_limit_remaining < 10 and rate_limit_remaining > 0:
-            print(f"\nRate limit bajo ({rate_limit_remaining} requests disponibles)")
-            print(f"   Reset en: {format_time(time_until_reset)}")
-            if max_tweets and max_tweets > rate_limit_remaining * 100:
-                print(f"   Se requerirán esperas para completar los {max_tweets} tweets solicitados")
-        
-        # Continuar con la estimación normal
+        # Continuar con la estimación normal si no hay problemas
         if test_response.status_code == 200:
             test_data = test_response.json()
             test_tweets = test_data.get('data', [])
@@ -309,64 +267,10 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
                     if media_info:
                         tweets_with_media += 1
                         total_media_count += len(media_info)
-                
-                tweets_per_page = len(test_tweets)
-                
-                if max_tweets:
-                    pages_needed_total = (max_tweets + tweets_per_page - 1) // tweets_per_page
-                    estimated_pages = pages_needed_total
-                    
-                    wait_time = 0
-                    wait_cycles = 0
-                    
-                    if pages_needed_total > rate_limit_remaining:
-                        pages_after_first_batch = pages_needed_total - rate_limit_remaining
-                        
-                        if rate_limit_remaining > 0:
-                            wait_cycles = 1
-                            wait_time = time_until_reset
-                        
-                        if pages_after_first_batch > 0:
-                            additional_cycles = (pages_after_first_batch + rate_limit_total - 1) // rate_limit_total
-                            wait_cycles += additional_cycles
-                            wait_time += (additional_cycles * 900)
-                else:
-                    estimated_pages = rate_limit_remaining
-                    wait_time = 0
-                    wait_cycles = 0
-                
-                # CÁLCULO FINAL DEL TIEMPO ESTIMADO TOTAL
-                request_time = estimation_time * estimated_pages
-                pause_time = estimated_pages - 1
-                estimated_total_time = request_time + pause_time + wait_time
-                
-                # Convertir a formato legible
-                est_hours = int(estimated_total_time // 3600)
-                est_minutes = int((estimated_total_time % 3600) // 60)
-                est_seconds = int(estimated_total_time % 60)
-                
-                estimated_time_str = f"{est_hours:02d}:{est_minutes:02d}:{est_seconds:02d}"
-                
-                print(f"   Estimacion completada")
-                print(f"   Tweets por pagina: ~{tweets_per_page}")
-                if max_tweets:
-                    print(f"   Meta: {max_tweets} tweets")
-                print(f"   Rate limit: {rate_limit_remaining}/{rate_limit_total}")
-                print(f"\n   TIEMPO ESTIMADO TOTAL: {estimated_time_str}")
-                    
-            elif not max_tweets:
-                estimated_pages = None
-                estimated_total_time = None
-                print(f"   Sin límite establecido - no se puede estimar tiempo total")
-                print(f"   Rate limit disponible: {rate_limit_remaining}/{rate_limit_total}")
             
             all_tweets.extend(test_tweets)
             next_token = test_data.get('meta', {}).get('next_token')
-            page_start_times.append(estimation_time)
-            
-            print(f"   Primera pagina obtenida: {len(test_tweets)} tweets")
-            print(f"   Tweets con medios: {tweets_with_media}")
-            print(f"   Total medios: {total_media_count}")
+
             page += 1
             time.sleep(1)
         else:
@@ -394,7 +298,7 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
             page_start = time.time()
             
             print(f"\nObteniendo pagina {page}...")
-            
+
             params = {
                 "max_results": min(max_tweets, 100) if max_tweets else 100,
                 "tweet.fields": "id,text,created_at,public_metrics,author_id,lang,conversation_id,referenced_tweets,attachments",
@@ -429,34 +333,6 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
                 print(f"   Tiempo de espera necesario: {format_time(wait_time)}")
                 print(f"   Se reanudará a las: {datetime.fromtimestamp(reset_time).strftime('%H:%M:%S')}")
                 print(f"{'='*70}")
-                
-                if estimated_total_time:
-                    new_estimated_total = (time.time() - start_time) + wait_time
-                    if estimated_pages:
-                        pages_remaining = estimated_pages - (page - 1)
-                        new_estimated_total += pages_remaining * (sum(page_start_times) / len(page_start_times) if page_start_times else 1)
-                    print(f"   Tiempo total estimado actualizado: {format_time(new_estimated_total)}")
-                    print(f"   Tiempo transcurrido hasta ahora: {format_time(time.time() - start_time)}")
-                    print(f"{'='*70}")
-                
-                user_input = input(f"\nDeseas esperar {format_time(wait_time)} para continuar? (s/n): ").strip().lower()
-                
-                if user_input != 's':
-                    print(f"\nOperacion cancelada por el usuario")
-                    print(f"   Tweets obtenidos antes de cancelar: {len(all_tweets)}")
-                    
-                    if len(all_tweets) > 0:
-                        print(f"   Se guardarán los {len(all_tweets)} tweets obtenidos")
-                        break
-                    else:
-                        end_time = time.time()
-                        total_time = end_time - start_time
-                        return {
-                            'success': False,
-                            'error': 'Operacion cancelada - Rate limit alcanzado en medio de ejecucion',
-                            'partial_tweets': len(all_tweets),
-                            'execution_time': format_time(total_time)
-                        }
                 
                 print(f"\nEsperando {format_time(wait_time)} para que se reinicie el rate limit...")
                 print(f"   Reanudacion programada: {datetime.fromtimestamp(reset_time).strftime('%H:%M:%S')}")
@@ -529,49 +405,13 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
             if estimated_pages and estimated_pages > 0:
                 pages_completed = page - 1
                 progress_pages = pages_completed / estimated_pages
-                
-                if progress_pages > 0 and progress_pages <= 1:
-                    estimated_total_real = current_elapsed / progress_pages
-                    estimated_remaining_real = estimated_total_real - current_elapsed
-                    
-                    if estimated_total_time:
-                        time_difference = estimated_total_real - estimated_total_time
-                        percentage_diff = (time_difference / estimated_total_time * 100)
-                        
-                        if abs(percentage_diff) < 5:
-                            status = "En tiempo"
-                        elif percentage_diff < 0:
-                            status = f"{abs(percentage_diff):.1f}% mas rapido"
-                        else:
-                            status = f"{percentage_diff:.1f}% mas lento"
-                    else:
-                        status = "Calculando..."
-                    
-                    print(f"   Obtenidos {len(tweets)} tweets (Total: {len(all_tweets)})")
-                    print(f"   Medios en esta página: {page_media_count} | Total medios: {total_media_count}")
-                    print(f"   Paginas: {pages_completed}/{estimated_pages} ({progress_pages*100:.1f}%)")
-                    print(f"   Tiempo transcurrido: {format_time(current_elapsed)}")
-                    print(f"   Tiempo restante (estimado): {format_time(estimated_remaining_real)}")
-                    
-                    if estimated_total_time:
-                        print(f"   Estimacion inicial: {estimated_time_str} -> Proyeccion actual: {format_time(estimated_total_real)}")
-                        print(f"   Estado: {status}")
-                else:
-                    print(f"   Obtenidos {len(tweets)} tweets (Total: {len(all_tweets)})")
-                    print(f"   Medios en esta página: {page_media_count}")
-                    print(f"   Paginas: {pages_completed}/{estimated_pages}")
-            else:
-                avg_page_time = sum(page_start_times) / len(page_start_times) if page_start_times else 0
+                estimated_total_real = current_elapsed / progress_pages
+                estimated_remaining_real = estimated_total_real - current_elapsed
                 print(f"   Obtenidos {len(tweets)} tweets (Total: {len(all_tweets)})")
-                print(f"   Medios en esta página: {page_media_count}")
-                print(f"   Tiempo transcurrido: {format_time(current_elapsed)}")
-                if avg_page_time > 0:
-                    print(f"   Tiempo promedio por pagina: {avg_page_time:.2f}s")
-            
-            if max_tweets and len(all_tweets) > max_tweets:
-                all_tweets = all_tweets[:max_tweets]
-                print(f"   Truncado a {max_tweets} tweets")
-                break
+                print(f"   Medios en esta página: {page_media_count} | Total medios: {total_media_count}")
+                print(f"   Paginas: {pages_completed}/{estimated_pages}")
+            else:
+                print(f"   Obtenidos {len(tweets)} tweets (Total: {len(all_tweets)})")
             
             next_token = data.get('meta', {}).get('next_token')
             
