@@ -49,6 +49,7 @@ from estimacion_de_tiempo import quick_estimate_all, format_time
 # Inicializar Firebase (evitar reinicialización en reload)
 db = None
 
+
 def initialize_firebase():
     """Inicializa Firebase de forma segura"""
     global db
@@ -687,6 +688,249 @@ async def classify_risk(
         "firebase_doc_id": firebase_doc_id
     }
 
+
+# ============================================================================
+# API 4: ELIMINACIÓN DE TWEETS (con Firebase)
+# ============================================================================
+
+class OAuth2SessionAdapter:
+    """Adaptador para convertir session dict en objeto compatible con delete_tweets_batch"""
+    def __init__(self, access_token: str):
+        self.access_token = access_token
+    
+    def get_headers(self) -> Dict[str, str]:
+        return {
+            'Authorization': f'Bearer {self.access_token}',
+            'Content-Type': 'application/json'
+        }
+
+@app.post("/api/tweets/delete")
+async def delete_user_tweets(
+    firebase_doc_id: str = Query(..., description="ID del documento de Firebase con los tweets"),
+    session_id: str = Query(..., description="Session ID"),
+    tweet_ids: str = Query(None, description="IDs de tweets a eliminar (separados por coma)"),
+    delete_retweets: bool = Query(True, description="Eliminar retweets"),
+    delete_originals: bool = Query(True, description="Eliminar tweets originales"),
+    delay_seconds: float = Query(1.0, description="Delay entre eliminaciones (segundos)"),
+    delete_from_firebase: bool = Query(True, description="Eliminar también de Firebase")
+):
+    """
+    Elimina tweets específicos del usuario autenticado desde Twitter Y Firebase (Opción A)
+    """
+    session = get_session(session_id)
+    if not session or not session.get('access_token'):
+        raise HTTPException(status_code=401, detail="Sesión inválida o sin access token")
+    
+    username = session.get('user', {}).get('username')
+    user_id = session.get('user', {}).get('id')
+    
+    if not user_id:
+        raise HTTPException(status_code=400, detail="No se pudo obtener el user_id")
+    
+    # ============================================================================
+    # RATE LIMITING: Verificar si el usuario puede hacer otra eliminación
+    # ============================================================================
+    now = time.time()
+    user_rate_key = f"{user_id}"
+    
+    if user_rate_key in deletion_rate_limit:
+        last_deletion = deletion_rate_limit[user_rate_key].get('timestamp', 0)
+        time_since_last = now - last_deletion
+        
+        if time_since_last < DELETION_COOLDOWN_SECONDS:
+            remaining = int(DELETION_COOLDOWN_SECONDS - time_since_last)
+            raise HTTPException(
+                status_code=429,
+                detail={
+                    "error": "Too many deletion requests",
+                    "message": f"Please wait {remaining} seconds before trying again",
+                    "retry_after_seconds": remaining,
+                    "retry_after_formatted": f"{remaining // 60}m {remaining % 60}s" if remaining >= 60 else f"{remaining}s"
+                }
+            )
+    
+    # Obtener tweets desde Firebase
+    tweets_data = get_tweets_from_firebase(firebase_doc_id)
+    if not tweets_data:
+        raise HTTPException(status_code=404, detail=f"No se encontró el documento: {firebase_doc_id}")
+    
+    all_tweets = tweets_data.get('tweets', [])
+    if not all_tweets:
+        raise HTTPException(status_code=400, detail="No hay tweets para eliminar")
+    
+    # ============================================================================
+    # FILTRAR TWEETS: Solo eliminar los especificados en tweet_ids
+    # ============================================================================
+    tweets_to_delete = all_tweets
+    
+    if tweet_ids:
+        # Si se especificaron IDs, filtrar solo esos
+        try:
+            target_ids = set(tweet_ids.split(','))
+            tweets_to_delete = [
+                t for t in all_tweets 
+                if str(t.get('id')) in target_ids
+            ]
+            print(f"🎯 Filtrado: {len(tweets_to_delete)} de {len(all_tweets)} tweets")
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"Error parsing tweet_ids: {str(e)}")
+    
+    if not tweets_to_delete:
+        raise HTTPException(status_code=400, detail="No tweets found matching the specified IDs")
+    
+    print(f"\n{'='*70}")
+    print(f"🗑️  ELIMINACIÓN DE TWEETS - OPCIÓN A (Twitter + Firebase)")
+    print(f"{'='*70}")
+    print(f"   Usuario: @{username}")
+    print(f"   User ID: {user_id}")
+    print(f"   Firebase Doc: {firebase_doc_id}")
+    print(f"   Total tweets en Firebase: {len(all_tweets)}")
+    print(f"   Tweets a eliminar: {len(tweets_to_delete)}")
+    print(f"   Eliminar retweets: {delete_retweets}")
+    print(f"   Eliminar originales: {delete_originals}")
+    print(f"   Eliminar de Firebase: {delete_from_firebase}")
+    print(f"   Delay: {delay_seconds}s")
+    print(f"{'='*70}\n")
+    
+    # Crear adaptador OAuth2Session compatible
+    oauth_adapter = OAuth2SessionAdapter(session['access_token'])
+    
+    # PASO 1: Ejecutar eliminación en Twitter
+    try:
+        print("🐦 PASO 1: Eliminando tweets de Twitter...")
+        result = delete_tweets_batch(
+            tweets=tweets_to_delete,  # ← Solo los tweets seleccionados
+            user_id=user_id,
+            session=oauth_adapter,
+            delete_retweets=delete_retweets,
+            delete_originals=delete_originals,
+            delay_seconds=delay_seconds,
+            verbose=True
+        )
+        
+        print(f"\n✅ Eliminación de Twitter completada:")
+        print(f"   Retweets eliminados: {result['retweets_deleted']}")
+        print(f"   Tweets eliminados: {result['tweets_deleted']}")
+        print(f"   Fallidos: {len(result['failed'])}")
+        
+        # ============================================================================
+        # ACTUALIZAR RATE LIMIT: Marcar timestamp de esta eliminación
+        # ============================================================================
+        deletion_rate_limit[user_rate_key] = {
+            'timestamp': time.time(),
+            'tweets_deleted': result['retweets_deleted'] + result['tweets_deleted']
+        }
+        
+        # PASO 2: Actualizar Firebase (eliminar tweets borrados exitosamente)
+        if delete_from_firebase and db:
+            print(f"\n🔥 PASO 2: Actualizando Firebase...")
+            
+            try:
+                doc_ref = db.collection('user_tweets').document(firebase_doc_id)
+                doc = doc_ref.get()
+                
+                if doc.exists:
+                    data = doc.to_dict()
+                    
+                    # IDs de tweets que se eliminaron exitosamente
+                    deleted_ids = set()
+                    for tweet in tweets_to_delete:  # ← Solo los que intentamos eliminar
+                        tweet_id = str(tweet.get('id'))
+                        # Si NO está en la lista de fallidos, se eliminó exitosamente
+                        if not any(str(f.get('tweet_id')) == tweet_id for f in result['failed']):
+                            deleted_ids.add(tweet_id)
+                    
+                    print(f"   Tweets eliminados exitosamente de Twitter: {len(deleted_ids)}")
+                    
+                    # Filtrar tweets: mantener solo los que NO se eliminaron
+                    original_tweets = data.get('tweets', [])
+                    remaining_tweets = [
+                        t for t in original_tweets 
+                        if str(t.get('id')) not in deleted_ids
+                    ]
+                    
+                    print(f"   Tweets originales en Firebase: {len(original_tweets)}")
+                    print(f"   Tweets que permanecen en Firebase: {len(remaining_tweets)}")
+                    
+                    # Actualizar estadísticas
+                    original_stats = data.get('stats', {})
+                    new_stats = original_stats.copy()
+                    new_stats['total_tweets'] = len(remaining_tweets)
+                    
+                    # Actualizar documento en Firebase
+                    doc_ref.update({
+                        'tweets': remaining_tweets,
+                        'stats': new_stats,
+                        'last_cleanup': datetime.now(),
+                        'cleanup_summary': {
+                            'deleted_count': len(deleted_ids),
+                            'remaining_count': len(remaining_tweets),
+                            'failed_count': len(result['failed']),
+                            'timestamp': datetime.now().isoformat()
+                        }
+                    })
+                    
+                    print(f"✅ Firebase actualizado correctamente")
+                    result['firebase_updated'] = True
+                    result['firebase_remaining_tweets'] = len(remaining_tweets)
+                
+                else:
+                    print(f"⚠️ Documento no encontrado en Firebase")
+                    result['firebase_updated'] = False
+            
+            except Exception as fb_error:
+                print(f"⚠️ Error actualizando Firebase: {str(fb_error)}")
+                import traceback
+                traceback.print_exc()
+                result['firebase_updated'] = False
+                result['firebase_error'] = str(fb_error)
+                # No fallar si Firebase falla, continuar
+        
+        # PASO 3: Guardar reporte de eliminación
+        if db:
+            timestamp = datetime.now()
+            report_id = f"{username}_deletion_{timestamp.strftime('%Y%m%d_%H%M%S')}"
+            
+            report_data = {
+                "username": username,
+                "user_id": user_id,
+                "timestamp": timestamp,
+                "source_firebase_doc": firebase_doc_id,
+                "deletion_type": "full",  # Opción A
+                "tweets_requested": len(tweets_to_delete),
+                "result": result,
+                "config": {
+                    "delete_retweets": delete_retweets,
+                    "delete_originals": delete_originals,
+                    "delete_from_firebase": delete_from_firebase,
+                    "delay_seconds": delay_seconds
+                }
+            }
+            
+            db.collection('deletion_reports').document(report_id).set(report_data)
+            print(f"\n✅ Reporte guardado en Firebase: {report_id}")
+            result['firebase_report_id'] = report_id
+        
+        print(f"\n{'='*70}")
+        print(f"✅ ELIMINACIÓN TOTAL COMPLETADA")
+        print(f"{'='*70}")
+        print(f"   Tweets eliminados de Twitter: {result['tweets_deleted'] + result['retweets_deleted']}")
+        print(f"   Tweets eliminados de Firebase: {len(deleted_ids) if delete_from_firebase else 0}")
+        print(f"   Fallidos: {len(result['failed'])}")
+        print(f"{'='*70}\n")
+        
+        return {
+            "success": True,
+            "username": username,
+            "result": result
+        }
+    
+    except Exception as e:
+        print(f"\n❌ Error durante eliminación: {str(e)}\n")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Error eliminando tweets: {str(e)}")
+
 # ============================================================================
 # API 5: ESTIMACIÓN DE TIEMPO (sin cambios)
 # ============================================================================
@@ -748,6 +992,7 @@ async def root():
             "me": "/api/auth/me",
             "search": "/api/tweets/search",
             "classify": "/api/risk/classify",
+            "delete": "/api/tweets/delete",
             "estimate": "/api/estimate/time",
             "docs": "/docs"
         }
