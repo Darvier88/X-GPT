@@ -26,10 +26,12 @@ from email.mime.multipart import MIMEMultipart
 import firebase_admin
 from firebase_admin import credentials, firestore
 import secrets
-
+from dotenv import load_dotenv
+import os
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 # Importar solo las funciones helper de X_login (NO initiate_login_with_scope_testing)
+load_dotenv()
 from X.X_login import (
     generate_code_verifier,
     generate_code_challenge,
@@ -44,10 +46,17 @@ from X.search_tweets import fetch_user_tweets
 from GPT.risk_classifier_only_text import classify_risk_text_only
 from X.deleate_tweets_rts import delete_tweets_batch
 from estimacion_de_tiempo import quick_estimate_all, format_time
-# Credenciales Gmail SMTP
-GMAIL_USER = "darwin@thefutureforward.com"  # ← CAMBIAR
-GMAIL_APP_PASSWORD = "njgj lfaz togx jmfr"  # ← CAMBIAR (16 caracteres)
-RECIPIENT_EMAIL = "darwin@thefutureforward.com"
+
+# Gmail SMTP (desde variables de entorno)
+GMAIL_USER = os.getenv('GMAIL_USER')
+GMAIL_APP_PASSWORD = os.getenv('GMAIL_APP_PASSWORD')
+RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL')
+FIREBASE_CREDENTIALS = os.getenv('FIREBASE_CREDENTIALS')
+print(f"GMAIL_USER cargado: {GMAIL_USER}")
+print(f"RECIPIENT_EMAIL cargado: {RECIPIENT_EMAIL}")
+print(f"GMAIL_APP_PASSWORD cargado: {'Sí' if GMAIL_APP_PASSWORD else 'No'}")
+
+
 TOKEN_EXPIRATION_HOURS = 48 
 # ============================================================================
 # Firebase Setup
@@ -73,30 +82,35 @@ def initialize_firebase():
             # No existe, proceder a inicializar
             pass
         
-        # Buscar archivo de credenciales
-        firebase_cred_files = [
-            'background-checker-a0de1-firebase-adminsdk-fbsvc-5fd2e55d11.json',
-            'firebase-credentials.json',
-            'serviceAccountKey.json'
-        ]
-        
-        cred_path = None
-        for file in firebase_cred_files:
-            if Path(file).exists():
-                cred_path = file
-                break
-        
-        if not cred_path:
-            print(f"⚠️ No se encontró archivo de credenciales de Firebase")
-            print(f"   Buscado: {firebase_cred_files}")
+        firebase_project_id = os.getenv("FIREBASE_PROJECT_ID")
+        firebase_private_key = os.getenv("FIREBASE_PRIVATE_KEY")
+        firebase_client_email = os.getenv("FIREBASE_CLIENT_EMAIL")
+        firebase_token_uri = os.getenv("FIREBASE_TOKEN_URI")
+
+        if firebase_project_id and firebase_private_key and firebase_client_email:
+            print("✅ Usando credenciales de Firebase desde variables de entorno")
+            try:
+                creds_dict = {
+                    "type": "service_account",
+                    "project_id": firebase_project_id,
+                    "private_key": firebase_private_key.replace('\\n', '\n'),
+                    "client_email": firebase_client_email,
+                    "token_uri": firebase_token_uri or "https://oauth2.googleapis.com/token",
+                }
+                cred = credentials.Certificate(creds_dict)
+                firebase_admin.initialize_app(cred)
+                db = firestore.client()
+                print("✅ Firebase inicializado correctamente (variables de entorno)")
+                return True
+            except Exception as e:
+                print(f"❌ Error inicializando Firebase: {e}")
+                return False
+        else:
+            print("❌ Faltan credenciales de Firebase en variables de entorno")
+            print(f"   - FIREBASE_PROJECT_ID: {'✓' if firebase_project_id else '✗'}")
+            print(f"   - FIREBASE_PRIVATE_KEY: {'✓' if firebase_private_key else '✗'}")
+            print(f"   - FIREBASE_CLIENT_EMAIL: {'✓' if firebase_client_email else '✗'}")
             return False
-        
-        # Inicializar Firebase
-        cred = credentials.Certificate(cred_path)
-        firebase_admin.initialize_app(cred)
-        db = firestore.client()
-        print(f"✅ Firebase inicializado correctamente usando: {cred_path}")
-        return True
         
     except Exception as e:
         print(f"⚠️ Error inicializando Firebase: {e}")
