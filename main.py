@@ -1317,7 +1317,6 @@ async def validate_token(
 # ============================================================================
 # MODIFICAR: Endpoint de Notificación por Email
 # ============================================================================
-
 @app.post("/api/notifications/send-analysis-ready")
 async def send_analysis_ready_notification(
     session_id: str = Query(..., description="Session ID"),
@@ -1326,7 +1325,7 @@ async def send_analysis_ready_notification(
 ):
     """
     Envía email de notificación cuando el análisis está completo
-    MODIFICADO: Solo envía si email_sent = False
+    SIMPLIFICADO: Link directo con Firebase IDs (sin tokens)
     """
     try:
         # Validar sesión
@@ -1344,7 +1343,7 @@ async def send_analysis_ready_notification(
         print(f"{'='*70}\n")
         
         # ═══════════════════════════════════════════════════════════════════
-        # 🆕 VERIFICAR SI EL EMAIL YA FUE ENVIADO (NUEVO)
+        # VERIFICAR SI EL EMAIL YA FUE ENVIADO
         # ═══════════════════════════════════════════════════════════════════
         if not db:
             raise HTTPException(status_code=500, detail="Firebase no está inicializado")
@@ -1378,7 +1377,6 @@ async def send_analysis_ready_notification(
             }
         
         print(f"✅ Email no ha sido enviado, procediendo...")
-        # ═══════════════════════════════════════════════════════════════════
         
         # Extraer estadísticas
         summary = classification_data.get('summary', {})
@@ -1397,19 +1395,18 @@ async def send_analysis_ready_notification(
         print(f"   Mid: {stats['mid_risk']}")
         print(f"   Low: {stats['low_risk']}")
         
-        # Generar token de acceso
-        access_token = generate_access_token(
-            username=username,
-            tweets_firebase_id=tweets_firebase_id,
-            classification_firebase_id=classification_firebase_id,
-            expiration_hours=TOKEN_EXPIRATION_HOURS
+        # ═══════════════════════════════════════════════════════════════════
+        # CREAR LINK CON FIREBASE IDs (SIN TOKENS)
+        # ═══════════════════════════════════════════════════════════════════
+        dashboard_link = (
+            f"http://localhost:5173/dashboard?"
+            f"tweets_id={tweets_firebase_id}&"
+            f"classification_id={classification_firebase_id}&"
+            f"username={username}"
         )
         
-        print(f"🔐 Token de acceso generado: {access_token[:20]}...")
-        
-        # Crear link con token
-        dashboard_link = f"http://localhost:5173/dashboard?token={access_token}"
         print(f"🔗 Dashboard link: {dashboard_link}")
+        # ═══════════════════════════════════════════════════════════════════
         
         # Enviar email
         result = send_email_notification(
@@ -1426,14 +1423,13 @@ async def send_analysis_ready_notification(
             )
         
         # ═══════════════════════════════════════════════════════════════════
-        # 🆕 MARCAR EMAIL COMO ENVIADO EN FIREBASE (NUEVO)
+        # MARCAR EMAIL COMO ENVIADO EN FIREBASE
         # ═══════════════════════════════════════════════════════════════════
         timestamp = datetime.now()
         
         classification_ref.update({
             'email_sent': True,
             'email_sent_at': timestamp,
-            'access_token': access_token,
             'dashboard_link': dashboard_link
         })
         
@@ -1453,7 +1449,6 @@ async def send_analysis_ready_notification(
                 'stats': stats,
                 'tweets_doc_id': tweets_firebase_id,
                 'classification_doc_id': classification_firebase_id,
-                'access_token': access_token,
                 'dashboard_link': dashboard_link
             }
             
@@ -1469,7 +1464,6 @@ async def send_analysis_ready_notification(
             'message': 'Email notification sent successfully',
             'recipient': RECIPIENT_EMAIL,
             'stats': stats,
-            'access_token': access_token,
             'dashboard_link': dashboard_link,
             'already_sent': False
         }
