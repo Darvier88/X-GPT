@@ -761,6 +761,35 @@ async def health():
         "firebase_connected": db is not None,
         "timestamp": datetime.now().isoformat()
     }
+@app.get("/api/firebase/get-data")
+async def get_firebase_data(
+    session_id: str = Query(...),
+    tweets_doc_id: str = Query(None),
+    classification_doc_id: str = Query(None)
+):
+    """
+    Recupera datos desde Firebase usando los doc IDs
+    """
+    session = get_session(session_id)
+    if not session:
+        raise HTTPException(status_code=401, detail="Sesión inválida")
+    
+    result = {}
+    
+    if tweets_doc_id:
+        tweets_data = get_tweets_from_firebase(tweets_doc_id)
+        if tweets_data:
+            result["tweets"] = tweets_data
+    
+    if classification_doc_id:
+        classification_data = get_classification_from_firebase(classification_doc_id)
+        if classification_data:
+            result["classification"] = classification_data
+    
+    return {
+        "success": True,
+        "data": result
+    }
 
 # ============================================================================
 # MAIN
