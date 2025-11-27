@@ -19,10 +19,13 @@ import json
 import asyncio
 from pathlib import Path
 import sys
-
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 # Firebase imports
 import firebase_admin
 from firebase_admin import credentials, firestore
+import secrets
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -41,7 +44,11 @@ from X.search_tweets import fetch_user_tweets
 from GPT.risk_classifier_only_text import classify_risk_text_only
 from X.deleate_tweets_rts import delete_tweets_batch
 from estimacion_de_tiempo import quick_estimate_all, format_time
-
+# Credenciales Gmail SMTP
+GMAIL_USER = "darwin@thefutureforward.com"  # ← CAMBIAR
+GMAIL_APP_PASSWORD = "njgj lfaz togx jmfr"  # ← CAMBIAR (16 caracteres)
+RECIPIENT_EMAIL = "darwin@thefutureforward.com"
+TOKEN_EXPIRATION_HOURS = 48 
 # ============================================================================
 # Firebase Setup
 # ============================================================================
@@ -97,6 +104,216 @@ def initialize_firebase():
 
 # Inicializar Firebase al cargar el módulo
 initialize_firebase()
+def send_email_notification(
+    username: str,
+    stats: Dict[str, Any],
+    recipient_email: str = RECIPIENT_EMAIL,
+    dashboard_link: str = "http://localhost:5173/dashboard"  # ← NUEVO parámetro
+) -> Dict[str, Any]:
+    """
+    Envía notificación por email cuando el análisis está listo
+    MODIFICADO: Ahora recibe dashboard_link con token incluido
+    """
+    try:
+        # Crear mensaje
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = f'✅ Your X/Twitter Analysis is Ready! (@{username})'
+        msg['From'] = GMAIL_USER
+        msg['To'] = recipient_email
+        
+        # Extraer estadísticas
+        total_tweets = stats.get('total_tweets', 0)
+        high_risk = stats.get('high_risk', 0)
+        mid_risk = stats.get('mid_risk', 0)
+        low_risk = stats.get('low_risk', 0)
+        clean_posts = total_tweets - (high_risk + mid_risk + low_risk)
+        
+        # Template HTML
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                /* ... (estilos iguales) ... */
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>🎉 Your Analysis is Complete!</h1>
+            </div>
+            
+            <div class="content">
+                <p class="greeting">Hi <strong>@{username}</strong>! 👋</p>
+                
+                <p>Great news! Your X/Twitter background check analysis has been completed successfully.</p>
+                
+                <div class="stats-box">
+                    <h2>📊 Analysis Summary</h2>
+                    <!-- ... estadísticas ... -->
+                </div>
+                
+                <div style="text-align: center;">
+                    <a href="{dashboard_link}" class="cta-button">
+                        🔗 View Your Full Dashboard
+                    </a>
+                </div>
+                
+                <p style="font-size: 13px; color: #6c757d; text-align: center; margin-top: 10px;">
+                    ⏰ This link expires in 48 hours
+                </p>
+                
+                <!-- ... resto del HTML ... -->
+            </div>
+        </body>
+        </html>
+        """
+        
+        # Versión texto también con el link correcto
+        text_content = f"""
+Hi @{username}! 👋
+
+Your X/Twitter background check analysis is complete.
+
+📊 Analysis Summary:
+• Total posts analyzed: {stats['total_tweets']:,}
+• 🔴 High risk: {stats['high_risk']}
+• 🟡 Medium risk: {stats['mid_risk']}
+• 🟠 Low risk: {stats['low_risk']}
+
+🔗 View Your Dashboard:
+{dashboard_link}
+
+⏰ This link expires in 48 hours
+
+---
+Background Checker
+    Protect your digital reputation
+        """
+        
+        # Adjuntar ambas versiones
+        part1 = MIMEText(text_content, 'plain')
+        part2 = MIMEText(html_content, 'html')
+        msg.attach(part1)
+        msg.attach(part2)
+        
+        # Enviar email
+        print(f"\n📧 Enviando email a: {recipient_email}")
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(GMAIL_USER, GMAIL_APP_PASSWORD)
+        server.send_message(msg)
+        server.quit()
+        
+        print(f"✅ Email enviado exitosamente a {recipient_email}")
+        
+        return {
+            'success': True,
+            'message': f'Email sent to {recipient_email}',
+            'recipient': recipient_email
+        }
+        
+    except Exception as e:
+        print(f"❌ Error enviando email: {str(e)}")
+        return {'success': False, 'error': str(e)}
+def generate_access_token(
+    username: str,
+    tweets_firebase_id: str,
+    classification_firebase_id: str,
+    expiration_hours: int = TOKEN_EXPIRATION_HOURS
+) -> str:
+    """
+    Genera un token de acceso temporal y lo guarda en Firebase
+    
+    Args:
+        username: Usuario de Twitter
+        tweets_firebase_id: ID del documento de tweets en Firebase
+        classification_firebase_id: ID del documento de clasificación
+        expiration_hours: Horas de validez del token
+    
+    Returns:
+        Token generado (string único)
+    """
+    try:
+        # Generar token único y seguro
+        token = secrets.token_urlsafe(32)  # 43 caracteres aprox
+        
+        # Calcular expiración
+        expires_at = datetime.now() + timedelta(hours=expiration_hours)
+        
+        # Datos del token
+        token_data = {
+            'token': token,
+            'username': username,
+            'tweets_firebase_id': tweets_firebase_id,
+            'classification_firebase_id': classification_firebase_id,
+            'created_at': datetime.now(),
+            'expires_at': expires_at,
+            'used': False,
+            'used_at': None,
+            'ip_address': None  # Opcional: agregar IP del request
+        }
+        
+        # Guardar en Firebase colección 'access_tokens'
+        if db:
+            db.collection('access_tokens').document(token).set(token_data)
+            print(f"✅ Token generado y guardado: {token[:20]}...")
+        
+        return token
+        
+    except Exception as e:
+        print(f"❌ Error generando token: {str(e)}")
+        raise
+
+def validate_access_token(token: str) -> Optional[Dict[str, Any]]:
+    """
+    Valida un token de acceso y retorna los datos asociados
+    
+    Args:
+        token: Token a validar
+    
+    Returns:
+        Dict con datos del token si es válido, None si no
+    """
+    try:
+        if not db:
+            raise Exception("Firebase no está inicializado")
+        
+        # Buscar token en Firebase
+        token_ref = db.collection('access_tokens').document(token)
+        token_doc = token_ref.get()
+        
+        if not token_doc.exists:
+            print(f"❌ Token no encontrado: {token[:20]}...")
+            return None
+        
+        token_data = token_doc.to_dict()
+        
+        # Verificar si expiró
+        expires_at = token_data.get('expires_at')
+        if expires_at and datetime.now() > expires_at:
+            print(f"⏰ Token expirado: {token[:20]}...")
+            return None
+        
+        # Marcar como usado (opcional, si quieres tokens de un solo uso)
+        # token_ref.update({
+        #     'used': True,
+        #     'used_at': datetime.now()
+        # })
+        
+        print(f"✅ Token válido: {token[:20]}...")
+        
+        return {
+            'username': token_data.get('username'),
+            'tweets_firebase_id': token_data.get('tweets_firebase_id'),
+            'classification_firebase_id': token_data.get('classification_firebase_id'),
+            'expires_at': token_data.get('expires_at')
+        }
+        
+    except Exception as e:
+        print(f"❌ Error validando token: {str(e)}")
+        return None
+
+
 
 # Credenciales OAuth
 oauth_creds = get_oauth2_credentials()
@@ -132,6 +349,8 @@ app.add_middleware(
 oauth_sessions: Dict[str, Dict[str, Any]] = {}
 background_jobs: Dict[str, Dict[str, Any]] = {}
 request_cache: Dict[str, Any] = {}  # Cache para prevenir requests duplicadas
+deletion_rate_limit: Dict[str, Dict[str, Any]] = {}
+DELETION_COOLDOWN_SECONDS = 300  # 5 minutos entre eliminaciones por usuario
 
 # ============================================================================
 # Modelos Pydantic
@@ -220,6 +439,7 @@ def save_tweets_to_firebase(username: str, tweets_data: Dict[str, Any]) -> str:
 def save_classification_to_firebase(username: str, classification_data: Dict[str, Any]) -> str:
     """
     Guarda los resultados de clasificación en Firebase
+    MODIFICADO: Agrega flag email_sent = False
     Returns: document_id
     """
     if not db:
@@ -234,7 +454,9 @@ def save_classification_to_firebase(username: str, classification_data: Dict[str
         "results": classification_data.get("results", []),
         "summary": classification_data.get("summary", {}),
         "total_tweets": classification_data.get("total_tweets", 0),
-        "execution_time": classification_data.get("execution_time", "0s")
+        "execution_time": classification_data.get("execution_time", "0s"),
+        "email_sent": False,  # ← NUEVO: Flag para trackear email
+        "email_sent_at": None  # ← NUEVO: Timestamp cuando se envió
     }
     
     # Guardar en colección 'risk_classifications'
@@ -764,7 +986,6 @@ async def delete_user_tweets(
     tweets_to_delete = all_tweets
     
     if tweet_ids:
-        # Si se especificaron IDs, filtrar solo esos
         try:
             target_ids = set(tweet_ids.split(','))
             tweets_to_delete = [
@@ -799,7 +1020,7 @@ async def delete_user_tweets(
     try:
         print("🐦 PASO 1: Eliminando tweets de Twitter...")
         result = delete_tweets_batch(
-            tweets=tweets_to_delete,  # ← Solo los tweets seleccionados
+            tweets=tweets_to_delete,
             user_id=user_id,
             session=oauth_adapter,
             delete_retweets=delete_retweets,
@@ -826,21 +1047,25 @@ async def delete_user_tweets(
             print(f"\n🔥 PASO 2: Actualizando Firebase...")
             
             try:
+                # IDs de tweets que se eliminaron exitosamente
+                deleted_ids = set()
+                for tweet in tweets_to_delete:
+                    tweet_id = str(tweet.get('id'))
+                    # Si NO está en la lista de fallidos, se eliminó exitosamente
+                    if not any(str(f.get('tweet_id')) == tweet_id for f in result['failed']):
+                        deleted_ids.add(tweet_id)
+                
+                print(f"   Tweets eliminados exitosamente de Twitter: {len(deleted_ids)}")
+                
+                # ═══════════════════════════════════════════════════════════════════
+                # 2A: Actualizar colección 'user_tweets'
+                # ═══════════════════════════════════════════════════════════════════
+                print(f"\n   📊 Actualizando 'user_tweets'...")
                 doc_ref = db.collection('user_tweets').document(firebase_doc_id)
                 doc = doc_ref.get()
                 
                 if doc.exists:
                     data = doc.to_dict()
-                    
-                    # IDs de tweets que se eliminaron exitosamente
-                    deleted_ids = set()
-                    for tweet in tweets_to_delete:  # ← Solo los que intentamos eliminar
-                        tweet_id = str(tweet.get('id'))
-                        # Si NO está en la lista de fallidos, se eliminó exitosamente
-                        if not any(str(f.get('tweet_id')) == tweet_id for f in result['failed']):
-                            deleted_ids.add(tweet_id)
-                    
-                    print(f"   Tweets eliminados exitosamente de Twitter: {len(deleted_ids)}")
                     
                     # Filtrar tweets: mantener solo los que NO se eliminaron
                     original_tweets = data.get('tweets', [])
@@ -849,15 +1074,15 @@ async def delete_user_tweets(
                         if str(t.get('id')) not in deleted_ids
                     ]
                     
-                    print(f"   Tweets originales en Firebase: {len(original_tweets)}")
-                    print(f"   Tweets que permanecen en Firebase: {len(remaining_tweets)}")
+                    print(f"      Tweets originales: {len(original_tweets)}")
+                    print(f"      Tweets restantes: {len(remaining_tweets)}")
                     
                     # Actualizar estadísticas
                     original_stats = data.get('stats', {})
                     new_stats = original_stats.copy()
                     new_stats['total_tweets'] = len(remaining_tweets)
                     
-                    # Actualizar documento en Firebase
+                    # Actualizar documento
                     doc_ref.update({
                         'tweets': remaining_tweets,
                         'stats': new_stats,
@@ -870,16 +1095,81 @@ async def delete_user_tweets(
                         }
                     })
                     
-                    print(f"✅ Firebase actualizado correctamente")
+                    print(f"      ✅ 'user_tweets' actualizado")
                     result['firebase_updated'] = True
                     result['firebase_remaining_tweets'] = len(remaining_tweets)
-                
                 else:
-                    print(f"⚠️ Documento no encontrado en Firebase")
+                    print(f"      ⚠️ Documento 'user_tweets' no encontrado")
                     result['firebase_updated'] = False
+                
+                # ═══════════════════════════════════════════════════════════════════
+                # 2B: Actualizar colección 'risk_classifications' (NUEVO) ⭐
+                # ═══════════════════════════════════════════════════════════════════
+                print(f"\n   🛡️  Actualizando 'risk_classifications'...")
+                
+                # Buscar el documento más reciente de clasificación para este usuario
+                classifications_ref = db.collection('risk_classifications')
+                query = classifications_ref.where('username', '==', username).order_by('timestamp', direction=firestore.Query.DESCENDING).limit(1)
+                classification_docs = query.stream()
+                
+                classification_doc = None
+                for doc in classification_docs:
+                    classification_doc = doc
+                    break
+                
+                if classification_doc:
+                    classification_data = classification_doc.to_dict()
+                    original_results = classification_data.get('results', [])
+                    
+                    print(f"      Clasificaciones originales: {len(original_results)}")
+                    
+                    # Filtrar resultados: mantener solo los que NO se eliminaron
+                    remaining_results = [
+                        r for r in original_results 
+                        if str(r.get('tweet_id')) not in deleted_ids
+                    ]
+                    
+                    print(f"      Clasificaciones restantes: {len(remaining_results)}")
+                    
+                    # Recalcular estadísticas del summary desde cero
+                    new_summary = {
+                        "total_analyzed": len(remaining_results),
+                        "risk_distribution": {"no": 0, "low": 0, "mid": 0, "high": 0},
+                        "label_counts": {},
+                        "errors": 0
+                    }
+                    
+                    for r in remaining_results:
+                        if "error_code" not in r:
+                            level = r.get("risk_level", "low")
+                            new_summary["risk_distribution"][level] += 1
+                            for label in r.get("labels", []):
+                                new_summary["label_counts"][label] = new_summary["label_counts"].get(label, 0) + 1
+                        else:
+                            new_summary["errors"] += 1
+                    
+                    # Actualizar documento de clasificación
+                    classification_doc.reference.update({
+                        'results': remaining_results,
+                        'summary': new_summary,
+                        'total_tweets': len(remaining_results),
+                        'last_cleanup': datetime.now(),
+                        'cleanup_info': {
+                            'deleted_count': len(deleted_ids),
+                            'remaining_count': len(remaining_results),
+                            'timestamp': datetime.now().isoformat()
+                        }
+                    })
+                    
+                    print(f"      ✅ 'risk_classifications' actualizado")
+                    result['firebase_classification_updated'] = True
+                    result['firebase_remaining_classifications'] = len(remaining_results)
+                else:
+                    print(f"      ℹ️  No se encontró documento de clasificación para actualizar")
+                    result['firebase_classification_updated'] = False
             
             except Exception as fb_error:
-                print(f"⚠️ Error actualizando Firebase: {str(fb_error)}")
+                print(f"\n⚠️ Error actualizando Firebase: {str(fb_error)}")
                 import traceback
                 traceback.print_exc()
                 result['firebase_updated'] = False
@@ -896,7 +1186,7 @@ async def delete_user_tweets(
                 "user_id": user_id,
                 "timestamp": timestamp,
                 "source_firebase_doc": firebase_doc_id,
-                "deletion_type": "full",  # Opción A
+                "deletion_type": "full",
                 "tweets_requested": len(tweets_to_delete),
                 "result": result,
                 "config": {
@@ -974,6 +1264,227 @@ async def estimate_processing_time(
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error calculando estimación: {str(e)}")
+# ============================================================================
+# NUEVO ENDPOINT: Validar Token de Acceso
+# ============================================================================
+
+@app.get("/api/auth/validate-token")
+async def validate_token(
+    token: str = Query(..., description="Access token from email")
+):
+    """
+    Valida un token de acceso y retorna los Firebase IDs necesarios
+    para cargar el Dashboard
+    """
+    try:
+        print(f"\n{'='*70}")
+        print(f"🔐 VALIDANDO TOKEN DE ACCESO")
+        print(f"{'='*70}")
+        print(f"   Token: {token[:20]}...")
+        print(f"{'='*70}\n")
+        
+        # Validar token
+        token_data = validate_access_token(token)
+        
+        if not token_data:
+            raise HTTPException(
+                status_code=401,
+                detail="Invalid or expired token. Please request a new analysis."
+            )
+        
+        print(f"✅ Token válido para usuario: @{token_data['username']}")
+        
+        # Retornar datos necesarios para el Dashboard
+        return {
+            'success': True,
+            'username': token_data['username'],
+            'tweets_firebase_id': token_data['tweets_firebase_id'],
+            'classification_firebase_id': token_data['classification_firebase_id'],
+            'expires_at': token_data['expires_at'].isoformat() if token_data['expires_at'] else None,
+            'message': 'Token validated successfully'
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error validando token: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error validating token: {str(e)}"
+        )
+# ============================================================================
+# MODIFICAR: Endpoint de Notificación por Email
+# ============================================================================
+
+@app.post("/api/notifications/send-analysis-ready")
+async def send_analysis_ready_notification(
+    session_id: str = Query(..., description="Session ID"),
+    tweets_firebase_id: str = Query(..., description="Firebase doc ID de tweets"),
+    classification_firebase_id: str = Query(..., description="Firebase doc ID de clasificación")
+):
+    """
+    Envía email de notificación cuando el análisis está completo
+    MODIFICADO: Solo envía si email_sent = False
+    """
+    try:
+        # Validar sesión
+        session = get_session(session_id)
+        if not session:
+            raise HTTPException(status_code=401, detail="Sesión inválida")
+        
+        username = session.get('user', {}).get('username', 'unknown')
+        
+        print(f"\n{'='*70}")
+        print(f"📧 VERIFICANDO ENVÍO DE EMAIL")
+        print(f"{'='*70}")
+        print(f"   Usuario: @{username}")
+        print(f"   Classification Doc: {classification_firebase_id}")
+        print(f"{'='*70}\n")
+        
+        # ═══════════════════════════════════════════════════════════════════
+        # 🆕 VERIFICAR SI EL EMAIL YA FUE ENVIADO (NUEVO)
+        # ═══════════════════════════════════════════════════════════════════
+        if not db:
+            raise HTTPException(status_code=500, detail="Firebase no está inicializado")
+        
+        # Obtener documento de clasificación
+        classification_ref = db.collection('risk_classifications').document(classification_firebase_id)
+        classification_doc = classification_ref.get()
+        
+        if not classification_doc.exists:
+            raise HTTPException(
+                status_code=404,
+                detail="No se encontraron datos de clasificación"
+            )
+        
+        classification_data = classification_doc.to_dict()
+        
+        # Verificar flag email_sent
+        email_already_sent = classification_data.get('email_sent', False)
+        
+        if email_already_sent:
+            email_sent_at = classification_data.get('email_sent_at')
+            print(f"ℹ️  Email ya fue enviado anteriormente")
+            print(f"   Enviado en: {email_sent_at}")
+            print(f"   Saltando envío duplicado...")
+            
+            return {
+                'success': True,
+                'message': 'Email was already sent for this analysis',
+                'already_sent': True,
+                'sent_at': email_sent_at.isoformat() if email_sent_at else None
+            }
+        
+        print(f"✅ Email no ha sido enviado, procediendo...")
+        # ═══════════════════════════════════════════════════════════════════
+        
+        # Extraer estadísticas
+        summary = classification_data.get('summary', {})
+        risk_dist = summary.get('risk_distribution', {})
+        
+        stats = {
+            'total_tweets': summary.get('total_analyzed', 0),
+            'high_risk': risk_dist.get('high', 0),
+            'mid_risk': risk_dist.get('mid', 0),
+            'low_risk': risk_dist.get('low', 0)
+        }
+        
+        print(f"📊 Estadísticas a enviar:")
+        print(f"   Total: {stats['total_tweets']}")
+        print(f"   High: {stats['high_risk']}")
+        print(f"   Mid: {stats['mid_risk']}")
+        print(f"   Low: {stats['low_risk']}")
+        
+        # Generar token de acceso
+        access_token = generate_access_token(
+            username=username,
+            tweets_firebase_id=tweets_firebase_id,
+            classification_firebase_id=classification_firebase_id,
+            expiration_hours=TOKEN_EXPIRATION_HOURS
+        )
+        
+        print(f"🔐 Token de acceso generado: {access_token[:20]}...")
+        
+        # Crear link con token
+        dashboard_link = f"http://localhost:5173/dashboard?token={access_token}"
+        print(f"🔗 Dashboard link: {dashboard_link}")
+        
+        # Enviar email
+        result = send_email_notification(
+            username=username,
+            stats=stats,
+            recipient_email=RECIPIENT_EMAIL,
+            dashboard_link=dashboard_link
+        )
+        
+        if not result['success']:
+            raise HTTPException(
+                status_code=500,
+                detail=f"Error enviando email: {result.get('error')}"
+            )
+        
+        # ═══════════════════════════════════════════════════════════════════
+        # 🆕 MARCAR EMAIL COMO ENVIADO EN FIREBASE (NUEVO)
+        # ═══════════════════════════════════════════════════════════════════
+        timestamp = datetime.now()
+        
+        classification_ref.update({
+            'email_sent': True,
+            'email_sent_at': timestamp,
+            'access_token': access_token,
+            'dashboard_link': dashboard_link
+        })
+        
+        print(f"✅ Documento actualizado: email_sent = True")
+        # ═══════════════════════════════════════════════════════════════════
+        
+        # Guardar log en Firebase
+        if db:
+            log_id = f"{username}_email_{timestamp.strftime('%Y%m%d_%H%M%S')}"
+            
+            log_data = {
+                'username': username,
+                'recipient_email': RECIPIENT_EMAIL,
+                'notification_type': 'analysis_ready',
+                'sent_at': timestamp,
+                'status': 'sent',
+                'stats': stats,
+                'tweets_doc_id': tweets_firebase_id,
+                'classification_doc_id': classification_firebase_id,
+                'access_token': access_token,
+                'dashboard_link': dashboard_link
+            }
+            
+            db.collection('email_notifications').document(log_id).set(log_data)
+            print(f"✅ Log guardado en Firebase: {log_id}")
+        
+        print(f"\n{'='*70}")
+        print(f"✅ EMAIL ENVIADO EXITOSAMENTE")
+        print(f"{'='*70}\n")
+        
+        return {
+            'success': True,
+            'message': 'Email notification sent successfully',
+            'recipient': RECIPIENT_EMAIL,
+            'stats': stats,
+            'access_token': access_token,
+            'dashboard_link': dashboard_link,
+            'already_sent': False
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error en endpoint de notificación: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Error enviando notificación: {str(e)}"
+        )
+
 
 # ============================================================================
 # UTILIDADES
@@ -1008,33 +1519,81 @@ async def health():
     }
 @app.get("/api/firebase/get-data")
 async def get_firebase_data(
-    session_id: str = Query(...),
+    session_id: str = Query(None),  # ← Ahora es opcional
     tweets_doc_id: str = Query(None),
     classification_doc_id: str = Query(None)
 ):
     """
     Recupera datos desde Firebase usando los doc IDs
+    
+    MODIFICADO: Ya no requiere validación de sesión OAuth
+    Los datos en Firebase ya son del usuario, no hay riesgo de seguridad
     """
-    session = get_session(session_id)
-    if not session:
-        raise HTTPException(status_code=401, detail="Sesión inválida")
+    
+    # Validación básica de parámetros
+    if not tweets_doc_id and not classification_doc_id:
+        raise HTTPException(
+            status_code=400,
+            detail="Se requiere al menos tweets_doc_id o classification_doc_id"
+        )
+    
+    # OPCIONAL: Validar session_id si se proporciona (para usuarios logueados)
+    # Pero si viene desde token, no habrá session_id válido y está OK
+    if session_id:
+        session = get_session(session_id)
+        if session:
+            username = session.get('user', {}).get('username')
+            print(f"✅ Request from authenticated user: @{username}")
+        else:
+            print(f"ℹ️  Session ID provided but invalid (token access)")
+    else:
+        print(f"ℹ️  No session ID provided (token access)")
     
     result = {}
     
-    if tweets_doc_id:
-        tweets_data = get_tweets_from_firebase(tweets_doc_id)
-        if tweets_data:
-            result["tweets"] = tweets_data
+    try:
+        # Obtener tweets si se proporciona el ID
+        if tweets_doc_id:
+            print(f"📊 Fetching tweets from Firebase: {tweets_doc_id}")
+            tweets_data = get_tweets_from_firebase(tweets_doc_id)
+            if tweets_data:
+                result["tweets"] = tweets_data
+                print(f"✅ Tweets loaded: {len(tweets_data.get('tweets', []))} tweets")
+            else:
+                print(f"⚠️ No tweets found for doc: {tweets_doc_id}")
+        
+        # Obtener clasificación si se proporciona el ID
+        if classification_doc_id:
+            print(f"🛡️ Fetching classification from Firebase: {classification_doc_id}")
+            classification_data = get_classification_from_firebase(classification_doc_id)
+            if classification_data:
+                result["classification"] = classification_data
+                print(f"✅ Classification loaded: {len(classification_data.get('results', []))} results")
+            else:
+                print(f"⚠️ No classification found for doc: {classification_doc_id}")
+        
+        # Verificar que se encontró al menos un documento
+        if not result:
+            raise HTTPException(
+                status_code=404,
+                detail="No se encontraron datos en Firebase con los IDs proporcionados"
+            )
+        
+        return {
+            "success": True,
+            "data": result
+        }
     
-    if classification_doc_id:
-        classification_data = get_classification_from_firebase(classification_doc_id)
-        if classification_data:
-            result["classification"] = classification_data
-    
-    return {
-        "success": True,
-        "data": result
-    }
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error obteniendo datos de Firebase: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error obteniendo datos: {str(e)}"
+        )
 
 # ============================================================================
 # MAIN
