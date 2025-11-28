@@ -52,6 +52,9 @@ GMAIL_USER = os.getenv('GMAIL_USER')
 GMAIL_APP_PASSWORD = os.getenv('GMAIL_APP_PASSWORD')
 RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL')
 FIREBASE_CREDENTIALS = os.getenv('FIREBASE_CREDENTIALS')
+FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:5173')
+BACKEND_URL = os.getenv('BACKEND_URL', 'http://localhost:8080')
+
 print(f"GMAIL_USER cargado: {GMAIL_USER}")
 print(f"RECIPIENT_EMAIL cargado: {RECIPIENT_EMAIL}")
 print(f"GMAIL_APP_PASSWORD cargado: {'Sí' if GMAIL_APP_PASSWORD else 'No'}")
@@ -235,8 +238,8 @@ Background Checker
 oauth_creds = get_oauth2_credentials()
 CLIENT_ID = oauth_creds['client_id']
 CLIENT_SECRET = oauth_creds['client_secret']
-REDIRECT_URI = oauth_creds['redirect_uri']
-FRONTEND_CALLBACK_URL = "http://localhost:5173/callback"
+REDIRECT_URI = f"{BACKEND_URL}/api/auth/callback"
+FRONTEND_CALLBACK_URL = f"{FRONTEND_URL}/callback"
 print(f"REDIRECT_URI cargado: {REDIRECT_URI}")
 print(f"FRONTEND_CALLBACK_URL: {FRONTEND_CALLBACK_URL}")
 
