@@ -127,7 +127,7 @@ def send_email_notification(
     username: str,
     stats: Dict[str, Any],
     recipient_email: str = RECIPIENT_EMAIL,
-    dashboard_link: str = "http://localhost:5173/dashboard"  # ← NUEVO parámetro
+    dashboard_link: str = f"{FRONTEND_URL}/dashboard" # ← NUEVO parámetro
 ) -> Dict[str, Any]:
     """
     Envía notificación por email cuando el análisis está listo
@@ -1421,7 +1421,7 @@ async def send_analysis_ready_notification(
         # CREAR LINK CON FIREBASE IDs (SIN TOKENS)
         # ═══════════════════════════════════════════════════════════════════
         dashboard_link = (
-            f"http://localhost:5173/dashboard?"
+            f"{FRONTEND_URL}/dashboard?"
             f"tweets_id={tweets_firebase_id}&"
             f"classification_id={classification_firebase_id}&"
             f"username={username}"
