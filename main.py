@@ -26,6 +26,7 @@ from email.mime.multipart import MIMEMultipart
 import firebase_admin
 from firebase_admin import credentials, firestore
 import secrets
+from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse, Response
 from dotenv import load_dotenv
 import os
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -255,10 +256,14 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://frontend-tff.vercel.app",
+        "http://localhost:5173"  # Para desarrollo local
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"]
 )
 
 # ============================================================================
@@ -1412,6 +1417,19 @@ async def root():
             "docs": "/docs"
         }
     }
+@app.options("/{rest_of_path:path}")
+async def preflight_handler(rest_of_path: str):
+    """Handle CORS preflight requests"""
+    return Response(
+        content="",
+        status_code=200,
+        headers={
+            "Access-Control-Allow-Origin": "https://frontend-tff.vercel.app",
+            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Allow-Credentials": "true"
+        }
+    )
 
 @app.get("/health")
 async def health():
