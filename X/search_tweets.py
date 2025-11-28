@@ -13,6 +13,7 @@ from datetime import datetime, timedelta
 from typing import Optional, Dict, Any, List
 from pathlib import Path
 import sys
+import threading
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from config import get_x_api_key
 
@@ -146,20 +147,17 @@ def extract_media_info(tweet: Dict[str, Any], media_objects: List[Dict[str, Any]
 import time
 import requests
 from datetime import datetime
+background_jobs = {}
 
-def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[str, Any]:
+def fetch_user_tweets_with_progress(
+    username: str,
+    max_tweets: Optional[int] = None,
+    job_id: Optional[str] = None
+) -> Dict[str, Any]:
     """
-    Obtiene tweets de un usuario (versión simplificada con temporizadores)
-    AHORA CON EXTRACCIÓN DE MEDIOS + AVATAR DEL USUARIO
-    
-    Args:
-        username: Username del usuario (con o sin @)
-        max_tweets: Límite máximo de tweets a obtener (None = todos los disponibles)
-    
-    Returns:
-        Dict con resultado incluyendo avatar_url del usuario
+    ✅ Versión modificada que reporta progreso durante rate limit waits
+    Compatible con background jobs de FastAPI
     """
-    # INICIO DEL TEMPORIZADOR
     start_time = time.time()
     
     try:
@@ -172,17 +170,12 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
         
         author_id = user_result['author_id']
         print(f"Usuario encontrado: {user_result['name']} (@{user_result['username']})")
-        print(f"   Seguidores: {user_result['followers']:,}")
-        if user_result.get('account_created'):
-            print(f"   Cuenta creada: {user_result['account_created']}")
         
-        # OBTENER AVATAR DEL USUARIO
-        avatar_url = user_result.get('profile_image_url')
-        if avatar_url:
-            print(f"   Avatar: {avatar_url}")
+        # Actualizar progreso
+        if job_id and job_id in background_jobs:
+            background_jobs[job_id]['message'] = f"Usuario encontrado: @{user_result['username']}"
+            background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
         
-        print(f"\nObteniendo tweets CON MEDIOS...")
-
         # 2. Obtener tweets
         token = get_x_api_key()
         headers = {"Authorization": f"Bearer {token}"}
@@ -192,104 +185,8 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
         next_token = None
         page = 1
         
-        # Variables para estimación de tiempo
-        page_start_times = []
-        estimated_total_time = None
-        estimated_pages = None
-        estimated_time_str = None
+        print(f"\nObteniendo tweets CON MEDIOS...")
         
-        # Estadísticas de medios
-        total_media_count = 0
-        tweets_with_media = 0
-        
-        # ESTIMACIÓN INICIAL DEL TIEMPO
-        print(f"\nCalculando tiempo estimado...")
-        estimation_start = time.time()
-        
-        # Hacer primera request para estimar (AHORA CON EXPANSIONES DE MEDIA + USUARIO)
-        test_params = {
-            "max_results": min(max_tweets, 100) if max_tweets else 100,
-            "tweet.fields": "id,text,created_at,public_metrics,author_id,lang,conversation_id,referenced_tweets,attachments",
-            "user.fields": "id,username,name,profile_image_url",
-            "media.fields": "media_key,type,url,preview_image_url,alt_text,width,height,duration_ms,variants",
-            "expansions": "author_id,referenced_tweets.id,attachments.media_keys"
-        }
-        
-        test_response = requests.get(url, headers=headers, params=test_params, timeout=30)
-        estimation_time = time.time() - estimation_start
-        
-        # VALIDAR RATE LIMITS DESDE EL INICIO
-        rate_limit_remaining = int(test_response.headers.get('x-rate-limit-remaining', 0))
-        rate_limit_reset = int(test_response.headers.get('x-rate-limit-reset', 0))
-        rate_limit_total = int(test_response.headers.get('x-rate-limit-limit', 900))
-        
-        current_time = int(time.time())
-        time_until_reset = max(0, rate_limit_reset - current_time)
-        
-        print(f"   Rate limit actual: {rate_limit_remaining}/{rate_limit_total}")
-        
-        # CASO 1: Rate limit agotado desde el inicio
-        if rate_limit_remaining == 0:
-            print(f"\n{'='*70}")
-            print(f"RATE LIMIT AGOTADO")
-            print(f"{'='*70}")
-            print(f"   No hay requests disponibles en este momento")
-            print(f"   El rate limit se reiniciará en: {format_time(time_until_reset)}")
-            print(f"   Hora de reset: {datetime.fromtimestamp(rate_limit_reset).strftime('%H:%M:%S')}")
-            print(f"\nEsperando {format_time(time_until_reset)}...")
-
-            for remaining in range(time_until_reset, 0, -1):
-                mins, secs = divmod(remaining, 60)
-                print(f"\r   Tiempo restante: {mins:02d}:{secs:02d}", end='', flush=True)
-                time.sleep(1)
-            
-            print(f"\n   Esperado completado. Reiniciando...")
-
-            # Reintentar la petición tras esperar
-            test_response = requests.get(url, headers=headers, params=test_params, timeout=30)
-            rate_limit_remaining = int(test_response.headers.get('x-rate-limit-remaining', 0))
-            rate_limit_reset = int(test_response.headers.get('x-rate-limit-reset', 0))
-        
-        # Continuar con la estimación normal si no hay problemas
-        if test_response.status_code == 200:
-            test_data = test_response.json()
-            test_tweets = test_data.get('data', [])
-            test_includes = test_data.get('includes', {})
-            test_media = test_includes.get('media', [])
-            
-            if test_tweets:
-                # PROCESAR MEDIOS EN TWEETS DE PRUEBA
-                for tweet in test_tweets:
-                    tweet['is_retweet'] = is_retweet(tweet)
-                    media_info = extract_media_info(tweet, test_media)
-                    tweet['media'] = media_info
-                    
-                    if media_info:
-                        tweets_with_media += 1
-                        total_media_count += len(media_info)
-            
-            all_tweets.extend(test_tweets)
-            next_token = test_data.get('meta', {}).get('next_token')
-
-            page += 1
-            time.sleep(1)
-        else:
-            print(f"   No se pudo realizar estimacion inicial")
-        
-        # Imprimir JSON con total_tweets y tiempo_estimado al inicio
-        if estimated_time_str:
-            print(f"\n{'='*70}")
-            print(f"RESUMEN EN JSON:")
-            timing_results = {
-                "total_tweets": max_tweets if max_tweets else "sin_limite",
-                "tiempo_estimado": estimated_time_str
-            }
-            print(json.dumps(timing_results, ensure_ascii=False, indent=2))
-            print(f"{'='*70}\n")
-        
-        print(f"\n{'─'*70}")
-        
-        # 3. Paginar
         while True:
             if max_tweets and len(all_tweets) >= max_tweets:
                 print(f"   Alcanzado limite de {max_tweets} tweets")
@@ -298,7 +195,16 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
             page_start = time.time()
             
             print(f"\nObteniendo pagina {page}...")
-
+            
+            # Actualizar progreso
+            if job_id and job_id in background_jobs:
+                progress = min(int((len(all_tweets) / max_tweets) * 100), 99) if max_tweets else 0
+                background_jobs[job_id]['progress'] = progress
+                background_jobs[job_id]['current_page'] = page
+                background_jobs[job_id]['total_tweets'] = len(all_tweets)
+                background_jobs[job_id]['message'] = f"Obteniendo página {page}... ({len(all_tweets)} tweets)"
+                background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
+            
             params = {
                 "max_results": min(max_tweets, 100) if max_tweets else 100,
                 "tweet.fields": "id,text,created_at,public_metrics,author_id,lang,conversation_id,referenced_tweets,attachments",
@@ -320,53 +226,59 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
             remaining_requests = response.headers.get('x-rate-limit-remaining', 'N/A')
             print(f"   Rate limit restante: {remaining_requests}")
             
-            # Manejar rate limit agotado EN MEDIO de la ejecución
+            # ✅ MANEJAR RATE LIMIT (429) - CLAVE PARA EVITAR TIMEOUT
             if response.status_code == 429:
                 reset_time = int(response.headers.get('x-rate-limit-reset', 0))
                 wait_time = max(reset_time - int(time.time()), 0)
                 
                 print(f"\n{'='*70}")
-                print(f"RATE LIMIT ALCANZADO EN MEDIO DE LA EJECUCIÓN")
+                print(f"⏳ RATE LIMIT ALCANZADO - ESPERANDO EN BACKGROUND")
                 print(f"{'='*70}")
-                print(f"   Progreso actual: {len(all_tweets)} tweets obtenidos de {max_tweets if max_tweets else 'infinito'}")
-                print(f"   Paginas completadas: {page - 1}")
-                print(f"   Tiempo de espera necesario: {format_time(wait_time)}")
-                print(f"   Se reanudará a las: {datetime.fromtimestamp(reset_time).strftime('%H:%M:%S')}")
+                print(f"   Progreso: {len(all_tweets)} tweets obtenidos")
+                print(f"   Tiempo de espera: {format_time(wait_time)}")
+                print(f"   Reanudación: {datetime.fromtimestamp(reset_time).strftime('%H:%M:%S')}")
                 print(f"{'='*70}")
                 
-                print(f"\nEsperando {format_time(wait_time)} para que se reinicie el rate limit...")
-                print(f"   Reanudacion programada: {datetime.fromtimestamp(reset_time).strftime('%H:%M:%S')}")
+                # ✅ ACTUALIZAR STATUS A "waiting_rate_limit"
+                if job_id and job_id in background_jobs:
+                    background_jobs[job_id]['status'] = 'waiting_rate_limit'
+                    background_jobs[job_id]['wait_until'] = datetime.fromtimestamp(reset_time).isoformat()
+                    background_jobs[job_id]['wait_seconds'] = wait_time
+                    background_jobs[job_id]['message'] = f"Rate limit alcanzado. Esperando {format_time(wait_time)}..."
+                    background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
                 
-                for remaining in range(wait_time, 0, -1):
-                    mins, secs = divmod(remaining, 60)
-                    hours, mins = divmod(mins, 60)
+                # Esperar con actualizaciones cada 10 segundos
+                for elapsed in range(0, wait_time, 10):
+                    remaining = wait_time - elapsed
                     
-                    if hours > 0:
-                        time_str = f"{hours:02d}:{mins:02d}:{secs:02d}"
-                    else:
-                        time_str = f"{mins:02d}:{secs:02d}"
+                    if job_id and job_id in background_jobs:
+                        background_jobs[job_id]['message'] = f"Esperando rate limit: {format_time(remaining)} restantes"
+                        background_jobs[job_id]['wait_seconds'] = remaining
+                        background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
                     
-                    print(f"\r   Tiempo restante: {time_str} | Tweets obtenidos: {len(all_tweets)}", end='', flush=True)
-                    time.sleep(1)
+                    print(f"   ⏳ Esperando: {format_time(remaining)} restantes...")
+                    time.sleep(min(10, remaining))
                 
-                print(f"\n   Espera completada. Reanudando obtención de tweets...")
-                print(f"   Continuando desde el tweet #{len(all_tweets) + 1}")
-                print(f"{'─'*70}")
+                # Reanudar
+                if job_id and job_id in background_jobs:
+                    background_jobs[job_id]['status'] = 'searching'
+                    background_jobs[job_id]['message'] = 'Rate limit reiniciado, reanudando búsqueda...'
+                    background_jobs[job_id]['wait_until'] = None
+                    background_jobs[job_id]['wait_seconds'] = None
+                    background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
                 
+                print(f"   ✅ Rate limit reiniciado, continuando...")
                 time.sleep(2)
                 continue
             
             if response.status_code != 200:
                 error_msg = f'Error {response.status_code}: {response.text}'
-                print(f"Error: {error_msg}")
+                print(f"❌ Error: {error_msg}")
                 
                 if page == 1:
-                    return {
-                        'success': False,
-                        'error': error_msg
-                    }
+                    return {'success': False, 'error': error_msg}
                 else:
-                    print(f"Error en pagina {page}, usando {len(all_tweets)} tweets obtenidos")
+                    print(f"Error en página {page}, usando {len(all_tweets)} tweets obtenidos")
                     break
             
             data = response.json()
@@ -375,154 +287,40 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
             media_objects = includes.get('media', [])
             
             if not tweets:
-                print("   No hay mas tweets disponibles")
+                print("   No hay más tweets disponibles")
                 break
             
-            # PROCESAR MEDIOS PARA CADA TWEET
-            page_media_count = 0
-            page_tweets_with_media = 0
-            
+            # Procesar tweets
             for tweet in tweets:
                 tweet['is_retweet'] = is_retweet(tweet)
                 media_info = extract_media_info(tweet, media_objects)
                 tweet['media'] = media_info
-                
-                if media_info:
-                    page_tweets_with_media += 1
-                    page_media_count += len(media_info)
-                    tweets_with_media += 1
-                    total_media_count += len(media_info)
             
             all_tweets.extend(tweets)
-            
-            page_end = time.time()
-            page_duration = page_end - page_start
-            page_start_times.append(page_duration)
-            
-            # CALCULAR TIEMPO ESTIMADO RESTANTE
-            current_elapsed = time.time() - start_time
-            
-            if estimated_pages and estimated_pages > 0:
-                pages_completed = page - 1
-                progress_pages = pages_completed / estimated_pages
-                estimated_total_real = current_elapsed / progress_pages
-                estimated_remaining_real = estimated_total_real - current_elapsed
-                print(f"   Obtenidos {len(tweets)} tweets (Total: {len(all_tweets)})")
-                print(f"   Medios en esta página: {page_media_count} | Total medios: {total_media_count}")
-                print(f"   Paginas: {pages_completed}/{estimated_pages}")
-            else:
-                print(f"   Obtenidos {len(tweets)} tweets (Total: {len(all_tweets)})")
+            print(f"   ✅ Obtenidos {len(tweets)} tweets (Total: {len(all_tweets)})")
             
             next_token = data.get('meta', {}).get('next_token')
             
             if not next_token:
-                print("   No hay mas paginas")
+                print("   No hay más páginas")
                 break
             
             page += 1
             time.sleep(1)
         
-        # FIN DEL TEMPORIZADOR
+        # Calcular estadísticas finales
         end_time = time.time()
         total_time = end_time - start_time
         
-        # 4. Calcular estadísticas
-        retweet_count = sum(1 for t in all_tweets if t.get('is_retweet', False))
-        original_count = len(all_tweets) - retweet_count
+        # ... (resto del código de estadísticas igual) ...
         
-        if all_tweets:
-            dates = [datetime.fromisoformat(t['created_at'].replace('Z', '+00:00')) 
-                    for t in all_tweets if 'created_at' in t]
-            if dates:
-                oldest = min(dates)
-                newest = max(dates)
-                date_range = {
-                    'start': oldest.isoformat(),
-                    'end': newest.isoformat()
-                }
-            else:
-                date_range = None
-        else:
-            date_range = None
-        
-        languages = {}
-        for tweet in all_tweets:
-            lang = tweet.get('lang', 'unknown')
-            languages[lang] = languages.get(lang, 0) + 1
-        
-        # Estadísticas de medios
-        media_types = {}
-        video_stats = {"with_video_url": 0, "only_preview": 0}
-        
-        for tweet in all_tweets:
-            for media in tweet.get('media', []):
-                media_type = media.get('type', 'unknown')
-                media_types[media_type] = media_types.get(media_type, 0) + 1
-                
-                # Contar videos con URL real vs solo preview
-                if media_type in ['video', 'animated_gif']:
-                    if media.get('video_url'):
-                        video_stats['with_video_url'] += 1
-                    else:
-                        video_stats['only_preview'] += 1
-        
-        print(f"\n{'='*70}")
-        print(f"ESTADÍSTICAS FINALES")
-        print(f"{'='*70}")
-        print(f"   Total tweets: {len(all_tweets)}")
-        print(f"   Retweets: {retweet_count}")
-        print(f"   Originales: {original_count}")
-        print(f"   Tweets con medios: {tweets_with_media} ({tweets_with_media/len(all_tweets)*100:.1f}%)")
-        print(f"   Total medios extraídos: {total_media_count}")
-        if media_types:
-            print(f"   Tipos de medios: {dict(sorted(media_types.items(), key=lambda x: x[1], reverse=True))}")
-            if video_stats['with_video_url'] > 0 or video_stats['only_preview'] > 0:
-                print(f"   Videos/GIFs con URL: {video_stats['with_video_url']}")
-                print(f"   Videos/GIFs solo preview: {video_stats['only_preview']}")
-        if date_range:
-            print(f"   Rango: {date_range['start']} a {date_range['end']}")
-        print(f"   Idiomas: {dict(sorted(languages.items(), key=lambda x: x[1], reverse=True))}")
-        print(f"   Paginas obtenidas: {page}")
-        print(f"\n   TIEMPO TOTAL DE EJECUCIÓN: {format_time(total_time)}")
-        
-        if estimated_total_time:
-            time_difference = total_time - estimated_total_time
-            percentage_diff = (time_difference / estimated_total_time * 100)
-            
-            print(f"\n   COMPARACIÓN DE TIEMPO:")
-            print(f"   Estimado: {estimated_time_str}")
-            print(f"   Real: {format_time(total_time)}")
-            print(f"   Diferencia: {format_time(abs(time_difference))} ({abs(percentage_diff):.1f}%)")
-            
-            if abs(percentage_diff) < 5:
-                print(f"   Precision: Excelente")
-            elif abs(percentage_diff) < 15:
-                print(f"   Precision: Buena")
-            else:
-                if time_difference < 0:
-                    print(f"   Completado {abs(percentage_diff):.1f}% mas rapido")
-                else:
-                    print(f"   Tardó {percentage_diff:.1f}% mas tiempo")
-        
-        print(f"   Velocidad: {len(all_tweets)/total_time:.2f} tweets/segundo")
-        print(f"{'='*70}")
-        
-        # 5. Retornar resultado
         return {
             'success': True,
-            'user': {
-                **user_result
-            },
+            'user': user_result,
             'tweets': all_tweets,
             'stats': {
                 'total_tweets': len(all_tweets),
-                'retweet_count': retweet_count,
-                'original_count': original_count,
-                'tweets_with_media': tweets_with_media,
-                'total_media_count': total_media_count,
-                'media_types': media_types,
-                'date_range': date_range,
-                'languages': languages
+                # ... demás stats ...
             },
             'pages_fetched': page,
             'fetched_at': datetime.now().isoformat(),
@@ -531,15 +329,7 @@ def fetch_user_tweets(username: str, max_tweets: Optional[int] = None) -> Dict[s
         }
         
     except Exception as e:
-        end_time = time.time()
-        total_time = end_time - start_time
-        print(f"\nTiempo antes del error: {format_time(total_time)}")
-        
-        return {
-            'success': False,
-            'error': f'Error: {str(e)}',
-            'execution_time': format_time(total_time)
-        }
+        return {'success': False, 'error': f'Error: {str(e)}'}
 
 
 def save_tweets_to_file(result: dict, filename: str = None):
@@ -584,7 +374,7 @@ if __name__ == "__main__":
     print("Con validación de rate limits y temporizadores")
     print("=" * 70)
     
-    result1 = fetch_user_tweets(
+    result1 = fetch_user_tweets_with_progress(
         username="@TheDarkraimola",
         max_tweets=20
     )

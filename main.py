@@ -29,6 +29,7 @@ import secrets
 from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse, Response
 from dotenv import load_dotenv
 import os
+import threading
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 # Importar solo las funciones helper de X_login (NO initiate_login_with_scope_testing)
@@ -43,7 +44,7 @@ from X.X_login import (
 )
 
 from config import get_oauth2_credentials
-from X.search_tweets import fetch_user_tweets
+from X.search_tweets import fetch_user_tweets_with_progress
 from GPT.risk_classifier_only_text import classify_risk_text_only
 from X.deleate_tweets_rts import delete_tweets_batch
 from estimacion_de_tiempo import quick_estimate_all, format_time
@@ -604,76 +605,140 @@ async def get_current_user(session_id: str = Query(..., description="Session ID 
 # API 2: BÚSQUEDA DE TWEETS (con Firebase)
 # ============================================================================
 
+
 @app.post("/api/tweets/search")
 async def search_my_tweets(
     request: SearchRequest,
+    background_tasks: BackgroundTasks,
     session_id: str = Query(..., description="Session ID")
 ):
     """
-    Busca tweets del usuario autenticado y los guarda en Firebase
+    ✅ VERSIÓN ASÍNCRONA: Inicia búsqueda en background y retorna job_id inmediatamente
+    Esto evita el timeout de 60s de Vercel
     """
-    # Generar cache key para prevenir requests duplicadas
-    cache_key = f"search_{session_id}_{request.max_tweets}"
+    # Validar sesión
+    session = get_session(session_id)
+    if not session or not session.get('user'):
+        raise HTTPException(status_code=401, detail="Sesión inválida")
     
-    # Si ya hay una request en progreso, esperar o retornar error
-    if cache_key in request_cache:
-        cache_entry = request_cache[cache_key]
-        if time.time() - cache_entry['timestamp'] < 5:  # 5 segundos
-            print(f"⚠️ Request duplicada detectada, ignorando...")
-            raise HTTPException(
-                status_code=429, 
-                detail="Request en progreso, espera unos segundos"
-            )
+    username = session['user']['username']
     
-    # Marcar request como en progreso
-    request_cache[cache_key] = {'timestamp': time.time()}
+    # Crear job ID único
+    job_id = str(uuid.uuid4())
     
+    print(f"\n{'='*70}")
+    print(f"🚀 CREANDO JOB ASÍNCRONO")
+    print(f"{'='*70}")
+    print(f"   Job ID: {job_id}")
+    print(f"   Usuario: @{username}")
+    print(f"   Max tweets: {request.max_tweets or 'Todos'}")
+    print(f"   Session ID: {session_id[:30]}...")
+    print(f"{'='*70}\n")
+    
+    # Inicializar job status
+    background_jobs[job_id] = {
+        'status': 'pending',
+        'username': username,
+        'progress': 0,
+        'total_tweets': 0,
+        'current_page': 0,
+        'message': 'Iniciando búsqueda de tweets...',
+        'created_at': datetime.now().isoformat(),
+        'updated_at': datetime.now().isoformat(),
+        'result': None,
+        'error': None,
+        'wait_until': None,
+        'wait_seconds': None
+    }
+    
+    # Agregar tarea en background (NO esperar resultado)
+    background_tasks.add_task(
+        process_tweets_search_background,
+        job_id=job_id,
+        username=username,
+        max_tweets=request.max_tweets,
+        save_to_firebase=request.save_to_firebase,
+        session_id=session_id
+    )
+    
+    print(f"✅ Job {job_id} agregado a background_tasks")
+    
+    # ✅ RETORNAR INMEDIATAMENTE (sin esperar resultado)
+    return {
+        "success": True,
+        "job_id": job_id,
+        "status": "pending",
+        "message": "Búsqueda iniciada en background. Usa GET /api/jobs/{job_id} para verificar progreso"
+    }
+
+
+# ============================================================================
+# NUEVA FUNCIÓN: Procesa búsqueda en background
+# ============================================================================
+
+def process_tweets_search_background(
+    job_id: str,
+    username: str,
+    max_tweets: Optional[int],
+    save_to_firebase: bool,
+    session_id: str
+):
+    """
+    ✅ Procesa la búsqueda de tweets EN BACKGROUND
+    Actualiza background_jobs[job_id] con el progreso en tiempo real
+    """
     try:
-        session = get_session(session_id)
-        if not session or not session.get('user'):
-            raise HTTPException(status_code=401, detail="Sesión inválida")
-        
-        username = session['user']['username']
-        
         print(f"\n{'='*70}")
-        print(f"🔍 BÚSQUEDA DE TWEETS")
+        print(f"🔄 BACKGROUND JOB INICIADO: {job_id}")
         print(f"{'='*70}")
         print(f"   Usuario: @{username}")
-        print(f"   Max tweets: {request.max_tweets or 'Todos'}")
-        print(f"   Guardar en Firebase: {request.save_to_firebase}")
-        print(f"   Session ID: {session_id[:30]}...")
+        print(f"   Thread: {threading.current_thread().name}")
         print(f"{'='*70}\n")
         
-        result = fetch_user_tweets(
+        # Actualizar status a "searching"
+        background_jobs[job_id]['status'] = 'searching'
+        background_jobs[job_id]['message'] = 'Obteniendo tweets de Twitter...'
+        background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
+        
+        # ✅ Llamar a fetch_user_tweets_with_progress (versión mejorada)
+        result = fetch_user_tweets_with_progress(
             username=username,
-            max_tweets=request.max_tweets
+            max_tweets=max_tweets,
+            job_id=job_id
         )
         
         if not result.get('success'):
-            error_msg = result.get('error', 'Error desconocido')
-            print(f"❌ Error en fetch_user_tweets: {error_msg}")
-            raise HTTPException(status_code=400, detail=error_msg)
+            background_jobs[job_id]['status'] = 'error'
+            background_jobs[job_id]['error'] = result.get('error', 'Error desconocido')
+            background_jobs[job_id]['message'] = f"Error: {result.get('error')}"
+            background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
+            print(f"❌ Job {job_id} falló: {result.get('error')}")
+            return
         
         print(f"✅ Tweets obtenidos: {len(result.get('tweets', []))}")
         
+        # Guardar en Firebase
         firebase_doc_id = None
-        if request.save_to_firebase:
-            if db:
-                try:
-                    print(f"💾 Guardando en Firebase...")
-                    firebase_doc_id = save_tweets_to_firebase(username, result)
-                    print(f"✅ Guardado en Firebase: {firebase_doc_id}")
-                except Exception as fb_error:
-                    print(f"⚠️ Error guardando en Firebase: {str(fb_error)}")
-                    import traceback
-                    traceback.print_exc()
-                    # No fallar si Firebase falla, continuar sin guardar
-            else:
-                print(f"⚠️ Firebase no conectado, no se guardará")
+        if save_to_firebase and db:
+            try:
+                background_jobs[job_id]['message'] = 'Guardando tweets en Firebase...'
+                background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
+                
+                firebase_doc_id = save_tweets_to_firebase(username, result)
+                print(f"✅ Guardado en Firebase: {firebase_doc_id}")
+            except Exception as fb_error:
+                print(f"⚠️ Error guardando en Firebase: {str(fb_error)}")
+                import traceback
+                traceback.print_exc()
         
+        # ✅ Marcar como completado
         user_info = result.get('user', {})
         
-        response_data = {
+        background_jobs[job_id]['status'] = 'completed'
+        background_jobs[job_id]['progress'] = 100
+        background_jobs[job_id]['message'] = 'Búsqueda completada exitosamente'
+        background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
+        background_jobs[job_id]['result'] = {
             "success": True,
             "username": username,
             "user": {
@@ -694,38 +759,80 @@ async def search_my_tweets(
             "firebase_doc_id": firebase_doc_id
         }
         
-        print(f"\n✅ Request completada exitosamente\n")
-        
-        # Limpiar cache después de 30 segundos
-        import asyncio
-        asyncio.create_task(clear_cache_after_delay(cache_key, 30))
-        
-        return response_data
-    
-    except HTTPException:
-        # Limpiar cache inmediatamente en caso de error HTTP
-        request_cache.pop(cache_key, None)
-        raise
-    except Exception as e:
-        # Limpiar cache inmediatamente en caso de error
-        request_cache.pop(cache_key, None)
-        
         print(f"\n{'='*70}")
-        print(f"❌ ERROR CRÍTICO EN SEARCH_MY_TWEETS")
+        print(f"✅ JOB COMPLETADO: {job_id}")
+        print(f"{'='*70}")
+        print(f"   Tweets: {len(result.get('tweets', []))}")
+        print(f"   Tiempo: {result.get('execution_time')}")
+        print(f"   Firebase Doc: {firebase_doc_id}")
+        print(f"{'='*70}\n")
+    
+    except Exception as e:
+        print(f"\n{'='*70}")
+        print(f"❌ ERROR EN BACKGROUND JOB: {job_id}")
         print(f"{'='*70}")
         print(f"Error: {str(e)}")
-        print(f"Tipo: {type(e).__name__}")
         print(f"{'='*70}\n")
         
         import traceback
         traceback.print_exc()
         
-        raise HTTPException(status_code=500, detail=f"Error interno: {str(e)}")
+        background_jobs[job_id]['status'] = 'error'
+        background_jobs[job_id]['error'] = str(e)
+        background_jobs[job_id]['message'] = f'Error interno: {str(e)}'
+        background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
 
-async def clear_cache_after_delay(cache_key: str, delay: int):
-    """Limpia una entrada del cache después de un delay"""
-    await asyncio.sleep(delay)
-    request_cache.pop(cache_key, None)
+
+# ============================================================================
+# NUEVO ENDPOINT: Verificar estado del job
+# ============================================================================
+
+@app.get("/api/jobs/{job_id}")
+async def get_job_status(job_id: str):
+    """
+    ✅ Obtiene el estado actual de un job en background
+    El frontend hace polling cada 3 segundos a este endpoint
+    
+    Estados posibles:
+    - pending: Job creado, esperando inicio
+    - searching: Obteniendo tweets de Twitter
+    - waiting_rate_limit: Esperando que se reinicie el rate limit
+    - completed: Job completado exitosamente
+    - error: Job falló
+    """
+    if job_id not in background_jobs:
+        raise HTTPException(status_code=404, detail="Job no encontrado")
+    
+    job_data = background_jobs[job_id]
+    
+    response = {
+        "job_id": job_id,
+        "status": job_data['status'],
+        "progress": job_data['progress'],
+        "message": job_data['message'],
+        "username": job_data['username'],
+        "created_at": job_data['created_at'],
+        "updated_at": job_data['updated_at'],
+        "total_tweets": job_data['total_tweets'],
+        "current_page": job_data.get('current_page', 0)
+    }
+    
+    # Si está esperando rate limit, incluir info
+    if job_data['status'] == 'waiting_rate_limit':
+        response['wait_until'] = job_data.get('wait_until')
+        response['wait_seconds'] = job_data.get('wait_seconds')
+    
+    # Si está completado, incluir el resultado
+    if job_data['status'] == 'completed':
+        response['result'] = job_data['result']
+    
+    # Si hay error, incluir detalles
+    if job_data['status'] == 'error':
+        response['error'] = job_data['error']
+    
+    return response
+
+
 
 # ============================================================================
 # API 3: CLASIFICACIÓN DE RIESGOS (con Firebase)
