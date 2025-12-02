@@ -258,7 +258,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://tff-bgchecker-frontend.vercel.app"
+        "https://tff-bgchecker-frontend.vercel.app",
         "https://frontend-tff.vercel.app",
         "http://localhost:5173"  # Para desarrollo local
     ],
@@ -1532,7 +1532,7 @@ async def preflight_handler(rest_of_path: str):
         content="",
         status_code=200,
         headers={
-            "Access-Control-Allow-Origin": "https://frontend-tff.vercel.app",
+            "Access-Control-Allow-Origin": "https://tff-bgchecker-frontend.vercel.app",
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
             "Access-Control-Allow-Headers": "*",
             "Access-Control-Allow-Credentials": "true"
