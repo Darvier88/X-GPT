@@ -258,6 +258,7 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        "https://tff-bgchecker-frontend.vercel.app"
         "https://frontend-tff.vercel.app",
         "http://localhost:5173"  # Para desarrollo local
     ],
