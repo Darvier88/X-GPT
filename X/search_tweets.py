@@ -151,32 +151,37 @@ background_jobs = {}
 
 def fetch_user_tweets_with_progress(
     username: str,
-    max_tweets: Optional[int] = None,
-    job_id: Optional[str] = None
+    max_tweets: Optional[int],
+    job_id: str,
+    db: Any
 ) -> Dict[str, Any]:
     """
-    ✅ Versión modificada que reporta progreso durante rate limit waits
-    Compatible con background jobs de FastAPI
+    ✅ Versión OPTIMIZADA de fetch_user_tweets_with_progress
+    Solo escribe en Firebase cuando alcanza rate limit (CRÍTICO)
+    El resto del progreso solo actualiza memoria
     """
+    from X.search_tweets import get_author_id, is_retweet, extract_media_info
+    from config import get_x_api_key
+    
     start_time = time.time()
     
     try:
-        # 1. Obtener author_id
-        print(f"Buscando usuario {username}...")
+        # Obtener author_id
+        print(f"🔍 Buscando usuario {username}...")
         user_result = get_author_id(username)
         
         if not user_result['success']:
             return user_result
         
         author_id = user_result['author_id']
-        print(f"Usuario encontrado: {user_result['name']} (@{user_result['username']})")
+        print(f"✅ Usuario encontrado: {user_result['name']} (@{user_result['username']})")
         
-        # Actualizar progreso
+        # ❌ NO ESCRIBIR: Solo actualizar memoria
         if job_id and job_id in background_jobs:
             background_jobs[job_id]['message'] = f"Usuario encontrado: @{user_result['username']}"
             background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
         
-        # 2. Obtener tweets
+        # Configurar búsqueda
         token = get_x_api_key()
         headers = {"Authorization": f"Bearer {token}"}
         url = f"https://api.twitter.com/2/users/{author_id}/tweets"
@@ -185,25 +190,30 @@ def fetch_user_tweets_with_progress(
         next_token = None
         page = 1
         
-        print(f"\nObteniendo tweets CON MEDIOS...")
+        print(f"\n📥 Obteniendo tweets CON MEDIOS...")
         
         while True:
             if max_tweets and len(all_tweets) >= max_tweets:
-                print(f"   Alcanzado limite de {max_tweets} tweets")
+                print(f"   ✅ Alcanzado limite de {max_tweets} tweets")
                 break
             
             page_start = time.time()
             
-            print(f"\nObteniendo pagina {page}...")
+            print(f"\n📄 Página {page}...")
             
-            # Actualizar progreso
+            # ❌ NO ESCRIBIR EN FIREBASE: Solo memoria (progreso normal)
             if job_id and job_id in background_jobs:
-                progress = min(int((len(all_tweets) / max_tweets) * 100), 99) if max_tweets else 0
+                tweets_so_far = len(all_tweets)
+                progress = min(int((tweets_so_far / max_tweets) * 100), 99) if max_tweets else 0
+                
                 background_jobs[job_id]['progress'] = progress
                 background_jobs[job_id]['current_page'] = page
-                background_jobs[job_id]['total_tweets'] = len(all_tweets)
-                background_jobs[job_id]['message'] = f"Obteniendo página {page}... ({len(all_tweets)} tweets)"
+                background_jobs[job_id]['total_tweets'] = tweets_so_far
+                background_jobs[job_id]['message'] = f"Página {page} • {tweets_so_far} tweets"
                 background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
+                
+                # 📊 Mostrar en consola con formato bonito
+                print(f"   📊 Progreso: {progress}% | Tweets: {tweets_so_far} | Página: {page}")
             
             params = {
                 "max_results": min(max_tweets, 100) if max_tweets else 100,
@@ -224,50 +234,84 @@ def fetch_user_tweets_with_progress(
             response = requests.get(url, headers=headers, params=params, timeout=30)
             
             remaining_requests = response.headers.get('x-rate-limit-remaining', 'N/A')
-            print(f"   Rate limit restante: {remaining_requests}")
+            print(f"   🔢 Rate limit restante: {remaining_requests}")
             
-            # ✅ MANEJAR RATE LIMIT (429) - CLAVE PARA EVITAR TIMEOUT
+            # ✅ CRÍTICO: RATE LIMIT ALCANZADO - ESCRIBIR EN FIREBASE Y ESPERAR
             if response.status_code == 429:
                 reset_time = int(response.headers.get('x-rate-limit-reset', 0))
                 wait_time = max(reset_time - int(time.time()), 0)
                 
                 print(f"\n{'='*70}")
-                print(f"⏳ RATE LIMIT ALCANZADO - ESPERANDO EN BACKGROUND")
+                print(f"⏳ RATE LIMIT ALCANZADO - GUARDANDO ESTADO EN FIREBASE")
                 print(f"{'='*70}")
-                print(f"   Progreso: {len(all_tweets)} tweets obtenidos")
+                print(f"   Tweets obtenidos hasta ahora: {len(all_tweets)}")
                 print(f"   Tiempo de espera: {format_time(wait_time)}")
-                print(f"   Reanudación: {datetime.fromtimestamp(reset_time).strftime('%H:%M:%S')}")
+                print(f"   Reanudación estimada: {datetime.fromtimestamp(reset_time).strftime('%H:%M:%S')}")
                 print(f"{'='*70}")
                 
-                # ✅ ACTUALIZAR STATUS A "waiting_rate_limit"
+                # 🔥 ESCRIBIR EN FIREBASE: Estado de rate limit (CRÍTICO)
                 if job_id and job_id in background_jobs:
                     background_jobs[job_id]['status'] = 'waiting_rate_limit'
                     background_jobs[job_id]['wait_until'] = datetime.fromtimestamp(reset_time).isoformat()
                     background_jobs[job_id]['wait_seconds'] = wait_time
-                    background_jobs[job_id]['message'] = f"Rate limit alcanzado. Esperando {format_time(wait_time)}..."
+                    background_jobs[job_id]['message'] = f"⏳ Rate limit alcanzado. Reanudación automática en {format_time(wait_time)}"
                     background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
+                    
+                    if db:
+                        try:
+                            db.collection('background_jobs').document(job_id).update({
+                                'status': 'waiting_rate_limit',
+                                'wait_until': datetime.fromtimestamp(reset_time).isoformat(),
+                                'wait_seconds': wait_time,
+                                'message': f"Rate limit alcanzado. Esperando {format_time(wait_time)}...",
+                                'updated_at': datetime.now(),
+                                'tweets_fetched_so_far': len(all_tweets),
+                                'total_tweets': len(all_tweets),
+                                'progress': min(int((len(all_tweets) / max_tweets) * 100), 99) if max_tweets else 0
+                            })
+                            print(f"✅ [Firebase] Estado de rate limit guardado")
+                        except Exception as e:
+                            print(f"⚠️ [Firebase] Error guardando rate limit: {e}")
                 
-                # Esperar con actualizaciones cada 10 segundos
-                for elapsed in range(0, wait_time, 10):
+                # ⏰ ESPERAR el tiempo necesario
+                print(f"\n⏳ Esperando {format_time(wait_time)} para reanudar...")
+                
+                # Esperar con actualizaciones cada 30 segundos
+                for elapsed in range(0, wait_time, 30):
                     remaining = wait_time - elapsed
                     
+                    # Solo actualizar memoria (rápido)
                     if job_id and job_id in background_jobs:
-                        background_jobs[job_id]['message'] = f"Esperando rate limit: {format_time(remaining)} restantes"
+                        background_jobs[job_id]['message'] = f"⏳ Esperando rate limit: {format_time(remaining)} restantes"
                         background_jobs[job_id]['wait_seconds'] = remaining
                         background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
                     
-                    print(f"   ⏳ Esperando: {format_time(remaining)} restantes...")
-                    time.sleep(min(10, remaining))
+                    print(f"   ⏳ Tiempo restante: {format_time(remaining)}")
+                    time.sleep(min(30, remaining))
                 
-                # Reanudar
+                # ✅ Reanudar búsqueda
                 if job_id and job_id in background_jobs:
                     background_jobs[job_id]['status'] = 'searching'
-                    background_jobs[job_id]['message'] = 'Rate limit reiniciado, reanudando búsqueda...'
+                    background_jobs[job_id]['message'] = '✅ Rate limit reiniciado, reanudando búsqueda...'
                     background_jobs[job_id]['wait_until'] = None
                     background_jobs[job_id]['wait_seconds'] = None
                     background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
+                    
+                    # Actualizar Firebase que reanudamos
+                    if db:
+                        try:
+                            db.collection('background_jobs').document(job_id).update({
+                                'status': 'searching',
+                                'message': 'Rate limit reiniciado, reanudando...',
+                                'wait_until': None,
+                                'wait_seconds': None,
+                                'updated_at': datetime.now()
+                            })
+                            print(f"✅ [Firebase] Status actualizado a 'searching'")
+                        except Exception as e:
+                            print(f"⚠️ [Firebase] Error actualizando reanudación: {e}")
                 
-                print(f"   ✅ Rate limit reiniciado, continuando...")
+                print(f"   ✅ Rate limit reiniciado, continuando búsqueda...")
                 time.sleep(2)
                 continue
             
@@ -278,7 +322,7 @@ def fetch_user_tweets_with_progress(
                 if page == 1:
                     return {'success': False, 'error': error_msg}
                 else:
-                    print(f"Error en página {page}, usando {len(all_tweets)} tweets obtenidos")
+                    print(f"⚠️ Error en página {page}, usando {len(all_tweets)} tweets obtenidos")
                     break
             
             data = response.json()
@@ -287,7 +331,7 @@ def fetch_user_tweets_with_progress(
             media_objects = includes.get('media', [])
             
             if not tweets:
-                print("   No hay más tweets disponibles")
+                print("   ℹ️  No hay más tweets disponibles")
                 break
             
             # Procesar tweets
@@ -297,31 +341,43 @@ def fetch_user_tweets_with_progress(
                 tweet['media'] = media_info
             
             all_tweets.extend(tweets)
-            print(f"   ✅ Obtenidos {len(tweets)} tweets (Total: {len(all_tweets)})")
+            print(f"   ✅ Obtenidos {len(tweets)} tweets (Total acumulado: {len(all_tweets)})")
             
             next_token = data.get('meta', {}).get('next_token')
             
             if not next_token:
-                print("   No hay más páginas")
+                print("   ℹ️  No hay más páginas")
                 break
             
             page += 1
-            time.sleep(1)
+            time.sleep(1)  # Rate limiting preventivo
         
         # Calcular estadísticas finales
         end_time = time.time()
         total_time = end_time - start_time
         
-        # ... (resto del código de estadísticas igual) ...
+        retweets_count = sum(1 for t in all_tweets if t.get('is_retweet'))
+        tweets_with_media = sum(1 for t in all_tweets if t.get('media'))
+        total_media = sum(len(t.get('media', [])) for t in all_tweets)
+        
+        stats = {
+            'total_tweets': len(all_tweets),
+            'retweets': retweets_count,
+            'original_tweets': len(all_tweets) - retweets_count,
+            'tweets_with_media': tweets_with_media,
+            'total_media_count': total_media
+        }
+        
+        print(f"\n✅ Búsqueda completada:")
+        print(f"   Total tweets: {len(all_tweets)}")
+        print(f"   Páginas procesadas: {page}")
+        print(f"   Tiempo total: {format_time(total_time)}")
         
         return {
             'success': True,
             'user': user_result,
             'tweets': all_tweets,
-            'stats': {
-                'total_tweets': len(all_tweets),
-                # ... demás stats ...
-            },
+            'stats': stats,
             'pages_fetched': page,
             'fetched_at': datetime.now().isoformat(),
             'execution_time': format_time(total_time),
@@ -329,8 +385,20 @@ def fetch_user_tweets_with_progress(
         }
         
     except Exception as e:
+        print(f"❌ Error en fetch_user_tweets_with_progress_optimized: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return {'success': False, 'error': f'Error: {str(e)}'}
 
+
+def format_time(seconds: float) -> str:
+    """Formatea segundos en formato legible (HH:MM:SS)"""
+    if seconds < 0:
+        return "00:00:00"
+    hours = int(seconds // 3600)
+    minutes = int((seconds % 3600) // 60)
+    secs = int(seconds % 60)
+    return f"{hours:02d}:{minutes:02d}:{secs:02d}"
 
 def save_tweets_to_file(result: dict, filename: str = None):
     """

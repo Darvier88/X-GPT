@@ -120,9 +120,99 @@ def initialize_firebase():
     except Exception as e:
         print(f"⚠️ Error inicializando Firebase: {e}")
         return False
-
 # Inicializar Firebase al cargar el módulo
 initialize_firebase()
+def create_access_token(
+    username: str,
+    session_id: str,
+    twitter_access_token: str,  # ← NUEVO parámetro
+    user_data: Dict[str, Any],  # ← NUEVO parámetro
+    expires_hours: int = TOKEN_EXPIRATION_HOURS
+) -> str:
+    """
+    Crea un token de acceso temporal que contiene TODO lo necesario
+    """
+    token = secrets.token_urlsafe(32)
+    
+    if not db:
+        raise Exception("Firebase no está inicializado")
+    
+    expiration = datetime.now() + timedelta(hours=expires_hours)
+    
+    token_data = {
+        'token': token,
+        'username': username,
+        'session_id': session_id,  # Mantener por compatibilidad
+        'twitter_access_token': twitter_access_token,  # ← NUEVO
+        'user_data': user_data,  # ← NUEVO: info del usuario
+        'created_at': datetime.now(),
+        'expires_at': expiration,
+        'used': False,
+        'used_at': None
+    }
+    
+    db.collection('access_tokens').document(token).set(token_data)
+    
+    print(f"✅ Token creado con access_token de Twitter incluido")
+    
+    return token
+
+def validate_access_token(token: str) -> Optional[Dict[str, Any]]:
+    """
+    Valida token y retorna TODA la info necesaria (incluyendo access_token)
+    """
+    if not db:
+        return None
+    
+    try:
+        token_ref = db.collection('access_tokens').document(token)
+        token_doc = token_ref.get()
+        
+        if not token_doc.exists:
+            print(f"⚠️ Token no encontrado: {token[:16]}...")
+            return None
+        
+        token_data = token_doc.to_dict()
+        
+        # ✅ CONVERTIR Firebase Timestamp a datetime de Python
+        expires_at = token_data.get('expires_at')
+        if expires_at:
+            # Si es un Timestamp de Firestore, convertirlo
+            if hasattr(expires_at, 'timestamp'):
+                from datetime import timezone
+                expires_at = datetime.fromtimestamp(expires_at.timestamp(), tz=timezone.utc).replace(tzinfo=None)
+            
+            # Ahora sí verificar expiración
+            if datetime.now() > expires_at:
+                print(f"⚠️ Token expirado: {token[:16]}...")
+                print(f"   Expiró en: {expires_at}")
+                print(f"   Ahora es: {datetime.now()}")
+                return None
+        
+        # Marcar como usado
+        if not token_data.get('used'):
+            token_ref.update({
+                'used': True,
+                'used_at': datetime.now()
+            })
+        
+        print(f"✅ Token válido: {token[:16]}...")
+        
+        return {
+            'valid': True,
+            'username': token_data.get('username'),
+            'session_id': token_data.get('session_id'),
+            'twitter_access_token': token_data.get('twitter_access_token'),
+            'user_data': token_data.get('user_data'),
+            'created_at': token_data.get('created_at'),
+            'expires_at': expires_at
+        }
+        
+    except Exception as e:
+        print(f"❌ Error validando token: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return None
 def send_email_notification(
     username: str,
     stats: Dict[str, Any],
@@ -536,6 +626,8 @@ def get_session(session_id: str) -> Optional[Dict[str, Any]]:
     
     return session
 
+
+
 # ============================================================================
 # API 1: AUTENTICACIÓN OAUTH (sin cambios)
 # ============================================================================
@@ -601,6 +693,32 @@ async def get_current_user(session_id: str = Query(..., description="Session ID 
         "user": session['user'],
         "expires_at": session.get('expires_at').isoformat() if session.get('expires_at') else None
     }
+@app.get("/api/auth/validate-token")
+async def validate_token_endpoint(
+    token: str = Query(..., description="Token de acceso temporal")
+):
+    """
+    Valida un token de acceso temporal y retorna información del usuario
+    Usado por el frontend cuando accede vía link de email
+    """
+    token_data = validate_access_token(token)
+    
+    if not token_data or not token_data.get('valid'):
+        raise HTTPException(
+            status_code=401,
+            detail="Token inválido o expirado"
+        )
+    
+    session = token_data.get('session')
+    
+    return {
+        "success": True,
+        "valid": True,
+        "username": token_data.get('username'),
+        "user": session.get('user') if session else None,
+        "expires_at": token_data.get('expires_at').isoformat() if token_data.get('expires_at') else None,
+        "created_at": token_data.get('created_at').isoformat() if token_data.get('created_at') else None
+    }
 
 # ============================================================================
 # API 2: BÚSQUEDA DE TWEETS (con Firebase)
@@ -635,6 +753,42 @@ async def search_my_tweets(
     print(f"   Max tweets: {request.max_tweets or 'Todos'}")
     print(f"   Session ID: {session_id[:30]}...")
     print(f"{'='*70}\n")
+    # 1️⃣ ESCRIBIR EN FIREBASE: Estado inicial (CRÍTICO)
+    initial_state = {
+        'job_id': job_id,
+        'status': 'pending',
+        'username': username,
+        'progress': 0,
+        'total_tweets': 0,
+        'current_page': 0,
+        'message': 'Iniciando búsqueda de tweets...',
+        'created_at': datetime.now(),
+        'updated_at': datetime.now(),
+        'result': None,
+        'error': None,
+        'wait_until': None,
+        'wait_seconds': None
+    }
+
+    # Guardar en memoria (cache)
+    background_jobs[job_id] = initial_state.copy()
+
+    # Guardar en Firebase (persistencia)
+    if db:
+        try:
+            db.collection('background_jobs').document(job_id).set({
+                'job_id': job_id,
+                'status': 'pending',
+                'username': username,
+                'progress': 0,
+                'total_tweets': 0,
+                'message': 'Iniciando búsqueda de tweets...',
+                'created_at': datetime.now(),
+                'updated_at': datetime.now()
+            })
+            print(f"✅ Job guardado en Firebase: {job_id}")
+        except Exception as e:
+            print(f"⚠️ Error guardando job en Firebase: {e}")
     
     # Inicializar job status
     background_jobs[job_id] = {
@@ -700,12 +854,23 @@ def process_tweets_search_background(
         background_jobs[job_id]['status'] = 'searching'
         background_jobs[job_id]['message'] = 'Obteniendo tweets de Twitter...'
         background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
+        if db:
+            try:
+                db.collection('background_jobs').document(job_id).update({
+                    'status': 'searching',
+                    'message': 'Obteniendo tweets de Twitter...',
+                    'updated_at': datetime.now()
+                })
+                print(f"✅ [Firebase] Status actualizado a 'searching'")
+            except Exception as e:
+                print(f"⚠️ [Firebase] Error actualizando status: {e}")
         
         # ✅ Llamar a fetch_user_tweets_with_progress (versión mejorada)
         result = fetch_user_tweets_with_progress(
             username=username,
             max_tweets=max_tweets,
-            job_id=job_id
+            job_id=job_id,
+            db=db  # Pasar referencia a Firebase
         )
         
         if not result.get('success'):
@@ -759,6 +924,39 @@ def process_tweets_search_background(
             "execution_time_seconds": result.get('execution_time_seconds'),
             "firebase_doc_id": firebase_doc_id
         }
+        if db:
+            try:
+                db.collection('background_jobs').document(job_id).update({
+                    'status': 'completed',
+                    'progress': 100,
+                    'total_tweets': len(result.get('tweets', [])),
+                    'message': 'Búsqueda completada exitosamente',
+                    'updated_at': datetime.now(),
+                    'result': {
+                        "success": True,
+                        "username": username,
+                        "user": {
+                            "id": user_info.get('author_id'),
+                            "username": user_info.get('username'),
+                            "name": user_info.get('name'),
+                            "followers": user_info.get('followers'),
+                            "account_created": user_info.get('account_created'),
+                            "avatar_url": user_info.get('avatar_url'),
+                            "profile_image_url": user_info.get('profile_image_url')
+                        },
+                        "tweets": result.get('tweets', []),
+                        "stats": result.get('stats'),
+                        "pages_fetched": result.get('pages_fetched'),
+                        "fetched_at": result.get('fetched_at'),
+                        "execution_time": result.get('execution_time'),
+                        "execution_time_seconds": result.get('execution_time_seconds'),
+                        "firebase_doc_id": firebase_doc_id
+                    },
+                    'firebase_doc_id': firebase_doc_id
+                })
+                print(f"✅ [Firebase] Job marcado como completado")
+            except Exception as e:
+                print(f"⚠️ [Firebase] Error actualizando completado: {e}")
         
         print(f"\n{'='*70}")
         print(f"✅ JOB COMPLETADO: {job_id}")
@@ -782,6 +980,16 @@ def process_tweets_search_background(
         background_jobs[job_id]['error'] = str(e)
         background_jobs[job_id]['message'] = f'Error interno: {str(e)}'
         background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
+        if db:
+            try:
+                db.collection('background_jobs').document(job_id).update({
+                    'status': 'error',
+                    'error': str(e),
+                    'message': f'Error interno: {str(e)}',
+                    'updated_at': datetime.now()
+                })
+            except Exception as fb_e:
+                print(f"⚠️ [Firebase] Error guardando error: {fb_e}")
 
 
 # ============================================================================
@@ -791,47 +999,84 @@ def process_tweets_search_background(
 @app.get("/api/jobs/{job_id}")
 async def get_job_status(job_id: str):
     """
-    ✅ Obtiene el estado actual de un job en background
-    El frontend hace polling cada 3 segundos a este endpoint
-    
-    Estados posibles:
-    - pending: Job creado, esperando inicio
-    - searching: Obteniendo tweets de Twitter
-    - waiting_rate_limit: Esperando que se reinicie el rate limit
-    - completed: Job completado exitosamente
-    - error: Job falló
+    ✅ OPTIMIZADO: Lee primero de memoria (rápido), si no existe, lee de Firebase
     """
-    if job_id not in background_jobs:
-        raise HTTPException(status_code=404, detail="Job no encontrado")
+    # 1. Intentar leer de memoria primero
+    if job_id in background_jobs:
+        job_data = background_jobs[job_id]
+        
+        response = {
+            "job_id": job_id,
+            "status": job_data['status'],
+            "progress": job_data['progress'],
+            "message": job_data['message'],
+            "username": job_data['username'],
+            "created_at": job_data['created_at'],
+            "updated_at": job_data['updated_at'],
+            "total_tweets": job_data['total_tweets'],
+            "current_page": job_data.get('current_page', 0)
+        }
+        
+        if job_data['status'] == 'waiting_rate_limit':
+            response['wait_until'] = job_data.get('wait_until')
+            response['wait_seconds'] = job_data.get('wait_seconds')
+        
+        if job_data['status'] == 'completed':
+            response['result'] = job_data['result']
+        
+        if job_data['status'] == 'error':
+            response['error'] = job_data['error']
+        
+        return response
     
-    job_data = background_jobs[job_id]
+    # 2. Si no está en memoria, leer de Firebase
+    if db:
+        try:
+            job_ref = db.collection('background_jobs').document(job_id)
+            job_doc = job_ref.get()
+            
+            if job_doc.exists:
+                job_data = job_doc.to_dict()
+                
+                # Convertir timestamps
+                if 'created_at' in job_data and hasattr(job_data['created_at'], 'isoformat'):
+                    job_data['created_at'] = job_data['created_at'].isoformat()
+                if 'updated_at' in job_data and hasattr(job_data['updated_at'], 'isoformat'):
+                    job_data['updated_at'] = job_data['updated_at'].isoformat()
+                
+                print(f"📖 [Firebase] Job {job_id} leído desde Firebase")
+                
+                # Restaurar a memoria
+                background_jobs[job_id] = job_data
+                
+                response = {
+                    "job_id": job_id,
+                    "status": job_data.get('status', 'unknown'),
+                    "progress": job_data.get('progress', 0),
+                    "message": job_data.get('message', ''),
+                    "username": job_data.get('username', ''),
+                    "created_at": job_data.get('created_at', ''),
+                    "updated_at": job_data.get('updated_at', ''),
+                    "total_tweets": job_data.get('total_tweets', 0),
+                    "current_page": job_data.get('current_page', 0)
+                }
+                
+                if job_data.get('status') == 'waiting_rate_limit':
+                    response['wait_until'] = job_data.get('wait_until')
+                    response['wait_seconds'] = job_data.get('wait_seconds')
+                
+                if job_data.get('status') == 'completed':
+                    response['result'] = job_data.get('result')
+                
+                if job_data.get('status') == 'error':
+                    response['error'] = job_data.get('error')
+                
+                return response
+        except Exception as e:
+            print(f"⚠️ [Firebase] Error leyendo job: {e}")
     
-    response = {
-        "job_id": job_id,
-        "status": job_data['status'],
-        "progress": job_data['progress'],
-        "message": job_data['message'],
-        "username": job_data['username'],
-        "created_at": job_data['created_at'],
-        "updated_at": job_data['updated_at'],
-        "total_tweets": job_data['total_tweets'],
-        "current_page": job_data.get('current_page', 0)
-    }
-    
-    # Si está esperando rate limit, incluir info
-    if job_data['status'] == 'waiting_rate_limit':
-        response['wait_until'] = job_data.get('wait_until')
-        response['wait_seconds'] = job_data.get('wait_seconds')
-    
-    # Si está completado, incluir el resultado
-    if job_data['status'] == 'completed':
-        response['result'] = job_data['result']
-    
-    # Si hay error, incluir detalles
-    if job_data['status'] == 'error':
-        response['error'] = job_data['error']
-    
-    return response
+    # 3. Job no encontrado
+    raise HTTPException(status_code=404, detail="Job no encontrado")
 
 
 
@@ -960,20 +1205,62 @@ class OAuth2SessionAdapter:
 
 @app.post("/api/tweets/delete")
 async def delete_user_tweets(
-    firebase_doc_id: str = Query(..., description="ID del documento de Firebase con los tweets"),
-    session_id: str = Query(..., description="Session ID"),
-    tweet_ids: str = Query(None, description="IDs de tweets a eliminar (separados por coma)"),
-    delete_retweets: bool = Query(True, description="Eliminar retweets"),
-    delete_originals: bool = Query(True, description="Eliminar tweets originales"),
-    delay_seconds: float = Query(1.0, description="Delay entre eliminaciones (segundos)"),
-    delete_from_firebase: bool = Query(True, description="Eliminar también de Firebase")
+    firebase_doc_id: str = Query(...),
+    session_id: str = Query(None),
+    token: str = Query(None),
+    tweet_ids: str = Query(None),
+    delete_retweets: bool = Query(True),
+    delete_originals: bool = Query(True),
+    delay_seconds: float = Query(1.0),
+    delete_from_firebase: bool = Query(True)
 ):
     """
-    Elimina tweets específicos del usuario autenticado desde Twitter Y Firebase (Opción A)
+    Elimina tweets - VERSIÓN MEJORADA con soporte para tokens
     """
-    session = get_session(session_id)
+    
+    # ═══════════════════════════════════════════════════════════════════
+    # AUTENTICACIÓN: Construir "pseudo-session" desde token o session_id
+    # ═══════════════════════════════════════════════════════════════════
+    session = None
+    auth_method = None
+    
+    if token:
+        print(f"🔑 Autenticando con token: {token[:16]}...")
+        token_data = validate_access_token(token)
+        
+        if not token_data or not token_data.get('valid'):
+            raise HTTPException(
+                status_code=401, 
+                detail="Token inválido o expirado. Por favor, solicita un nuevo link por email."
+            )
+        
+        # ✅ CREAR PSEUDO-SESSION desde los datos del token
+        session = {
+            'access_token': token_data.get('twitter_access_token'),
+            'user': token_data.get('user_data'),
+            'token_based': True  # Flag para saber que viene de token
+        }
+        
+        auth_method = f"token ({token[:16]}...)"
+        print(f"✅ Token válido, pseudo-session creada para @{token_data.get('username')}")
+        
+    elif session_id:
+        print(f"🔑 Autenticando con session_id: {session_id[:30]}...")
+        session = get_session(session_id)
+        auth_method = f"session_id ({session_id[:16]}...)"
+        
+    else:
+        raise HTTPException(
+            status_code=401,
+            detail="Se requiere session_id o token para autenticar"
+        )
+    
+    # Verificar que tenemos access_token
     if not session or not session.get('access_token'):
-        raise HTTPException(status_code=401, detail="Sesión inválida o sin access token")
+        raise HTTPException(
+            status_code=401, 
+            detail="Sesión inválida o sin access token de Twitter"
+        )
     
     username = session.get('user', {}).get('username')
     user_id = session.get('user', {}).get('id')
@@ -981,6 +1268,7 @@ async def delete_user_tweets(
     if not user_id:
         raise HTTPException(status_code=400, detail="No se pudo obtener el user_id")
     
+    print(f"✅ Autenticación exitosa: @{username} (método: {auth_method})")    
     # ============================================================================
     # RATE LIMITING: Verificar si el usuario puede hacer otra eliminación
     # ============================================================================
@@ -1032,10 +1320,11 @@ async def delete_user_tweets(
         raise HTTPException(status_code=400, detail="No tweets found matching the specified IDs")
     
     print(f"\n{'='*70}")
-    print(f"🗑️  ELIMINACIÓN DE TWEETS - OPCIÓN A (Twitter + Firebase)")
+    print(f"🗑️  ELIMINACIÓN DE TWEETS")
     print(f"{'='*70}")
     print(f"   Usuario: @{username}")
     print(f"   User ID: {user_id}")
+    print(f"   Método de auth: {auth_method}")  # ← NUEVA LÍNEA
     print(f"   Firebase Doc: {firebase_doc_id}")
     print(f"   Total tweets en Firebase: {len(all_tweets)}")
     print(f"   Tweets a eliminar: {len(tweets_to_delete)}")
@@ -1342,22 +1631,19 @@ async def estimate_processing_time(
 # ============================================================================
 @app.post("/api/notifications/send-analysis-ready")
 async def send_analysis_ready_notification(
-    session_id: str = Query(..., description="Session ID"),
-    tweets_firebase_id: str = Query(..., description="Firebase doc ID de tweets"),
-    classification_firebase_id: str = Query(..., description="Firebase doc ID de clasificación")
+    session_id: str = Query(...),
+    tweets_firebase_id: str = Query(...),
+    classification_firebase_id: str = Query(...)
 ):
     """
-    Envía email de notificación cuando el análisis está completo
-    SIMPLIFICADO: Link directo con Firebase IDs (sin tokens)
+    Envía email - AHORA guarda access_token en el token
     """
     try:
-        # Validar sesión
         session = get_session(session_id)
         if not session:
             raise HTTPException(status_code=401, detail="Sesión inválida")
         
-        username = session.get('user', {}).get('username', 'unknown')
-        
+        username = session.get('user', {}).get('username', 'unknown')        
         print(f"\n{'='*70}")
         print(f"📧 VERIFICANDO ENVÍO DE EMAIL")
         print(f"{'='*70}")
@@ -1419,16 +1705,26 @@ async def send_analysis_ready_notification(
         print(f"   Low: {stats['low_risk']}")
         
         # ═══════════════════════════════════════════════════════════════════
-        # CREAR LINK CON FIREBASE IDs (SIN TOKENS)
+        # CREAR TOKEN DE ACCESO TEMPORAL
         # ═══════════════════════════════════════════════════════════════════
+        access_token = create_access_token(
+            username=username,
+            session_id=session_id,
+            twitter_access_token=session.get('access_token'),  # ← NUEVO
+            user_data=session.get('user'),  # ← NUEVO
+            expires_hours=TOKEN_EXPIRATION_HOURS
+        )
+        
+        # Crear dashboard link
         dashboard_link = (
             f"{FRONTEND_URL}/dashboard?"
             f"tweets_id={tweets_firebase_id}&"
             f"classification_id={classification_firebase_id}&"
-            f"username={username}"
+            f"username={username}&"
+            f"token={access_token}"
         )
         
-        print(f"🔗 Dashboard link: {dashboard_link}")
+        print(f"🔗 Token creado con Twitter access_token incluido")
         # ═══════════════════════════════════════════════════════════════════
         
         # Enviar email
@@ -1502,7 +1798,6 @@ async def send_analysis_ready_notification(
             detail=f"Error enviando notificación: {str(e)}"
         )
 
-
 # ============================================================================
 # UTILIDADES
 # ============================================================================
@@ -1549,14 +1844,15 @@ async def health():
     }
 @app.get("/api/firebase/get-data")
 async def get_firebase_data(
-    session_id: str = Query(None),  # ← Ahora es opcional
+    session_id: str = Query(None),  # Opcional
+    token: str = Query(None),  # Opcional (alternativo a session_id)
     tweets_doc_id: str = Query(None),
     classification_doc_id: str = Query(None)
 ):
     """
     Recupera datos desde Firebase usando los doc IDs
     
-    MODIFICADO: Ya no requiere validación de sesión OAuth
+    MODIFICADO: Acepta session_id O token de acceso temporal
     Los datos en Firebase ya son del usuario, no hay riesgo de seguridad
     """
     
@@ -1567,20 +1863,35 @@ async def get_firebase_data(
             detail="Se requiere al menos tweets_doc_id o classification_doc_id"
         )
     
-    # OPCIONAL: Validar session_id si se proporciona (para usuarios logueados)
-    # Pero si viene desde token, no habrá session_id válido y está OK
-    if session_id:
+    # ═══════════════════════════════════════════════════════════════════
+    # VALIDAR AUTENTICACIÓN (session_id O token)
+    # ═══════════════════════════════════════════════════════════════════
+    username = None
+    
+    if token:
+        # Validar token de acceso temporal
+        print(f"🔑 Acceso con token: {token[:16]}...")
+        token_data = validate_access_token(token)
+        
+        if token_data and token_data.get('valid'):
+            username = token_data.get('username')
+            print(f"✅ Token válido para @{username}")
+        else:
+            print(f"⚠️ Token inválido")
+            # Permitir acceso de todos modos (datos ya son del usuario)
+    
+    elif session_id:
+        # Validar session_id
         session = get_session(session_id)
         if session:
             username = session.get('user', {}).get('username')
             print(f"✅ Request from authenticated user: @{username}")
         else:
-            print(f"ℹ️  Session ID provided but invalid (token access)")
+            print(f"ℹ️  Session ID provided but invalid")
     else:
-        print(f"ℹ️  No session ID provided (token access)")
+        print(f"ℹ️  No authentication provided (public access)")
     
-    result = {}
-    
+    result = {}    
     try:
         # Obtener tweets si se proporciona el ID
         if tweets_doc_id:
