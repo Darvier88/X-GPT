@@ -589,7 +589,8 @@ def get_user_info(access_token: str) -> Dict[str, Any]:
     """Obtiene información del usuario autenticado"""
     try:
         headers = {'Authorization': f'Bearer {access_token}'}
-        params = {'user.fields': 'id,username,name,public_metrics,verified'}
+        # ✅ AÑADIR 'protected' al user.fields
+        params = {'user.fields': 'id,username,name,public_metrics,verified,protected'}
         
         response = requests.get(USER_INFO_URL, headers=headers, params=params, timeout=10)
         
@@ -608,7 +609,8 @@ def get_user_info(access_token: str) -> Dict[str, Any]:
                 'followers_count': metrics.get('followers_count', 0),
                 'following_count': metrics.get('following_count', 0),
                 'tweet_count': metrics.get('tweet_count', 0),
-                'verified': data.get('verified', False)
+                'verified': data.get('verified', False),
+                'protected': data.get('protected', False)  # ✅ NUEVO CAMPO
             }
         }
     except Exception as e:
