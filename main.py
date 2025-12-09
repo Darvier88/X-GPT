@@ -24,7 +24,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 # Firebase imports
 import firebase_admin
-from firebase_admin import credentials, firestore
+from firebase_admin import credentials, firestore, storage
 import secrets
 from fastapi.responses import JSONResponse, RedirectResponse, HTMLResponse, Response
 from dotenv import load_dotenv
@@ -69,28 +69,27 @@ TOKEN_EXPIRATION_HOURS = 48
 
 # Inicializar Firebase (evitar reinicialización en reload)
 db = None
-
+bucket = None 
 
 def initialize_firebase():
     """Inicializa Firebase de forma segura"""
-    global db
+    global db, bucket  # ← AÑADIR bucket
     
     try:
         # Verificar si ya está inicializado
         try:
-            # Intentar obtener la app existente
             firebase_admin.get_app()
-            # Si llegamos aquí, ya existe
             db = firestore.client()
+            bucket = storage.bucket()  # ← NUEVO
             return True
         except ValueError:
-            # No existe, proceder a inicializar
             pass
         
         firebase_project_id = os.getenv("FIREBASE_PROJECT_ID")
         firebase_private_key = os.getenv("FIREBASE_PRIVATE_KEY")
         firebase_client_email = os.getenv("FIREBASE_CLIENT_EMAIL")
         firebase_token_uri = os.getenv("FIREBASE_TOKEN_URI")
+        firebase_storage_bucket = os.getenv("FIREBASE_STORAGE_BUCKET")  # ← NUEVO
 
         if firebase_project_id and firebase_private_key and firebase_client_email:
             print("✅ Usando credenciales de Firebase desde variables de entorno")
@@ -103,18 +102,23 @@ def initialize_firebase():
                     "token_uri": firebase_token_uri or "https://oauth2.googleapis.com/token",
                 }
                 cred = credentials.Certificate(creds_dict)
-                firebase_admin.initialize_app(cred)
+                
+                # ✅ MODIFICADO: Inicializar con Storage Bucket
+                firebase_admin.initialize_app(cred, {
+                    'storageBucket': firebase_storage_bucket or f"{firebase_project_id}.appspot.com"
+                })
+                
                 db = firestore.client()
-                print("✅ Firebase inicializado correctamente (variables de entorno)")
+                bucket = storage.bucket()  # ← NUEVO
+                
+                print("✅ Firebase inicializado correctamente (Firestore + Storage)")
+                print(f"   Storage Bucket: {bucket.name}")
                 return True
             except Exception as e:
                 print(f"❌ Error inicializando Firebase: {e}")
                 return False
         else:
             print("❌ Faltan credenciales de Firebase en variables de entorno")
-            print(f"   - FIREBASE_PROJECT_ID: {'✓' if firebase_project_id else '✗'}")
-            print(f"   - FIREBASE_PRIVATE_KEY: {'✓' if firebase_private_key else '✗'}")
-            print(f"   - FIREBASE_CLIENT_EMAIL: {'✓' if firebase_client_email else '✗'}")
             return False
         
     except Exception as e:
@@ -122,6 +126,109 @@ def initialize_firebase():
         return False
 # Inicializar Firebase al cargar el módulo
 initialize_firebase()
+# ============================================================================
+# Cloud Storage Helper Functions
+# ============================================================================
+
+def calculate_json_size(data: Any) -> tuple[int, float]:
+    """
+    Calcula el tamaño de un objeto al serializarlo a JSON
+    Returns: (bytes, megabytes)
+    """
+    json_str = json.dumps(data, ensure_ascii=False)
+    size_bytes = len(json_str.encode('utf-8'))
+    size_mb = size_bytes / (1024 * 1024)
+    return size_bytes, size_mb
+
+
+def upload_to_storage(data: Any, path: str) -> str:
+    """
+    Sube datos JSON a Cloud Storage
+    
+    Args:
+        data: Objeto a serializar y subir
+        path: Ruta en Storage (ej: "tweets/username_123.json")
+        
+    Returns:
+        URL pública del archivo
+    """
+    if not bucket:
+        raise Exception("Cloud Storage no está inicializado")
+    
+    try:
+        # Serializar a JSON
+        json_str = json.dumps(data, ensure_ascii=False, indent=2)
+        json_bytes = json_str.encode('utf-8')
+        
+        # Crear blob y subir
+        blob = bucket.blob(path)
+        blob.upload_from_string(
+            json_bytes,
+            content_type='application/json'
+        )
+        
+        # Hacer público (opcional, depende de tus necesidades de seguridad)
+        # blob.make_public()
+        
+        print(f"✅ Archivo subido a Storage: {path} ({len(json_bytes)} bytes)")
+        
+        # Retornar path (no URL pública por seguridad)
+        return path
+        
+    except Exception as e:
+        print(f"❌ Error subiendo a Storage: {str(e)}")
+        raise
+
+
+def download_from_storage(path: str) -> Any:
+    """
+    Descarga y parsea JSON desde Cloud Storage
+    
+    Args:
+        path: Ruta en Storage
+        
+    Returns:
+        Objeto parseado desde JSON
+    """
+    if not bucket:
+        raise Exception("Cloud Storage no está inicializado")
+    
+    try:
+        blob = bucket.blob(path)
+        
+        if not blob.exists():
+            raise FileNotFoundError(f"Archivo no encontrado en Storage: {path}")
+        
+        # Descargar como string
+        json_str = blob.download_as_text()
+        
+        # Parsear JSON
+        data = json.loads(json_str)
+        
+        print(f"✅ Archivo descargado de Storage: {path}")
+        
+        return data
+        
+    except Exception as e:
+        print(f"❌ Error descargando de Storage: {str(e)}")
+        raise
+
+
+def delete_from_storage(path: str) -> bool:
+    """Elimina archivo de Cloud Storage"""
+    if not bucket:
+        return False
+    
+    try:
+        blob = bucket.blob(path)
+        if blob.exists():
+            blob.delete()
+            print(f"✅ Archivo eliminado de Storage: {path}")
+            return True
+        return False
+    except Exception as e:
+        print(f"⚠️ Error eliminando de Storage: {str(e)}")
+        return False
 def create_access_token(
     username: str,
     session_id: str,
@@ -426,7 +533,8 @@ class EstimateRequest(BaseModel):
 
 def save_tweets_to_firebase(username: str, tweets_data: Dict[str, Any]) -> str:
     """
-    Guarda los tweets en Firebase Firestore
+    Guarda los tweets en Firebase - VERSIÓN HÍBRIDA
+    Decide automáticamente entre Firestore only o Firestore + Storage
     Returns: document_id
     """
     if not db:
@@ -435,27 +543,79 @@ def save_tweets_to_firebase(username: str, tweets_data: Dict[str, Any]) -> str:
     timestamp = datetime.now()
     doc_id = f"{username}_{timestamp.strftime('%Y%m%d_%H%M%S')}"
     
-    # Estructura del documento
-    doc_data = {
-        "username": username,
-        "user_info": tweets_data.get("user", {}),
-        "tweets": tweets_data.get("tweets", []),
-        "stats": tweets_data.get("stats", {}),
-        "fetched_at": timestamp,
-        "pages_fetched": tweets_data.get("pages_fetched", 0),
-        "execution_time": tweets_data.get("execution_time_seconds", 0)
+    # ═══════════════════════════════════════════════════════════════════
+    # CALCULAR TAMAÑO DEL DOCUMENTO COMPLETO
+    # ═══════════════════════════════════════════════════════════════════
+    tweets_array = tweets_data.get("tweets", [])
+    user_info = tweets_data.get("user", {})
+    
+    # Crear documento completo para medir
+    full_doc = {
+        "user_info": user_info,
+        "tweets": tweets_array,
+        "created_at": timestamp,
+        "total_tweets": len(tweets_array)
     }
     
-    # Guardar en colección 'user_tweets'
-    db.collection('user_tweets').document(doc_id).set(doc_data)
+    size_bytes, size_mb = calculate_json_size(full_doc)
     
-    print(f"✅ Tweets guardados en Firebase: {doc_id}")
-    return doc_id
+    print(f"\n{'='*70}")
+    print(f"📊 ANÁLISIS DE TAMAÑO - Tweets de @{username}")
+    print(f"{'='*70}")
+    print(f"   Total tweets: {len(tweets_array)}")
+    print(f"   Tamaño estimado: {size_mb:.2f} MB ({size_bytes:,} bytes)")
+    print(f"   Límite Firestore: 1.00 MB")
+    
+    # ═══════════════════════════════════════════════════════════════════
+    # DECISIÓN AUTOMÁTICA: Firestore only vs Híbrido
+    # ═══════════════════════════════════════════════════════════════════
+    FIRESTORE_LIMIT_MB = 0.9  # 90% del límite (margen de seguridad)
+    
+    if size_mb < FIRESTORE_LIMIT_MB:
+        # ✅ CASO 1: Cabe en Firestore - Guardar todo directo
+        print(f"   ✅ Tamaño OK para Firestore ({size_mb:.2f} < {FIRESTORE_LIMIT_MB})")
+        print(f"   Guardando TODO en Firestore...")
+        
+        db.collection('user_tweets').document(doc_id).set(full_doc)
+        
+        print(f"✅ Tweets guardados en Firestore: {doc_id}")
+        print(f"{'='*70}\n")
+        
+        return doc_id
+    
+    else:
+        # ⚠️ CASO 2: Muy grande - Usar Storage para tweets
+        print(f"   ⚠️ Excede límite ({size_mb:.2f} >= {FIRESTORE_LIMIT_MB})")
+        print(f"   Usando modo HÍBRIDO (Firestore + Storage)...")
+        
+        # Subir tweets a Storage
+        storage_path = f"tweets/{doc_id}_tweets.json"
+        tweets_storage_ref = upload_to_storage(tweets_array, storage_path)
+        
+        # Guardar solo metadata en Firestore
+        metadata_doc = {
+            "user_info": user_info,
+            "created_at": timestamp,
+            "total_tweets": len(tweets_array),
+            
+            # ✅ NUEVO: Referencias a Storage
+            "storage_mode": "hybrid",
+            "tweets_storage_ref": tweets_storage_ref,
+            "original_size_mb": round(size_mb, 2)
+        }
+        
+        db.collection('user_tweets').document(doc_id).set(metadata_doc)
+        
+        print(f"✅ Metadata guardada en Firestore: {doc_id}")
+        print(f"✅ Tweets guardados en Storage: {storage_path}")
+        print(f"{'='*70}\n")
+        
+        return doc_id
 
 def save_classification_to_firebase(username: str, classification_data: Dict[str, Any]) -> str:
     """
-    Guarda los resultados de clasificación en Firebase
-    MODIFICADO: Agrega flag email_sent = False
+    Guarda los resultados de clasificación - VERSIÓN HÍBRIDA
+    Decide automáticamente entre Firestore only o Firestore + Storage
     Returns: document_id
     """
     if not db:
@@ -464,50 +624,192 @@ def save_classification_to_firebase(username: str, classification_data: Dict[str
     timestamp = datetime.now()
     doc_id = f"{username}_classification_{timestamp.strftime('%Y%m%d_%H%M%S')}"
     
-    doc_data = {
+    # Extraer labels únicos
+    summary = classification_data.get("summary", {})
+    unique_labels = list(summary.get("label_counts", {}).keys())
+    
+    # Limpiar results
+    raw_results = classification_data.get("results", [])
+    cleaned_results = []
+    
+    for r in raw_results:
+        cleaned = {
+            "tweet_id": r.get("tweet_id"),
+            "text": r.get("text"),
+            "labels": r.get("labels", []),
+            "risk_level": r.get("risk_level"),
+            "rationale": r.get("rationale"),
+            "spans": r.get("spans", []),
+            "is_retweet": r.get("is_retweet", False),
+            "post_type": r.get("post_type")
+        }
+        cleaned_results.append(cleaned)
+    
+    # ═══════════════════════════════════════════════════════════════════
+    # CALCULAR TAMAÑO
+    # ═══════════════════════════════════════════════════════════════════
+    full_doc = {
+        "results": cleaned_results,
+        "labels": unique_labels,
+        "email_sent": False,
+        "email_sent_at": None,
+        "created_at": timestamp,
         "username": username,
-        "timestamp": timestamp,
-        "results": classification_data.get("results", []),
-        "summary": classification_data.get("summary", {}),
-        "total_tweets": classification_data.get("total_tweets", 0),
-        "execution_time": classification_data.get("execution_time", "0s"),
-        "email_sent": False,  # ← NUEVO: Flag para trackear email
-        "email_sent_at": None  # ← NUEVO: Timestamp cuando se envió
+        "total_analyzed": len(cleaned_results)
     }
     
-    # Guardar en colección 'risk_classifications'
-    db.collection('risk_classifications').document(doc_id).set(doc_data)
+    size_bytes, size_mb = calculate_json_size(full_doc)
     
-    print(f"✅ Clasificación guardada en Firebase: {doc_id}")
-    return doc_id
-
+    print(f"\n{'='*70}")
+    print(f"🛡️  ANÁLISIS DE TAMAÑO - Clasificación de @{username}")
+    print(f"{'='*70}")
+    print(f"   Total resultados: {len(cleaned_results)}")
+    print(f"   Tamaño estimado: {size_mb:.2f} MB ({size_bytes:,} bytes)")
+    print(f"   Límite Firestore: 1.00 MB")
+    
+    # ═══════════════════════════════════════════════════════════════════
+    # DECISIÓN AUTOMÁTICA
+    # ═══════════════════════════════════════════════════════════════════
+    FIRESTORE_LIMIT_MB = 0.9
+    
+    if size_mb < FIRESTORE_LIMIT_MB:
+        # ✅ CASO 1: Cabe en Firestore
+        print(f"   ✅ Tamaño OK para Firestore ({size_mb:.2f} < {FIRESTORE_LIMIT_MB})")
+        print(f"   Guardando TODO en Firestore...")
+        
+        db.collection('risk_classifications').document(doc_id).set(full_doc)
+        
+        print(f"✅ Clasificación guardada en Firestore: {doc_id}")
+        print(f"{'='*70}\n")
+        
+        return doc_id
+    
+    else:
+        # ⚠️ CASO 2: Muy grande - Usar Storage
+        print(f"   ⚠️ Excede límite ({size_mb:.2f} >= {FIRESTORE_LIMIT_MB})")
+        print(f"   Usando modo HÍBRIDO (Firestore + Storage)...")
+        
+        # Subir results a Storage
+        storage_path = f"classifications/{doc_id}_results.json"
+        results_storage_ref = upload_to_storage(cleaned_results, storage_path)
+        
+        # Guardar solo metadata en Firestore
+        metadata_doc = {
+            "labels": unique_labels,
+            "email_sent": False,
+            "email_sent_at": None,
+            "created_at": timestamp,
+            "username": username,
+            "total_analyzed": len(cleaned_results),
+            
+            # ✅ NUEVO: Referencias a Storage
+            "storage_mode": "hybrid",
+            "results_storage_ref": results_storage_ref,
+            "original_size_mb": round(size_mb, 2)
+        }
+        
+        db.collection('risk_classifications').document(doc_id).set(metadata_doc)
+        
+        print(f"✅ Metadata guardada en Firestore: {doc_id}")
+        print(f"✅ Results guardados en Storage: {storage_path}")
+        print(f"{'='*70}\n")
+        
+        return doc_id
 def get_tweets_from_firebase(doc_id: str) -> Optional[Dict[str, Any]]:
     """
-    Recupera tweets desde Firebase
+    Recupera tweets desde Firebase - VERSIÓN HÍBRIDA
+    Maneja automáticamente Firestore only o Firestore + Storage
     """
     if not db:
         raise Exception("Firebase no está inicializado")
     
-    doc_ref = db.collection('user_tweets').document(doc_id)
-    doc = doc_ref.get()
-    
-    if doc.exists:
-        return doc.to_dict()
-    return None
+    try:
+        doc_ref = db.collection('user_tweets').document(doc_id)
+        doc = doc_ref.get()
+        
+        if not doc.exists:
+            return None
+        
+        data = doc.to_dict()
+        
+        # ═══════════════════════════════════════════════════════════════════
+        # DETECTAR MODO: Firestore only vs Híbrido
+        # ═══════════════════════════════════════════════════════════════════
+        storage_mode = data.get('storage_mode', 'firestore_only')
+        
+        if storage_mode == 'hybrid':
+            # ⚠️ MODO HÍBRIDO: Descargar tweets desde Storage
+            print(f"📥 Modo híbrido detectado, descargando tweets desde Storage...")
+            
+            tweets_ref = data.get('tweets_storage_ref')
+            if not tweets_ref:
+                raise Exception("tweets_storage_ref no encontrado en documento híbrido")
+            
+            # Descargar tweets desde Storage
+            tweets_array = download_from_storage(tweets_ref)
+            
+            # Reconstruir estructura completa
+            data['tweets'] = tweets_array
+            
+            print(f"✅ Tweets descargados: {len(tweets_array)} tweets")
+        
+        else:
+            # ✅ MODO NORMAL: Tweets ya están en Firestore
+            print(f"📖 Modo Firestore only, datos completos en documento")
+        
+        return data
+        
+    except Exception as e:
+        print(f"❌ Error obteniendo tweets: {str(e)}")
+        raise
 
 def get_classification_from_firebase(doc_id: str) -> Optional[Dict[str, Any]]:
     """
-    Recupera clasificación desde Firebase
+    Recupera clasificación desde Firebase - VERSIÓN HÍBRIDA
+    Maneja automáticamente Firestore only o Firestore + Storage
     """
     if not db:
         raise Exception("Firebase no está inicializado")
     
-    doc_ref = db.collection('risk_classifications').document(doc_id)
-    doc = doc_ref.get()
-    
-    if doc.exists:
-        return doc.to_dict()
-    return None
+    try:
+        doc_ref = db.collection('risk_classifications').document(doc_id)
+        doc = doc_ref.get()
+        
+        if not doc.exists:
+            return None
+        
+        data = doc.to_dict()
+        
+        # ═══════════════════════════════════════════════════════════════════
+        # DETECTAR MODO
+        # ═══════════════════════════════════════════════════════════════════
+        storage_mode = data.get('storage_mode', 'firestore_only')
+        
+        if storage_mode == 'hybrid':
+            # ⚠️ MODO HÍBRIDO: Descargar results desde Storage
+            print(f"📥 Modo híbrido detectado, descargando resultados desde Storage...")
+            
+            results_ref = data.get('results_storage_ref')
+            if not results_ref:
+                raise Exception("results_storage_ref no encontrado en documento híbrido")
+            
+            # Descargar results desde Storage
+            results_array = download_from_storage(results_ref)
+            
+            # Reconstruir estructura completa
+            data['results'] = results_array
+            
+            print(f"✅ Resultados descargados: {len(results_array)} clasificaciones")
+        
+        else:
+            # ✅ MODO NORMAL: Results ya están en Firestore
+            print(f"📖 Modo Firestore only, datos completos en documento")
+        
+        return data
+        
+    except Exception as e:
+        print(f"❌ Error obteniendo clasificación: {str(e)}")
+        raise
 
 # ============================================================================
 # Funciones Helper OAuth (sin cambios)
