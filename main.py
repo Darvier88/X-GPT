@@ -49,6 +49,12 @@ from X.search_tweets import fetch_user_tweets_with_progress
 from GPT.risk_classifier_only_text import classify_risk_text_only
 from X.deleate_tweets_rts import delete_tweets_batch
 from estimacion_de_tiempo import quick_estimate_all, format_time
+from openai_health_check import (
+    run_startup_health_check, 
+    test_openai_connection,
+    get_last_health_check,
+    last_health_check_result
+)
 
 # Gmail SMTP (desde variables de entorno)
 RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL')
@@ -123,6 +129,10 @@ def initialize_firebase():
         return False
 # Inicializar Firebase al cargar el módulo
 initialize_firebase()
+print("\n🏥 Ejecutando health checks de inicio...")
+import openai_health_check
+openai_health_check.last_health_check_result = run_startup_health_check()
+
 # ============================================================================
 # Cloud Storage Helper Functions
 # ============================================================================
@@ -2477,6 +2487,44 @@ async def send_analysis_ready_notification(
 # ============================================================================
 # UTILIDADES
 # ============================================================================
+@app.get("/health/openai")
+async def health_check_openai():
+    """
+    Endpoint para verificar la conexión con OpenAI
+    Ejecuta un test en tiempo real
+    """
+    result = test_openai_connection()
+    
+    status_code = 200 if result["success"] else 503
+    
+    return JSONResponse(
+        content=result,
+        status_code=status_code
+    )
+
+
+@app.get("/health/openai/last")
+async def health_check_openai_last():
+    """
+    Endpoint para ver el resultado del último health check (al inicio)
+    No ejecuta un nuevo test
+    """
+    result = get_last_health_check()
+    
+    if not result:
+        return JSONResponse(
+            content={
+                "error": "No health check has been run yet"
+            },
+            status_code=404
+        )
+    
+    status_code = 200 if result.get("success") else 503
+    
+    return JSONResponse(
+        content=result,
+        status_code=status_code
+    )
 @app.get("/debug/env")
 async def debug_env():
     """Endpoint temporal para verificar variables de entorno"""
@@ -2524,14 +2572,20 @@ async def preflight_handler(rest_of_path: str):
         }
     )
 
-@app.get("/health")
+@app.get("/health")  # Modificar el endpoint existente
 async def health():
+    """Health check completo de la aplicación"""
+    openai_health = get_last_health_check()
+    
     return {
-        "status": "healthy",
+        "status": "healthy" if openai_health and openai_health.get("success") else "degraded",
         "active_sessions": len(oauth_sessions),
         "firebase_connected": db is not None,
-        "timestamp": datetime.now().isoformat()
+        "openai_connected": openai_health.get("success") if openai_health else False,
+        "timestamp": datetime.now().isoformat(),
+        "openai_last_check": openai_health.get("timestamp") if openai_health else None
     }
+
 @app.get("/api/firebase/get-data")
 async def get_firebase_data(
     session_id: str = Query(None),  # Opcional
@@ -2639,9 +2693,16 @@ if __name__ == "__main__":
     print(f"\nREDIRECT_URI configurado: {REDIRECT_URI}")
     print(f"FRONTEND_CALLBACK_URL: {FRONTEND_CALLBACK_URL}")
     print(f"Firebase Status: {'✅ Conectado' if db else '❌ No conectado'}")
+    health_result = get_last_health_check()
+    if health_result:
+        openai_status = "✅ Conectado" if health_result.get("success") else "❌ No conectado"
+        print(f"OpenAI Status: {openai_status}")
     print("\n⚠️  IMPORTANTE: Configura este REDIRECT_URI en tu Twitter App:")
     print("   https://developer.x.com/en/portal/dashboard")
-    print("\nDocumentación: http://localhost:8080/docs")
+    print("\nEndpoints:")
+    print("   📊 Health Check OpenAI: http://localhost:8080/health/openai")
+    print("   📋 Last Health Check: http://localhost:8080/health/openai/last")
+    print("   📖 Documentación: http://localhost:8080/docs")
     print("="*70 + "\n")
     
     uvicorn.run(
