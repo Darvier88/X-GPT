@@ -130,12 +130,19 @@ initialize_firebase()
 # Cloud Storage Helper Functions
 # ============================================================================
 
+def datetime_serializer(obj):
+    """Serializador personalizado para objetos datetime"""
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
+
+
 def calculate_json_size(data: Any) -> tuple[int, float]:
     """
     Calcula el tamaño de un objeto al serializarlo a JSON
     Returns: (bytes, megabytes)
     """
-    json_str = json.dumps(data, ensure_ascii=False)
+    json_str = json.dumps(data, ensure_ascii=False, default=datetime_serializer)
     size_bytes = len(json_str.encode('utf-8'))
     size_mb = size_bytes / (1024 * 1024)
     return size_bytes, size_mb
@@ -156,8 +163,8 @@ def upload_to_storage(data: Any, path: str) -> str:
         raise Exception("Cloud Storage no está inicializado")
     
     try:
-        # Serializar a JSON
-        json_str = json.dumps(data, ensure_ascii=False, indent=2)
+        # Serializar a JSON con serializador personalizado
+        json_str = json.dumps(data, ensure_ascii=False, indent=2, default=datetime_serializer)
         json_bytes = json_str.encode('utf-8')
         
         # Crear blob y subir
@@ -166,9 +173,6 @@ def upload_to_storage(data: Any, path: str) -> str:
             json_bytes,
             content_type='application/json'
         )
-        
-        # Hacer público (opcional, depende de tus necesidades de seguridad)
-        # blob.make_public()
         
         print(f"✅ Archivo subido a Storage: {path} ({len(json_bytes)} bytes)")
         
@@ -323,6 +327,7 @@ def validate_access_token(token: str) -> Optional[Dict[str, Any]]:
 def send_email_notification(
     username: str,
     stats: Dict[str, Any],
+    session_id = str,
     recipient_email: str = RECIPIENT_EMAIL,
     dashboard_link: str = f"{FRONTEND_URL}/dashboard" # ← NUEVO parámetro
 ) -> Dict[str, Any]:
@@ -331,11 +336,21 @@ def send_email_notification(
     MODIFICADO: Ahora recibe dashboard_link con token incluido
     """
     try:
+        session = get_session(session_id)
+        user_email = None
+        
+        if session and session.get('user', {}).get('email'):
+            user_email = session['user']['email']
+            print(f"📧 Usando email del usuario: {user_email}")
+        else:
+            user_email = RECIPIENT_EMAIL
+            print(f"📧 Usando email por defecto: {user_email}")
+        
         # Crear mensaje
         msg = MIMEMultipart('alternative')
         msg['Subject'] = f'✅ Your X/Twitter Analysis is Ready! (@{username})'
         msg['From'] = GMAIL_USER
-        msg['To'] = recipient_email
+        msg['To'] = user_email 
         
         # Extraer estadísticas
         total_tweets = stats.get('total_tweets', 0)
@@ -413,19 +428,19 @@ Background Checker
         msg.attach(part2)
         
         # Enviar email
-        print(f"\n📧 Enviando email a: {recipient_email}")
+        print(f"\n📧 Enviando email a: {user_email}")
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
         server.login(GMAIL_USER, GMAIL_APP_PASSWORD)
         server.send_message(msg)
         server.quit()
         
-        print(f"✅ Email enviado exitosamente a {recipient_email}")
+        print(f"✅ Email enviado exitosamente a {user_email}")
         
         return {
             'success': True,
-            'message': f'Email sent to {recipient_email}',
-            'recipient': recipient_email
+            'message': f'Email sent to {user_email}',
+            'recipient': user_email
         }
         
     except Exception as e:
@@ -908,6 +923,7 @@ def get_user_info(access_token: str) -> Dict[str, Any]:
                 'id': data.get('id'),
                 'username': data.get('username'),
                 'name': data.get('name'),
+                'email': None,  # Email no está disponible en este endpoint
                 'followers_count': metrics.get('followers_count', 0),
                 'following_count': metrics.get('following_count', 0),
                 'tweet_count': metrics.get('tweet_count', 0),
@@ -997,6 +1013,36 @@ async def get_current_user(session_id: str = Query(..., description="Session ID 
         "user": session['user'],
         "expires_at": session.get('expires_at').isoformat() if session.get('expires_at') else None
     }
+@app.post("/api/auth/update-email")
+async def update_user_email(
+    session_id: str = Query(..., description="Session ID"),
+    email: str = Query(..., description="Email del usuario")
+):
+    """
+    Actualiza el email del usuario en la sesión
+    Este email se usará para notificaciones
+    """
+    session = get_session(session_id)
+    if not session:
+        raise HTTPException(status_code=401, detail="Sesión inválida")
+    
+    # Validar formato de email
+    import re
+    email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(email_regex, email):
+        raise HTTPException(status_code=400, detail="Email inválido")
+    
+    # Actualizar email en la sesión
+    session['user']['email'] = email
+    
+    print(f"📧 Email actualizado para @{session['user']['username']}: {email}")
+    
+    return {
+        "success": True,
+        "message": "Email actualizado correctamente",
+        "email": email
+    }
+
 @app.get("/api/auth/validate-token")
 async def validate_token_endpoint(
     token: str = Query(..., description="Token de acceso temporal")
@@ -1033,7 +1079,8 @@ async def validate_token_endpoint(
 async def search_my_tweets(
     request: SearchRequest,
     background_tasks: BackgroundTasks,
-    session_id: str = Query(..., description="Session ID")
+    session_id: str = Query(..., description="Session ID"),
+    auto_classify: bool = Query(False, description="Clasificar automáticamente después del search") 
 ):
     """
     ✅ VERSIÓN ASÍNCRONA: Inicia búsqueda en background y retorna job_id inmediatamente
@@ -1117,7 +1164,8 @@ async def search_my_tweets(
         username=username,
         max_tweets=request.max_tweets,
         save_to_firebase=request.save_to_firebase,
-        session_id=session_id
+        session_id=session_id,
+        auto_classify=auto_classify 
     )
     
     print(f"✅ Job {job_id} agregado a background_tasks")
@@ -1140,7 +1188,8 @@ def process_tweets_search_background(
     username: str,
     max_tweets: Optional[int],
     save_to_firebase: bool,
-    session_id: str
+    session_id: str,
+    auto_classify: bool = False
 ):
     """
     ✅ Procesa la búsqueda de tweets EN BACKGROUND
@@ -1210,23 +1259,8 @@ def process_tweets_search_background(
         background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
         background_jobs[job_id]['result'] = {
             "success": True,
-            "username": username,
-            "user": {
-                "id": user_info.get('author_id'),
-                "username": user_info.get('username'),
-                "name": user_info.get('name'),
-                "followers": user_info.get('followers'),
-                "account_created": user_info.get('account_created'),
-                "avatar_url": user_info.get('avatar_url'),
-                "profile_image_url": user_info.get('profile_image_url')
-            },
-            "tweets": result.get('tweets', []),
-            "stats": result.get('stats'),
-            "pages_fetched": result.get('pages_fetched'),
-            "fetched_at": result.get('fetched_at'),
-            "execution_time": result.get('execution_time'),
-            "execution_time_seconds": result.get('execution_time_seconds'),
-            "firebase_doc_id": firebase_doc_id
+            "total_tweets": len(result.get('tweets', [])),  # ← Solo el número
+            "firebase_doc_id": firebase_doc_id,  # ← Referencia a user_tweets 
         }
         if db:
             try:
@@ -1238,29 +1272,202 @@ def process_tweets_search_background(
                     'updated_at': datetime.now(),
                     'result': {
                         "success": True,
-                        "username": username,
-                        "user": {
-                            "id": user_info.get('author_id'),
-                            "username": user_info.get('username'),
-                            "name": user_info.get('name'),
-                            "followers": user_info.get('followers'),
-                            "account_created": user_info.get('account_created'),
-                            "avatar_url": user_info.get('avatar_url'),
-                            "profile_image_url": user_info.get('profile_image_url')
-                        },
-                        "tweets": result.get('tweets', []),
-                        "stats": result.get('stats'),
-                        "pages_fetched": result.get('pages_fetched'),
-                        "fetched_at": result.get('fetched_at'),
-                        "execution_time": result.get('execution_time'),
-                        "execution_time_seconds": result.get('execution_time_seconds'),
-                        "firebase_doc_id": firebase_doc_id
+                        "total_tweets": len(result.get('tweets', [])),  # ← Solo el número
+                        "firebase_doc_id": firebase_doc_id,  # ← Referencia a user_tweets
                     },
                     'firebase_doc_id': firebase_doc_id
                 })
                 print(f"✅ [Firebase] Job marcado como completado")
             except Exception as e:
                 print(f"⚠️ [Firebase] Error actualizando completado: {e}")
+        classification_firebase_id = None
+        
+        if auto_classify:
+            try:
+                print(f"\n{'='*70}")
+                print(f"🤖 AUTO-CLASIFICACIÓN ACTIVADA")
+                print(f"{'='*70}\n")
+                
+                # Actualizar status
+                background_jobs[job_id]['message'] = 'Clasificando riesgos automáticamente...'
+                background_jobs[job_id]['updated_at'] = datetime.now().isoformat()
+                
+                if db:
+                    try:
+                        db.collection('background_jobs').document(job_id).update({
+                            'message': 'Clasificando riesgos automáticamente...',
+                            'updated_at': datetime.now()
+                        })
+                    except Exception as e:
+                        print(f"⚠️ [Firebase] Error actualizando mensaje: {e}")
+                
+                # Obtener tweets para clasificar
+                tweets_to_classify = result.get('tweets', [])
+                
+                if not tweets_to_classify:
+                    print("⚠️ No hay tweets para clasificar")
+                else:
+                    print(f"🔍 Clasificando {len(tweets_to_classify)} tweets...")
+                    
+                    # ═══════════════════════════════════════════════════════════════════
+                    # CLASIFICACIÓN DIRECTA (sin llamar al endpoint, para evitar async)
+                    # ═══════════════════════════════════════════════════════════════════
+                    start_time = time.time()
+                    classification_results = []
+                    stats = {
+                        "total_analyzed": len(tweets_to_classify),
+                        "risk_distribution": {"no": 0, "low": 0, "mid": 0, "high": 0},
+                        "label_counts": {},
+                        "errors": 0
+                    }
+                    
+                    for i, tweet_obj in enumerate(tweets_to_classify, 1):
+                        tweet_text = tweet_obj.get("text", "")
+                        tweet_id = tweet_obj.get("id")
+                        is_retweet = tweet_obj.get("is_retweet", False)
+                        
+                        if not tweet_text.strip():
+                            continue
+                        
+                        # Clasificar usando la función directamente
+                        classification_result = classify_risk_text_only(
+                            tweet_text, 
+                            tweet_id=str(tweet_id) if tweet_id else None
+                        )
+                        classification_result["is_retweet"] = is_retweet
+                        
+                        # Copiar metadata adicional
+                        for key in ['author_id', 'created_at', 'referenced_tweets']:
+                            if key in tweet_obj:
+                                classification_result[key] = tweet_obj[key]
+                        
+                        classification_results.append(classification_result)
+                        
+                        # Actualizar stats
+                        if "error_code" not in classification_result:
+                            level = classification_result.get("risk_level", "low")
+                            stats["risk_distribution"][level] += 1
+                            for label in classification_result.get("labels", []):
+                                stats["label_counts"][label] = stats["label_counts"].get(label, 0) + 1
+                        else:
+                            stats["errors"] += 1
+                        
+                        # Log cada 10 tweets
+                        if i % 10 == 0 or i == len(tweets_to_classify):
+                            print(f"   ✅ Clasificados: {i}/{len(tweets_to_classify)}")
+                    
+                    end_time = time.time()
+                    execution_time = end_time - start_time
+                    
+                    print(f"✅ Clasificación completada en {execution_time:.2f}s")
+                    
+                    # Guardar clasificación en Firebase
+                    classification_data = {
+                        "results": classification_results,
+                        "summary": stats,
+                        "total_tweets": len(tweets_to_classify),
+                        "execution_time": f"{execution_time:.2f}s"
+                    }
+                    
+                    classification_firebase_id = save_classification_to_firebase(
+                        username, 
+                        classification_data
+                    )
+                    
+                    print(f"✅ Clasificación guardada: {classification_firebase_id}")
+                    
+                    # ═══════════════════════════════════════════════════════════════════
+                    # PREPARAR STATS PARA EMAIL (en el formato correcto)
+                    # ═══════════════════════════════════════════════════════════════════
+                    email_stats = {
+                        'total_tweets': len(tweets_to_classify),
+                        'high_risk': stats["risk_distribution"].get("high", 0),
+                        'mid_risk': stats["risk_distribution"].get("mid", 0),
+                        'low_risk': stats["risk_distribution"].get("low", 0),
+                        'no_risk': stats["risk_distribution"].get("no", 0)
+                    }
+                    
+                    print(f"📊 Email stats preparados: {email_stats}")
+                    
+                    # ═══════════════════════════════════════════════════════════════════
+                    # ENVIAR EMAIL AUTOMÁTICAMENTE
+                    # ═══════════════════════════════════════════════════════════════════
+                    print(f"\n📧 Enviando notificación por email...")
+                    
+                    session = get_session(session_id)
+                    
+                    if session and classification_firebase_id and firebase_doc_id:
+                        # Crear token de acceso
+                        access_token = create_access_token(
+                            username=username,
+                            session_id=session_id,
+                            twitter_access_token=session.get('access_token'),
+                            user_data=session.get('user'),
+                            expires_hours=TOKEN_EXPIRATION_HOURS
+                        )
+                        
+                        # Crear dashboard link
+                        dashboard_link = (
+                            f"{FRONTEND_URL}/dashboard?"
+                            f"tweets_id={firebase_doc_id}&"
+                            f"classification_id={classification_firebase_id}&"
+                            f"username={username}&"
+                            f"token={access_token}"
+                        )
+                        
+                        # Enviar email con stats en formato correcto
+                        email_result = send_email_notification(
+                            username=username,
+                            stats=email_stats,  # ← Usar email_stats en vez de stats
+                            session_id=session_id,
+                            dashboard_link=dashboard_link
+                        )
+                        
+                        if email_result['success']:
+                            print(f"✅ Email enviado a: {email_result['recipient']}")
+                            
+                            # Marcar como enviado en Firebase
+                            if db:
+                                try:
+                                    classification_ref = db.collection('risk_classifications').document(classification_firebase_id)
+                                    classification_ref.update({
+                                        'email_sent': True,
+                                        'email_sent_at': datetime.now(),
+                                        'dashboard_link': dashboard_link
+                                    })
+                                except Exception as e:
+                                    print(f"⚠️ Error marcando email como enviado: {e}")
+                        else:
+                            print(f"⚠️ Error enviando email: {email_result.get('error')}")
+                    else:
+                        print(f"⚠️ No se pudo enviar email (faltan datos)")
+                        print(f"   session: {session is not None}")
+                        print(f"   classification_firebase_id: {classification_firebase_id}")
+                        print(f"   firebase_doc_id: {firebase_doc_id}")
+                    # ═══════════════════════════════════════════════════════════════════
+                    
+                print(f"{'='*70}\n")
+                
+            except Exception as classify_error:
+                print(f"❌ Error en auto-clasificación: {str(classify_error)}")
+                import traceback
+                traceback.print_exc()
+        
+        # ═══════════════════════════════════════════════════════════════════
+        # ACTUALIZAR RESULTADO FINAL CON classification_firebase_id
+        # ═══════════════════════════════════════════════════════════════════
+        if classification_firebase_id:
+            background_jobs[job_id]['result']['classification_firebase_id'] = classification_firebase_id
+            
+            if db:
+                try:
+                    db.collection('background_jobs').document(job_id).update({
+                        'result.classification_firebase_id': classification_firebase_id
+                    })
+                except Exception as e:
+                    print(f"⚠️ [Firebase] Error guardando classification_id: {e}")
+        # ═══════════════════════════════════════════════════════════════════
+
         
         print(f"\n{'='*70}")
         print(f"✅ JOB COMPLETADO: {job_id}")
@@ -1268,6 +1475,8 @@ def process_tweets_search_background(
         print(f"   Tweets: {len(result.get('tweets', []))}")
         print(f"   Tiempo: {result.get('execution_time')}")
         print(f"   Firebase Doc: {firebase_doc_id}")
+        if classification_firebase_id:
+            print(f"   Classification Doc: {classification_firebase_id}")
         print(f"{'='*70}\n")
     
     except Exception as e:
@@ -1519,7 +1728,7 @@ async def delete_user_tweets(
     delete_from_firebase: bool = Query(True)
 ):
     """
-    Elimina tweets - VERSIÓN MEJORADA con soporte para tokens
+    Elimina tweets - VERSIÓN MEJORADA con soporte para tokens Y modo híbrido
     """
     
     # ═══════════════════════════════════════════════════════════════════
@@ -1542,7 +1751,7 @@ async def delete_user_tweets(
         session = {
             'access_token': token_data.get('twitter_access_token'),
             'user': token_data.get('user_data'),
-            'token_based': True  # Flag para saber que viene de token
+            'token_based': True
         }
         
         auth_method = f"token ({token[:16]}...)"
@@ -1572,10 +1781,11 @@ async def delete_user_tweets(
     if not user_id:
         raise HTTPException(status_code=400, detail="No se pudo obtener el user_id")
     
-    print(f"✅ Autenticación exitosa: @{username} (método: {auth_method})")    
-    # ============================================================================
+    print(f"✅ Autenticación exitosa: @{username} (método: {auth_method})")
+    
+    # ═══════════════════════════════════════════════════════════════════
     # RATE LIMITING: Verificar si el usuario puede hacer otra eliminación
-    # ============================================================================
+    # ═══════════════════════════════════════════════════════════════════
     now = time.time()
     user_rate_key = f"{user_id}"
     
@@ -1595,7 +1805,9 @@ async def delete_user_tweets(
                 }
             )
     
-    # Obtener tweets desde Firebase
+    # ═══════════════════════════════════════════════════════════════════
+    # OBTENER TWEETS: Usar la función híbrida que maneja Storage
+    # ═══════════════════════════════════════════════════════════════════
     tweets_data = get_tweets_from_firebase(firebase_doc_id)
     if not tweets_data:
         raise HTTPException(status_code=404, detail=f"No se encontró el documento: {firebase_doc_id}")
@@ -1604,9 +1816,9 @@ async def delete_user_tweets(
     if not all_tweets:
         raise HTTPException(status_code=400, detail="No hay tweets para eliminar")
     
-    # ============================================================================
+    # ═══════════════════════════════════════════════════════════════════
     # FILTRAR TWEETS: Solo eliminar los especificados en tweet_ids
-    # ============================================================================
+    # ═══════════════════════════════════════════════════════════════════
     tweets_to_delete = all_tweets
     
     if tweet_ids:
@@ -1628,7 +1840,7 @@ async def delete_user_tweets(
     print(f"{'='*70}")
     print(f"   Usuario: @{username}")
     print(f"   User ID: {user_id}")
-    print(f"   Método de auth: {auth_method}")  # ← NUEVA LÍNEA
+    print(f"   Método de auth: {auth_method}")
     print(f"   Firebase Doc: {firebase_doc_id}")
     print(f"   Total tweets en Firebase: {len(all_tweets)}")
     print(f"   Tweets a eliminar: {len(tweets_to_delete)}")
@@ -1641,7 +1853,9 @@ async def delete_user_tweets(
     # Crear adaptador OAuth2Session compatible
     oauth_adapter = OAuth2SessionAdapter(session['access_token'])
     
+    # ═══════════════════════════════════════════════════════════════════
     # PASO 1: Ejecutar eliminación en Twitter
+    # ═══════════════════════════════════════════════════════════════════
     try:
         print("🐦 PASO 1: Eliminando tweets de Twitter...")
         result = delete_tweets_batch(
@@ -1659,15 +1873,17 @@ async def delete_user_tweets(
         print(f"   Tweets eliminados: {result['tweets_deleted']}")
         print(f"   Fallidos: {len(result['failed'])}")
         
-        # ============================================================================
+        # ═══════════════════════════════════════════════════════════════════
         # ACTUALIZAR RATE LIMIT: Marcar timestamp de esta eliminación
-        # ============================================================================
+        # ═══════════════════════════════════════════════════════════════════
         deletion_rate_limit[user_rate_key] = {
             'timestamp': time.time(),
             'tweets_deleted': result['retweets_deleted'] + result['tweets_deleted']
         }
         
-        # PASO 2: Actualizar Firebase (eliminar tweets borrados exitosamente)
+        # ═══════════════════════════════════════════════════════════════════
+        # PASO 2: Actualizar Firebase (Firestore + Storage en modo híbrido)
+        # ═══════════════════════════════════════════════════════════════════
         if delete_from_firebase and db:
             print(f"\n🔥 PASO 2: Actualizando Firebase...")
             
@@ -1683,7 +1899,7 @@ async def delete_user_tweets(
                 print(f"   Tweets eliminados exitosamente de Twitter: {len(deleted_ids)}")
                 
                 # ═══════════════════════════════════════════════════════════════════
-                # 2A: Actualizar colección 'user_tweets'
+                # 2A: Actualizar colección 'user_tweets' (MEJORADO para modo híbrido)
                 # ═══════════════════════════════════════════════════════════════════
                 print(f"\n   📊 Actualizando 'user_tweets'...")
                 doc_ref = db.collection('user_tweets').document(firebase_doc_id)
@@ -1691,9 +1907,12 @@ async def delete_user_tweets(
                 
                 if doc.exists:
                     data = doc.to_dict()
+                    storage_mode = data.get('storage_mode', 'firestore_only')
+                    
+                    print(f"      Storage mode: {storage_mode}")
                     
                     # Filtrar tweets: mantener solo los que NO se eliminaron
-                    original_tweets = data.get('tweets', [])
+                    original_tweets = all_tweets  # Ya vienen de get_tweets_from_firebase()
                     remaining_tweets = [
                         t for t in original_tweets 
                         if str(t.get('id')) not in deleted_ids
@@ -1707,18 +1926,44 @@ async def delete_user_tweets(
                     new_stats = original_stats.copy()
                     new_stats['total_tweets'] = len(remaining_tweets)
                     
-                    # Actualizar documento
-                    doc_ref.update({
-                        'tweets': remaining_tweets,
-                        'stats': new_stats,
-                        'last_cleanup': datetime.now(),
-                        'cleanup_summary': {
-                            'deleted_count': len(deleted_ids),
-                            'remaining_count': len(remaining_tweets),
-                            'failed_count': len(result['failed']),
-                            'timestamp': datetime.now().isoformat()
-                        }
-                    })
+                    # ✅ NUEVO: Manejar modo híbrido
+                    if storage_mode == 'hybrid':
+                        print(f"      ⚠️ Modo híbrido detectado - Actualizando Storage...")
+                        
+                        # Actualizar archivo en Storage
+                        tweets_storage_ref = data.get('tweets_storage_ref')
+                        if tweets_storage_ref:
+                            try:
+                                # Subir nuevos tweets filtrados a Storage
+                                upload_to_storage(remaining_tweets, tweets_storage_ref)
+                                print(f"      ✅ Storage actualizado: {tweets_storage_ref}")
+                            except Exception as storage_error:
+                                print(f"      ⚠️ Error actualizando Storage: {storage_error}")
+                        
+                        # Actualizar solo metadata en Firestore (sin tweets)
+                        doc_ref.update({
+                            'stats': new_stats,
+                            'last_cleanup': datetime.now(),
+                            'cleanup_summary': {
+                                'deleted_count': len(deleted_ids),
+                                'remaining_count': len(remaining_tweets),
+                                'failed_count': len(result['failed']),
+                                'timestamp': datetime.now().isoformat()
+                            }
+                        })
+                    else:
+                        # Modo normal: actualizar tweets en Firestore
+                        doc_ref.update({
+                            'tweets': remaining_tweets,
+                            'stats': new_stats,
+                            'last_cleanup': datetime.now(),
+                            'cleanup_summary': {
+                                'deleted_count': len(deleted_ids),
+                                'remaining_count': len(remaining_tweets),
+                                'failed_count': len(result['failed']),
+                                'timestamp': datetime.now().isoformat()
+                            }
+                        })
                     
                     print(f"      ✅ 'user_tweets' actualizado")
                     result['firebase_updated'] = True
@@ -1728,101 +1973,116 @@ async def delete_user_tweets(
                     result['firebase_updated'] = False
                 
                 # ═══════════════════════════════════════════════════════════════════
-                # 2B: Actualizar colección 'risk_classifications' (NUEVO) ⭐
+                # 2B: Actualizar colección 'risk_classifications' (MEJORADO)
                 # ═══════════════════════════════════════════════════════════════════
                 print(f"\n   🛡️  Actualizando 'risk_classifications'...")
 
                 # Buscar el documento más reciente de clasificación para este usuario
                 classifications_ref = db.collection('risk_classifications')
-                query = classifications_ref.where('username', '==', username).order_by('timestamp', direction=firestore.Query.DESCENDING).limit(1)
+                query = classifications_ref.where('username', '==', username).order_by('created_at', direction=firestore.Query.DESCENDING).limit(1)
 
                 try:
                     classification_docs = list(query.stream())
                     
                     if classification_docs:
                         classification_doc = classification_docs[0]
-                        classification_data = classification_doc.to_dict()
-                        original_results = classification_data.get('results', [])
+                        classification_doc_id = classification_doc.id
                         
-                        print(f"      Clasificaciones originales: {len(original_results)}")
-                        print(f"      IDs a eliminar (deleted_ids): {deleted_ids}")
+                        print(f"      📄 Documento encontrado: {classification_doc_id}")
                         
-                        # 🔍 DEBUG: Normalizar AMBOS lados de la comparación
-                        deleted_ids_normalized = {str(id).strip() for id in deleted_ids}
-                        print(f"      IDs normalizados: {deleted_ids_normalized}")
+                        # ✅ CAMBIO CRÍTICO: Usar get_classification_from_firebase()
+                        # Esta función maneja automáticamente el modo híbrido
+                        classification_data = get_classification_from_firebase(classification_doc_id)
                         
-                        # Mostrar samples de lo que tenemos en results
-                        if original_results:
-                            sample_result = original_results[0]
-                            print(f"      DEBUG - Sample result tweet_id: {sample_result.get('tweet_id')}")
-                            print(f"      DEBUG - Sample tweet_id type: {type(sample_result.get('tweet_id'))}")
-                            print(f"      DEBUG - Sample tweet_id as string: '{str(sample_result.get('tweet_id')).strip()}'")
-                        
-                        # 🔍 DEBUG: Verificar qué IDs se están comparando ANTES de filtrar
-                        eliminated_count = 0
-                        print(f"      🔍 Verificando coincidencias de IDs...")
-                        for r in original_results:
-                            r_id_normalized = str(r.get('tweet_id')).strip()
-                            if r_id_normalized in deleted_ids_normalized:
-                                eliminated_count += 1
-                                print(f"         ✅ Coincidencia encontrada: {r_id_normalized}")
-                        
-                        if eliminated_count == 0:
-                            print(f"      ⚠️ WARNING: Ningún tweet coincidió para eliminación!")
-                            print(f"         Los IDs no están coincidiendo entre deleted_ids y risk_classifications")
+                        if not classification_data:
+                            print(f"      ⚠️ No se pudo cargar clasificación")
+                            result['firebase_classification_updated'] = False
                         else:
-                            print(f"      ✅ Total de coincidencias: {eliminated_count}")
-                        
-                        # Filtrar resultados: mantener solo los que NO se eliminaron
-                        remaining_results = [
-                            r for r in original_results 
-                            if str(r.get('tweet_id')).strip() not in deleted_ids_normalized
-                        ]
-                        
-                        print(f"      Clasificaciones restantes después del filtro: {len(remaining_results)}")
-                        print(f"      Clasificaciones eliminadas: {len(original_results) - len(remaining_results)}")
-                        
-                        # Recalcular estadísticas del summary desde cero
-                        new_summary = {
-                            "total_analyzed": len(remaining_results),
-                            "risk_distribution": {"no": 0, "low": 0, "mid": 0, "high": 0},
-                            "label_counts": {},
-                            "errors": 0
-                        }
-                        
-                        for r in remaining_results:
-                            if "error_code" not in r:
-                                level = r.get("risk_level", "low")
-                                if level in new_summary["risk_distribution"]:
-                                    new_summary["risk_distribution"][level] += 1
-                                for label in r.get("labels", []):
-                                    new_summary["label_counts"][label] = new_summary["label_counts"].get(label, 0) + 1
-                            else:
-                                new_summary["errors"] += 1
-                        
-                        print(f"      Nuevo summary calculado:")
-                        print(f"         Total: {new_summary['total_analyzed']}")
-                        print(f"         High: {new_summary['risk_distribution']['high']}")
-                        print(f"         Mid: {new_summary['risk_distribution']['mid']}")
-                        print(f"         Low: {new_summary['risk_distribution']['low']}")
-                        print(f"         No: {new_summary['risk_distribution']['no']}")
-                        
-                        # Actualizar documento de clasificación
-                        classification_doc.reference.update({
-                            'results': remaining_results,
-                            'summary': new_summary,
-                            'total_tweets': len(remaining_results),
-                            'last_cleanup': datetime.now(),
-                            'cleanup_info': {
-                                'deleted_count': len(deleted_ids),
-                                'remaining_count': len(remaining_results),
-                                'timestamp': datetime.now().isoformat()
+                            storage_mode = classification_data.get('storage_mode', 'firestore_only')
+                            print(f"      Storage mode: {storage_mode}")
+                            
+                            # Ahora sí tenemos los results (descargados de Storage si es necesario)
+                            original_results = classification_data.get('results', [])
+                            
+                            print(f"      Clasificaciones originales: {len(original_results)}")
+                            
+                            # Normalizar IDs para comparación
+                            deleted_ids_normalized = {str(id).strip() for id in deleted_ids}
+                            
+                            # Filtrar resultados: mantener solo los que NO se eliminaron
+                            remaining_results = [
+                                r for r in original_results 
+                                if str(r.get('tweet_id')).strip() not in deleted_ids_normalized
+                            ]
+                            
+                            print(f"      Clasificaciones restantes: {len(remaining_results)}")
+                            print(f"      Clasificaciones eliminadas: {len(original_results) - len(remaining_results)}")
+                            
+                            # Recalcular estadísticas del summary desde cero
+                            new_summary = {
+                                "total_analyzed": len(remaining_results),
+                                "risk_distribution": {"no": 0, "low": 0, "mid": 0, "high": 0},
+                                "label_counts": {},
+                                "errors": 0
                             }
-                        })
-                        
-                        print(f"      ✅ 'risk_classifications' actualizado correctamente")
-                        result['firebase_classification_updated'] = True
-                        result['firebase_remaining_classifications'] = len(remaining_results)
+                            
+                            for r in remaining_results:
+                                if "error_code" not in r:
+                                    level = r.get("risk_level", "low")
+                                    if level in new_summary["risk_distribution"]:
+                                        new_summary["risk_distribution"][level] += 1
+                                    for label in r.get("labels", []):
+                                        new_summary["label_counts"][label] = new_summary["label_counts"].get(label, 0) + 1
+                                else:
+                                    new_summary["errors"] += 1
+                            
+                            print(f"      Nuevo summary:")
+                            print(f"         Total: {new_summary['total_analyzed']}")
+                            print(f"         High: {new_summary['risk_distribution']['high']}")
+                            print(f"         Mid: {new_summary['risk_distribution']['mid']}")
+                            print(f"         Low: {new_summary['risk_distribution']['low']}")
+                            
+                            # ✅ NUEVO: Manejar modo híbrido
+                            if storage_mode == 'hybrid':
+                                print(f"      ⚠️ Modo híbrido - Actualizando Storage...")
+                                
+                                # Actualizar archivo en Storage
+                                results_storage_ref = classification_data.get('results_storage_ref')
+                                if results_storage_ref:
+                                    try:
+                                        upload_to_storage(remaining_results, results_storage_ref)
+                                        print(f"      ✅ Storage actualizado: {results_storage_ref}")
+                                    except Exception as storage_error:
+                                        print(f"      ⚠️ Error actualizando Storage: {storage_error}")
+                                
+                                # Actualizar solo metadata en Firestore (sin results)
+                                classification_doc.reference.update({
+                                    'summary': new_summary,
+                                    'total_analyzed': len(remaining_results),
+                                    'last_cleanup': datetime.now(),
+                                    'cleanup_info': {
+                                        'deleted_count': len(deleted_ids),
+                                        'remaining_count': len(remaining_results),
+                                        'timestamp': datetime.now().isoformat()
+                                    }
+                                })
+                            else:
+                                # Modo normal: actualizar results en Firestore
+                                classification_doc.reference.update({
+                                    'results': remaining_results,
+                                    'summary': new_summary,
+                                    'total_tweets': len(remaining_results),
+                                    'last_cleanup': datetime.now(),
+                                    'cleanup_info': {
+                                        'deleted_count': len(deleted_ids),
+                                        'remaining_count': len(remaining_results),
+                                        'timestamp': datetime.now().isoformat()
+                                    }
+                                })
+                            
+                            print(f"      ✅ 'risk_classifications' actualizado correctamente")
+                            result['firebase_classification_updated'] = True
+                            result['firebase_remaining_classifications'] = len(remaining_results)
                     else:
                         print(f"      ℹ️  No se encontró documento de clasificación para actualizar")
                         result['firebase_classification_updated'] = False
@@ -1833,15 +2093,17 @@ async def delete_user_tweets(
                     traceback.print_exc()
                     result['firebase_classification_updated'] = False
                     result['firebase_classification_error'] = str(query_error)
+                    
             except Exception as fb_error:
                 print(f"\n⚠️ Error actualizando Firebase: {str(fb_error)}")
                 import traceback
                 traceback.print_exc()
                 result['firebase_updated'] = False
                 result['firebase_error'] = str(fb_error)
-                # No fallar si Firebase falla, continuar
         
+        # ═══════════════════════════════════════════════════════════════════
         # PASO 3: Guardar reporte de eliminación
+        # ═══════════════════════════════════════════════════════════════════
         if db:
             timestamp = datetime.now()
             report_id = f"{username}_deletion_{timestamp.strftime('%Y%m%d_%H%M%S')}"
@@ -1885,7 +2147,6 @@ async def delete_user_tweets(
         import traceback
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Error eliminando tweets: {str(e)}")
-
 # ============================================================================
 # API 5: ESTIMACIÓN DE TIEMPO (sin cambios)
 # ============================================================================
@@ -2035,7 +2296,7 @@ async def send_analysis_ready_notification(
         result = send_email_notification(
             username=username,
             stats=stats,
-            recipient_email=RECIPIENT_EMAIL,
+            session_id=session_id,  
             dashboard_link=dashboard_link
         )
         

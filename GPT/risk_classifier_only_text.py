@@ -20,29 +20,29 @@ from config import get_openai_api_key
 # ========================================================================
 # POLÍTICA v1.0 - VERSIÓN COMPACTA (mismo significado)
 # ========================================================================
-
 POLICY_COMPACT = {
     "version": "v1.0",
     "categories": {
-        "toxic": "Insultos, lenguaje denigrante a personas/grupos",
-        "hate": "Ataques por identidad protegida (raza, religión, género, etc.)",
-        "political_sensitivity": "Extremismo, conspiración, desinformación política",
-        "nsfw": "Contenido sexual explícito o pornográfico",
-        "bullying": "Intimidación, acoso persistente, doxxing",
-        "violence": "Amenazas, incitación a violencia, autolesiones",
-        "legal_privacy": "Difamación, PII sensible (tel, dirección, doc)"
+        "toxic": "Insults, degrading language towards individuals/groups",
+        "hate": "Attacks based on protected identity (race, religion, gender, etc.)",
+        "political_sensitivity": "Extremism, conspiracy theories, political misinformation",
+        "nsfw": "Explicit sexual content or pornography",
+        "bullying": "Intimidation, persistent harassment, doxxing",
+        "violence": "Threats, incitement to violence, self-harm",
+        "legal_privacy": "Defamation, sensitive PII (phone, address, documents)"
     },
     "levels": {
-        "no": "Sin riesgo",
-        "low": "Riesgo menor/incierto",
-        "mid": "Riesgo claro, daño reputacional posible",
-        "high": "Riesgo severo, violación probable"
+        "no": "No risk",
+        "low": "Minor/uncertain risk",
+        "mid": "Clear risk, potential reputational harm",
+        "high": "Severe risk, likely violation"
     },
     "rules": {
-        "escalate": ["hate/violence → high", "PII sensible → high"],
-        "deescalate": ["Cita/sarcasmo evidente → bajar"]
+        "escalate": ["hate/violence → high", "Sensitive PII → high"],
+        "deescalate": ["Obvious quote/sarcasm → lower"]
     }
 }
+
 
 # Configuración optimizada
 MAX_RETRIES = 2
@@ -173,30 +173,31 @@ def build_text_prompt(tweet_text: str) -> str:
     
     categories = "\n".join([f"- {k}: {v}" for k, v in POLICY_COMPACT["categories"].items()])
 
-    prompt = f"""Clasifica riesgo según Política v1.0 (compacta).
+    prompt = f"""Classify risk according to Policy v1.0 (compact).
 
-CATEGORÍAS:
+CATEGORIES:
 {categories}
 
-NIVELES: low (menor), mid (claro), high (severo)
+LEVELS: low, mid, high
 
-REGLAS:
+RULES:
 - hate/violence → high
-- Cita/sarcasmo evidente → bajar nivel
-- PII (tel/dirección) → high
+- Obvious quote/sarcasm → lower level
+- PII (phone/address) → high
 
-EJEMPLOS:
+EXAMPLES:
 
 Tweet: "People who believe X are idiots."
-{{"labels":["toxic"],"risk_level":"mid","rationale":"Insulto genérico sin slur","spans":[{{"text":"idiots","start":24,"end":30,"label":"toxic"}}],"confidence":0.78}}
+{{"labels":["toxic"],"risk_level":"mid","rationale":"Generic insult without slur","spans":[{{"text":"idiots","start":24,"end":30,"label":"toxic"}}],"confidence":0.78}}
 
-Tweet: "Estos inmigrantes son basura"
-{{"labels":["hate","toxic"],"risk_level":"high","rationale":"Deshumanización de grupo protegido","spans":[{{"text":"Estos inmigrantes son basura","start":0,"end":28,"label":"hate"}}],"confidence":0.89}}
+Tweet: "These immigrants are trash."
+{{"labels":["hate","toxic"],"risk_level":"high","rationale":"Dehumanization of a protected group","spans":[{{"text":"These immigrants are trash","start":0,"end":28,"label":"hate"}}],"confidence":0.89}}
 
 TWEET: "{tweet_text}"
 
-Responde SOLO JSON:
-{{"labels":[...],"risk_level":"low|mid|high","rationale":"breve","spans":[...],"confidence":0.0-1.0}}"""
+Respond ONLY with JSON:
+{{"labels":[...],"risk_level":"low|mid|high","rationale":"brief","spans":[...],"confidence":0.0-1.0}}"""
+
     
     return prompt
 
