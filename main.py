@@ -1392,6 +1392,7 @@ def process_tweets_search_background(
                             print(f"   spans: {classification_result.get('spans', 'NO SPANS')}")
                             print(f"   confidence: {classification_result.get('confidence', 'NO CONFIDENCE')}")
                             print(f"   error_code: {classification_result.get('error_code', 'NO ERROR_CODE (esto es bueno)')}")
+                            print(f"   error: {classification_result.get('error', 'NO ERROR (esto es bueno)')}")
                             
                             # DEBUG: Ver si hay valores None
                             print(f"\n⚠️  VALORES NULL:")
