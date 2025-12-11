@@ -1342,26 +1342,99 @@ def process_tweets_search_background(
                     }
                     
                     for i, tweet_obj in enumerate(tweets_to_classify, 1):
+                        print(f"\n{'─'*70}")
+                        print(f"🐦 DEBUG Tweet {i}/{len(tweets_to_classify)}")
+                        print(f"{'─'*70}")
+                        
+                        # DEBUG: Ver qué contiene tweet_obj
+                        print(f"📦 Contenido de tweet_obj:")
+                        print(f"   Tipo: {type(tweet_obj)}")
+                        print(f"   Keys: {list(tweet_obj.keys()) if isinstance(tweet_obj, dict) else 'NO ES DICT'}")
+                        
                         tweet_text = tweet_obj.get("text", "")
                         tweet_id = tweet_obj.get("id")
                         is_retweet = tweet_obj.get("is_retweet", False)
                         
+                        print(f"\n📝 Datos extraídos:")
+                        print(f"   tweet_text: {repr(tweet_text[:80])}..." if tweet_text else "   tweet_text: VACÍO/NONE")
+                        print(f"   tweet_id: {tweet_id}")
+                        print(f"   is_retweet: {is_retweet}")
+                        print(f"   tweet_text.strip(): {repr(tweet_text.strip()[:50])}..." if tweet_text and tweet_text.strip() else "   VACÍO DESPUÉS DE STRIP")
+                        
                         if not tweet_text.strip():
+                            print(f"⚠️  SALTADO: tweet_text.strip() está vacío")
+                            print(f"   Razón: tweet_text original = {repr(tweet_text)}")
                             continue
                         
+                        print(f"\n✅ Pasa filtro, llamando a classify_risk_text_only...")
+                        print(f"   Parámetros:")
+                        print(f"     - tweet_text (primeros 100 chars): {tweet_text[:100]}...")
+                        print(f"     - tweet_id: {str(tweet_id) if tweet_id else None}")
+                        
                         # Clasificar usando la función directamente
-                        classification_result = classify_risk_text_only(
-                            tweet_text, 
-                            tweet_id=str(tweet_id) if tweet_id else None
-                        )
+                        try:
+                            classification_result = classify_risk_text_only(
+                                tweet_text, 
+                                tweet_id=str(tweet_id) if tweet_id else None
+                            )
+                            
+                            print(f"\n📊 RESULTADO DE classify_risk_text_only:")
+                            print(f"   Tipo: {type(classification_result)}")
+                            print(f"   Keys: {list(classification_result.keys()) if isinstance(classification_result, dict) else 'NO ES DICT'}")
+                            
+                            # DEBUG CRÍTICO: Ver cada campo del resultado
+                            print(f"\n🔍 CAMPOS DEL RESULTADO:")
+                            print(f"   tweet_id: {classification_result.get('tweet_id', 'N/A')}")
+                            print(f"   text: {classification_result.get('text', 'NO TEXT')[:50] if classification_result.get('text') else '❌ NO TEXT KEY'}")
+                            print(f"   labels: {classification_result.get('labels', 'NO LABELS')}")
+                            print(f"   risk_level: {classification_result.get('risk_level', 'NO RISK_LEVEL')}")
+                            print(f"   rationale: {classification_result.get('rationale', 'NO RATIONALE')[:50] if classification_result.get('rationale') else '❌ NO RATIONALE KEY'}")
+                            print(f"   spans: {classification_result.get('spans', 'NO SPANS')}")
+                            print(f"   confidence: {classification_result.get('confidence', 'NO CONFIDENCE')}")
+                            print(f"   error_code: {classification_result.get('error_code', 'NO ERROR_CODE (esto es bueno)')}")
+                            
+                            # DEBUG: Ver si hay valores None
+                            print(f"\n⚠️  VALORES NULL:")
+                            for key, value in classification_result.items():
+                                if value is None:
+                                    print(f"      {key} = None")
+                            
+                        except Exception as classify_exception:
+                            print(f"\n❌ EXCEPCIÓN al llamar classify_risk_text_only:")
+                            print(f"   Tipo: {type(classify_exception).__name__}")
+                            print(f"   Mensaje: {str(classify_exception)}")
+                            import traceback
+                            traceback.print_exc()
+                            
+                            classification_result = {
+                                "tweet_id": str(tweet_id) if tweet_id else None,
+                                "text": tweet_text,
+                                "error_code": "exception",
+                                "error": str(classify_exception),
+                                "labels": [],
+                                "risk_level": "no",
+                                "rationale": f"Exception: {str(classify_exception)}",
+                                "spans": []
+                            }
+                        
+                        # Añadir is_retweet
                         classification_result["is_retweet"] = is_retweet
+                        print(f"\n✅ Añadido is_retweet: {is_retweet}")
                         
                         # Copiar metadata adicional
+                        print(f"\n📋 Copiando metadata adicional...")
                         for key in ['author_id', 'created_at', 'referenced_tweets']:
                             if key in tweet_obj:
                                 classification_result[key] = tweet_obj[key]
+                                print(f"   ✅ Copiado {key}: {tweet_obj[key]}")
+                        
+                        print(f"\n📦 RESULTADO FINAL ANTES DE APPEND:")
+                        print(f"   Keys: {list(classification_result.keys())}")
+                        print(f"   text: {classification_result.get('text', 'NO TEXT')[:30]}...")
+                        print(f"   rationale: {classification_result.get('rationale', 'NO RATIONALE')[:30]}...")
                         
                         classification_results.append(classification_result)
+                        print(f"\n✅ Resultado añadido a classification_results (total: {len(classification_results)})")
                         
                         # Actualizar stats
                         if "error_code" not in classification_result:
@@ -1369,12 +1442,16 @@ def process_tweets_search_background(
                             stats["risk_distribution"][level] += 1
                             for label in classification_result.get("labels", []):
                                 stats["label_counts"][label] = stats["label_counts"].get(label, 0) + 1
+                            print(f"✅ Stats actualizado: risk_level={level}")
                         else:
                             stats["errors"] += 1
+                            print(f"⚠️  Error detectado, stats.errors incrementado a {stats['errors']}")
                         
                         # Log cada 10 tweets
                         if i % 10 == 0 or i == len(tweets_to_classify):
+                            print(f"\n{'='*70}")
                             print(f"   ✅ Clasificados: {i}/{len(tweets_to_classify)}")
+                            print(f"{'='*70}")
                     
                     end_time = time.time()
                     execution_time = end_time - start_time
@@ -1523,7 +1600,6 @@ def process_tweets_search_background(
                 })
             except Exception as fb_e:
                 print(f"⚠️ [Firebase] Error guardando error: {fb_e}")
-
 
 # ============================================================================
 # NUEVO ENDPOINT: Verificar estado del job
