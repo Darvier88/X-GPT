@@ -2477,7 +2477,21 @@ async def send_analysis_ready_notification(
 # ============================================================================
 # UTILIDADES
 # ============================================================================
-
+@app.get("/debug/env")
+async def debug_env():
+    """Endpoint temporal para verificar variables de entorno"""
+    import os
+    
+    openai_key = os.getenv('OPENAI_API_KEY')
+    
+    return {
+        "OPENAI_API_KEY_exists": openai_key is not None,
+        "OPENAI_API_KEY_length": len(openai_key) if openai_key else 0,
+        "OPENAI_API_KEY_starts_with": openai_key[:10] if openai_key else "NONE",
+        "RAILWAY_ENVIRONMENT": os.getenv('RAILWAY_ENVIRONMENT', 'not_railway'),
+        "RAILWAY_SERVICE_NAME": os.getenv('RAILWAY_SERVICE_NAME', 'not_set'),
+        "all_env_keys": [k for k in os.environ.keys() if 'OPENAI' in k or 'RAILWAY' in k]
+    }
 @app.get("/")
 async def root():
     return {
