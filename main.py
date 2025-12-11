@@ -1310,6 +1310,19 @@ def process_tweets_search_background(
                 
                 # Obtener tweets para clasificar
                 tweets_to_classify = result.get('tweets', [])
+                if tweets_to_classify:
+                    primer_tweet = tweets_to_classify[0]
+                    print(f"\n🔍 DEBUG PRIMER TWEET:")
+                    print(f"   Keys disponibles: {list(primer_tweet.keys())}")
+                    print(f"   Tiene 'text': {'text' in primer_tweet}")
+                    print(f"   Tiene 'id': {'id' in primer_tweet}")
+                    if 'text' in primer_tweet:
+                        print(f"   Texto (primeros 50 chars): {primer_tweet['text'][:50]}")
+                    else:
+                        print(f"   ⚠️ NO TIENE CAMPO 'text'")
+                        print(f"   Contenido completo: {primer_tweet}")
+                else:
+                    print(f"⚠️ tweets_to_classify está VACÍO")
                 
                 if not tweets_to_classify:
                     print("⚠️ No hay tweets para clasificar")
