@@ -215,9 +215,7 @@ def classify_risk_text_only(tweet_text: str, tweet_id: str = None) -> Dict[str, 
         tweet_text: Texto del tweet a clasificar
         tweet_id: ID real del tweet (opcional)
     """
-    print(f"🔍 DEBUG: classify_risk_text_only llamada con:")
-    print(f"   tweet_text: {tweet_text[:50] if tweet_text else 'NONE/EMPTY'}")
-    print(f"   tweet_id: {tweet_id}")
+
     start_time = time.monotonic()
 
     if circuit_with_policy.is_open():
