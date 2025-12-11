@@ -55,7 +55,6 @@ RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL')
 FIREBASE_CREDENTIALS = os.getenv('FIREBASE_CREDENTIALS')
 FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:5173')
 BACKEND_URL = os.getenv('BACKEND_URL', 'http://localhost:8080')
-resend.api_key = os.getenv("RESEND_API_KEY")
 
 print(f"RECIPIENT_EMAIL cargado: {RECIPIENT_EMAIL}")
 
