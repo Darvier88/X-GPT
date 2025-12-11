@@ -1438,14 +1438,28 @@ def process_tweets_search_background(
                         
                         # Actualizar stats
                         if "error_code" not in classification_result:
-                            level = classification_result.get("risk_level", "low")
+                            level = classification_result.get("risk_level", "no")  # ← Cambiar default de "low" a "no"
+                            
+                            # 🔍 DEBUG: Ver qué level se detectó
+                            print(f"   📊 Stats update: level='{level}'")
+                            
+                            # ✅ VALIDAR que level es válido
+                            valid_levels = ["no", "low", "mid", "high"]
+                            if level not in valid_levels:
+                                print(f"   ⚠️ WARNING: risk_level inválido '{level}', usando 'no'")
+                                level = "no"
+                            
                             stats["risk_distribution"][level] += 1
-                            for label in classification_result.get("labels", []):
+                            print(f"   ✅ stats['risk_distribution']['{level}'] = {stats['risk_distribution'][level]}")
+                            
+                            # Actualizar labels
+                            labels = classification_result.get("labels", [])
+                            print(f"   🏷️  Labels detectados: {labels}")
+                            for label in labels:
                                 stats["label_counts"][label] = stats["label_counts"].get(label, 0) + 1
-                            print(f"✅ Stats actualizado: risk_level={level}")
                         else:
                             stats["errors"] += 1
-                            print(f"⚠️  Error detectado, stats.errors incrementado a {stats['errors']}")
+                            print(f"   ❌ Error detectado, stats.errors = {stats['errors']}")
                         
                         # Log cada 10 tweets
                         if i % 10 == 0 or i == len(tweets_to_classify):
