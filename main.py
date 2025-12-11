@@ -31,8 +31,8 @@ from dotenv import load_dotenv
 import os
 import threading
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import resend
-
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 # Importar solo las funciones helper de X_login (NO initiate_login_with_scope_testing)
 load_dotenv()
 from X.X_login import (
@@ -328,61 +328,131 @@ def send_email_notification(
     session_id: str,
     dashboard_link: str
 ) -> Dict[str, Any]:
+    """
+    Envía notificación usando SendGrid
+    """
     try:
         session = get_session(session_id)
-        user_email = session.get('user', {}).get('email') if session else None
-        if not user_email:
-            user_email = os.getenv('RECIPIENT_EMAIL', 'default@email.com')
+        user_email = None
         
+        if session and session.get('user', {}).get('email'):
+            user_email = session['user']['email']
+            print(f"📧 Usando email del usuario: {user_email}")
+        else:
+            user_email = os.getenv('RECIPIENT_EMAIL', 'darwin@thefutureforward.com')
+            print(f"📧 Usando email por defecto: {user_email}")
+        
+        # Extraer estadísticas
         total_tweets = stats.get('total_tweets', 0)
         high_risk = stats.get('high_risk', 0)
         mid_risk = stats.get('mid_risk', 0)
         low_risk = stats.get('low_risk', 0)
         
+        # HTML template
         html_content = f"""
         <!DOCTYPE html>
         <html>
-        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h1>🎉 Your Analysis is Complete!</h1>
-            <p>Hi <strong>@{username}</strong>!</p>
-            <p>Your X/Twitter analysis is ready.</p>
-            <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
-                <h2>📊 Summary</h2>
-                <ul>
-                    <li>Total: {total_tweets:,} posts</li>
-                    <li>🔴 High risk: {high_risk}</li>
-                    <li>🟡 Medium risk: {mid_risk}</li>
-                    <li>🟠 Low risk: {low_risk}</li>
-                </ul>
+        <head>
+            <style>
+                body {{ font-family: Arial, sans-serif; line-height: 1.6; }}
+                .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+                .header {{ text-align: center; margin-bottom: 30px; }}
+                .stats-box {{ 
+                    background: #f5f5f5; 
+                    padding: 20px; 
+                    border-radius: 8px; 
+                    margin: 20px 0;
+                }}
+                .stats-box ul {{
+                    list-style: none;
+                    padding: 0;
+                }}
+                .stats-box li {{
+                    padding: 8px 0;
+                    border-bottom: 1px solid #ddd;
+                }}
+                .cta-button {{ 
+                    display: inline-block; 
+                    background: #1DA1F2; 
+                    color: white !important; 
+                    padding: 14px 28px; 
+                    text-decoration: none; 
+                    border-radius: 6px; 
+                    margin: 20px 0;
+                    font-weight: bold;
+                }}
+                .footer {{
+                    text-align: center;
+                    font-size: 12px;
+                    color: #666;
+                    margin-top: 30px;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h1>🎉 Your Analysis is Complete!</h1>
+                </div>
+                
+                <p>Hi <strong>@{username}</strong>! 👋</p>
+                
+                <p>Great news! Your X/Twitter background check analysis has been completed successfully.</p>
+                
+                <div class="stats-box">
+                    <h2>📊 Analysis Summary</h2>
+                    <ul>
+                        <li><strong>Total posts analyzed:</strong> {total_tweets:,}</li>
+                        <li>🔴 <strong>High risk:</strong> {high_risk} posts</li>
+                        <li>🟡 <strong>Medium risk:</strong> {mid_risk} posts</li>
+                        <li>🟠 <strong>Low risk:</strong> {low_risk} posts</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center;">
+                    <a href="{dashboard_link}" class="cta-button">
+                        🔗 View Your Full Dashboard
+                    </a>
+                </div>
+                
+                <p style="font-size: 13px; color: #666; text-align: center; margin-top: 10px;">
+                    ⏰ This link expires in 48 hours
+                </p>
+                
+                <div class="footer">
+                    <p><strong>Background Checker</strong></p>
+                    <p>Protect your digital reputation</p>
+                </div>
             </div>
-            <div style="text-align: center;">
-                <a href="{dashboard_link}" style="display: inline-block; background: #1DA1F2; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">
-                    View Dashboard
-                </a>
-            </div>
-            <p style="font-size: 12px; color: #666; text-align: center; margin-top: 20px;">
-                Link expires in 48 hours
-            </p>
         </body>
         </html>
         """
         
-        print(f"📧 Sending email via Resend to: {user_email}")
+        # Crear mensaje
+        message = Mail(
+            from_email='darwin@thefutureforward.com',  # Tu email verificado
+            to_emails=user_email,
+            subject=f'✅ Your X/Twitter Analysis is Ready! (@{username})',
+            html_content=html_content
+        )
         
-        params = {
-            "from": "Background Checker <onboarding@resend.dev>",
-            "to": [user_email],
-            "subject": f"✅ Analysis Ready (@{username})",
-            "html": html_content,
+        # Enviar
+        print(f"📧 Enviando email a: {user_email}")
+        sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))
+        response = sg.send(message)
+        
+        print(f"✅ Email enviado exitosamente (status: {response.status_code})")
+        
+        return {
+            'success': True,
+            'message': f'Email sent to {user_email}',
+            'recipient': user_email
         }
         
-        email = resend.Emails.send(params)
-        print(f"✅ Email sent: {email['id']}")
-        
-        return {'success': True, 'message': 'Email sent', 'recipient': user_email}
-        
     except Exception as e:
-        print(f"❌ Email error: {str(e)}")
+        print(f"❌ Error enviando email: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return {'success': False, 'error': str(e)}
 
 
