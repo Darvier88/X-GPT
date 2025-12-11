@@ -15,7 +15,7 @@ from openai import OpenAI, APIError, RateLimitError, APITimeoutError
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from config import get_openai_api_key
+from config import get_openai_api_key, create_openai_client_safe
 
 # ========================================================================
 # POLÍTICA v1.0 - VERSIÓN COMPACTA (mismo significado)
@@ -237,7 +237,7 @@ def classify_risk_text_only(tweet_text: str, tweet_id: str = None) -> Dict[str, 
         time.sleep(wait_time)
 
     try:
-        client = OpenAI(api_key=get_openai_api_key())
+        client = create_openai_client_safe()
     except Exception as e:
         circuit_with_policy.record_failure()
         return {

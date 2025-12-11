@@ -35,3 +35,27 @@ def get_oauth2_credentials():
         'client_secret': client_secret,
         'redirect_uri': redirect_uri
     }
+def create_openai_client_safe():
+    """
+    Crea cliente OpenAI de forma segura, evitando problemas con proxies en Railway
+    """
+    import os
+    from openai import OpenAI
+    
+    # Guardar variables de proxy temporalmente
+    proxy_backup = {}
+    proxy_vars = ['HTTP_PROXY', 'HTTPS_PROXY', 'http_proxy', 'https_proxy', 
+                  'NO_PROXY', 'no_proxy', 'ALL_PROXY', 'all_proxy']
+    
+    for var in proxy_vars:
+        if var in os.environ:
+            proxy_backup[var] = os.environ[var]
+            del os.environ[var]
+    
+    try:
+        # Crear cliente sin proxies del entorno
+        client = OpenAI(api_key=get_openai_api_key())
+        return client
+    finally:
+        # Restaurar variables de proxy
+        os.environ.update(proxy_backup)
