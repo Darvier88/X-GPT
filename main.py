@@ -31,6 +31,7 @@ from dotenv import load_dotenv
 import os
 import threading
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import resend
 
 # Importar solo las funciones helper de X_login (NO initiate_login_with_scope_testing)
 load_dotenv()
@@ -50,16 +51,13 @@ from X.deleate_tweets_rts import delete_tweets_batch
 from estimacion_de_tiempo import quick_estimate_all, format_time
 
 # Gmail SMTP (desde variables de entorno)
-GMAIL_USER = os.getenv('GMAIL_USER')
-GMAIL_APP_PASSWORD = os.getenv('GMAIL_APP_PASSWORD')
 RECIPIENT_EMAIL = os.getenv('RECIPIENT_EMAIL')
 FIREBASE_CREDENTIALS = os.getenv('FIREBASE_CREDENTIALS')
 FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:5173')
 BACKEND_URL = os.getenv('BACKEND_URL', 'http://localhost:8080')
+resend.api_key = os.getenv("RESEND_API_KEY")
 
-print(f"GMAIL_USER cargado: {GMAIL_USER}")
 print(f"RECIPIENT_EMAIL cargado: {RECIPIENT_EMAIL}")
-print(f"GMAIL_APP_PASSWORD cargado: {'Sí' if GMAIL_APP_PASSWORD else 'No'}")
 
 
 TOKEN_EXPIRATION_HOURS = 48 
@@ -327,124 +325,64 @@ def validate_access_token(token: str) -> Optional[Dict[str, Any]]:
 def send_email_notification(
     username: str,
     stats: Dict[str, Any],
-    session_id = str,
-    recipient_email: str = RECIPIENT_EMAIL,
-    dashboard_link: str = f"{FRONTEND_URL}/dashboard" # ← NUEVO parámetro
+    session_id: str,
+    dashboard_link: str
 ) -> Dict[str, Any]:
-    """
-    Envía notificación por email cuando el análisis está listo
-    MODIFICADO: Ahora recibe dashboard_link con token incluido
-    """
     try:
         session = get_session(session_id)
-        user_email = None
+        user_email = session.get('user', {}).get('email') if session else None
+        if not user_email:
+            user_email = os.getenv('RECIPIENT_EMAIL', 'default@email.com')
         
-        if session and session.get('user', {}).get('email'):
-            user_email = session['user']['email']
-            print(f"📧 Usando email del usuario: {user_email}")
-        else:
-            user_email = RECIPIENT_EMAIL
-            print(f"📧 Usando email por defecto: {user_email}")
-        
-        # Crear mensaje
-        msg = MIMEMultipart('alternative')
-        msg['Subject'] = f'✅ Your X/Twitter Analysis is Ready! (@{username})'
-        msg['From'] = GMAIL_USER
-        msg['To'] = user_email 
-        
-        # Extraer estadísticas
         total_tweets = stats.get('total_tweets', 0)
         high_risk = stats.get('high_risk', 0)
         mid_risk = stats.get('mid_risk', 0)
         low_risk = stats.get('low_risk', 0)
-        clean_posts = total_tweets - (high_risk + mid_risk + low_risk)
         
-        # Template HTML
         html_content = f"""
         <!DOCTYPE html>
         <html>
-        <head>
-            <style>
-                /* ... (estilos iguales) ... */
-            </style>
-        </head>
-        <body>
-            <div class="header">
-                <h1>🎉 Your Analysis is Complete!</h1>
+        <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h1>🎉 Your Analysis is Complete!</h1>
+            <p>Hi <strong>@{username}</strong>!</p>
+            <p>Your X/Twitter analysis is ready.</p>
+            <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                <h2>📊 Summary</h2>
+                <ul>
+                    <li>Total: {total_tweets:,} posts</li>
+                    <li>🔴 High risk: {high_risk}</li>
+                    <li>🟡 Medium risk: {mid_risk}</li>
+                    <li>🟠 Low risk: {low_risk}</li>
+                </ul>
             </div>
-            
-            <div class="content">
-                <p class="greeting">Hi <strong>@{username}</strong>! 👋</p>
-                
-                <p>Great news! Your X/Twitter background check analysis has been completed successfully.</p>
-                
-                <div class="stats-box">
-                    <h2>📊 Analysis Summary</h2>
-                    <!-- ... estadísticas ... -->
-                </div>
-                
-                <div style="text-align: center;">
-                    <a href="{dashboard_link}" class="cta-button">
-                        🔗 View Your Full Dashboard
-                    </a>
-                </div>
-                
-                <p style="font-size: 13px; color: #6c757d; text-align: center; margin-top: 10px;">
-                    ⏰ This link expires in 48 hours
-                </p>
-                
-                <!-- ... resto del HTML ... -->
+            <div style="text-align: center;">
+                <a href="{dashboard_link}" style="display: inline-block; background: #1DA1F2; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">
+                    View Dashboard
+                </a>
             </div>
+            <p style="font-size: 12px; color: #666; text-align: center; margin-top: 20px;">
+                Link expires in 48 hours
+            </p>
         </body>
         </html>
         """
         
-        # Versión texto también con el link correcto
-        text_content = f"""
-Hi @{username}! 👋
-
-Your X/Twitter background check analysis is complete.
-
-📊 Analysis Summary:
-• Total posts analyzed: {stats['total_tweets']:,}
-• 🔴 High risk: {stats['high_risk']}
-• 🟡 Medium risk: {stats['mid_risk']}
-• 🟠 Low risk: {stats['low_risk']}
-
-🔗 View Your Dashboard:
-{dashboard_link}
-
-⏰ This link expires in 48 hours
-
----
-Background Checker
-    Protect your digital reputation
-        """
+        print(f"📧 Sending email via Resend to: {user_email}")
         
-        # Adjuntar ambas versiones
-        part1 = MIMEText(text_content, 'plain')
-        part2 = MIMEText(html_content, 'html')
-        msg.attach(part1)
-        msg.attach(part2)
-        
-        # Enviar email
-        print(f"\n📧 Enviando email a: {user_email}")
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
-        server.login(GMAIL_USER, GMAIL_APP_PASSWORD)
-        server.send_message(msg)
-        server.quit()
-        
-        print(f"✅ Email enviado exitosamente a {user_email}")
-        
-        return {
-            'success': True,
-            'message': f'Email sent to {user_email}',
-            'recipient': user_email
+        params = {
+            "from": "Background Checker <onboarding@resend.dev>",
+            "to": [user_email],
+            "subject": f"✅ Analysis Ready (@{username})",
+            "html": html_content,
         }
         
+        email = resend.Emails.send(params)
+        print(f"✅ Email sent: {email['id']}")
+        
+        return {'success': True, 'message': 'Email sent', 'recipient': user_email}
+        
     except Exception as e:
-        print(f"❌ Error enviando email: {str(e)}")
+        print(f"❌ Email error: {str(e)}")
         return {'success': False, 'error': str(e)}
 
 
